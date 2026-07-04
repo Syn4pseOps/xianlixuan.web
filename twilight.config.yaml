@@ -3,7 +3,7 @@ site:
     # ็ซ็น URL๏ผไปฅๆ–ๆ ็ป“ๅฐพ๏ผ
     siteURL: "https://twilight.spr-aachen.com/"
     # ็ซ็นๆ ้ข
-    title: "Xianlixuan"
+    title: "Synapse"
     # ็ซ็นๅฏๆ ้ข
     subtitle: "Phichit Sapnan (Wang) โ€” Computer Science Student | Cybersecurity & Agentic Federation Developer"
     # ่ฏญ่จ€้…็ฝฎ
@@ -99,7 +99,7 @@ site:
                 # ๅจไธป้กตๆพ็คบๆ–ๆฌ
                 enable: false
                 # ไธปๆ ้ข
-                title: "Xianlixuan.exe"
+                title: "Synapse.exe"
                 # ๅฏๆ ้ข๏ผๆ”ฏๆๅ•ไธชๅญ—็ฌฆไธฒๆ–ๅญ—็ฌฆไธฒๆ•ฐ็ป
                 subtitle: "Retro cyberpunk notes from the shoreline."
                 # ๅฏๆ ้ขๆ“ๅญ—ๆบๆ•ๆ
@@ -234,7 +234,7 @@ profile:
     # ๅคดๅ้…็ฝฎ (็ธๅฏนไบ /public ็ฎๅฝ•)
     avatar: "/assets/images/avatar.jpg"
     # ไฟกๆฏ้…็ฝฎ
-    name: "Xianlixuan"
+    name: "Synapse"
     # ็ฎ€ไป้…็ฝฎ
     bio: "Phichit Sapnan (Wang)\n\n\"Breaking systems to learn, writing code and context to remember.\"\n\nDedicated to exploring offensive security vulnerabilities and digital forensics while engineering next-generation multi-agent AI ecosystems."
     # ้“พๆฅ้…็ฝฎ
