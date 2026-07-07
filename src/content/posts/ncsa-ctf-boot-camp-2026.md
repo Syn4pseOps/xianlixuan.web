@@ -21,8 +21,10 @@ comment: true
 draft: false
 ---
 
-> NCSA CTF Boot Camp 2026  
-> การแนะแนวอาชีพทางด้านการรักษาความมั่นคงปลอดภัยไซเบอร์ (ผ่านสื่ออิเล็กทรอนิกส์)
+<div class="event-kicker">
+  <p class="event-kicker-title">NCSA CTF Boot Camp 2026</p>
+  <p class="event-kicker-subtitle">การแนะแนวอาชีพทางด้านการรักษาความมั่นคงปลอดภัยไซเบอร์ (ผ่านสื่ออิเล็กทรอนิกส์)</p>
+</div>
 
 <figure class="event-hero">
   <img src="/assets/posts/ncsa-ctf-boot-camp-2026.jpg" alt="NCSA CTF Boot Camp 2026" />
@@ -70,9 +72,32 @@ draft: false
 </div>
 
 <style>
+  .event-kicker {
+    margin: 0.15rem 0 1rem;
+    padding: 0.95rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(126, 101, 216, 0.14);
+    background: linear-gradient(180deg, rgba(26, 24, 48, 0.66), rgba(18, 17, 34, 0.84));
+  }
+
+  .event-kicker-title {
+    margin: 0;
+    color: rgba(245, 247, 255, 0.96);
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .event-kicker-subtitle {
+    margin: 0.3rem 0 0;
+    color: rgba(220, 228, 247, 0.78);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
   .event-hero {
-    margin: 1.2rem auto 1.6rem;
-    width: min(100%, 42rem);
+    margin: 1rem auto 1.45rem;
+    width: min(100%, 36rem);
   }
 
   .event-hero img {
@@ -86,8 +111,8 @@ draft: false
   }
 
   .event-note {
-    margin: 1.15rem 0 0;
-    padding: 1rem 1.05rem;
+    margin: 1rem 0 0;
+    padding: 0.95rem 1rem;
     border-radius: 1rem;
     border: 1px solid rgba(126, 101, 216, 0.16);
     background: linear-gradient(180deg, rgba(30, 28, 58, 0.38), rgba(20, 18, 39, 0.52));
@@ -116,7 +141,7 @@ draft: false
   .event-link-grid {
     display: grid;
     gap: 0.9rem;
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 
@@ -150,9 +175,13 @@ draft: false
   }
 
   @media (max-width: 640px) {
+    .event-kicker {
+      padding: 0.9rem 0.95rem;
+    }
+
     .event-hero {
       width: 100%;
-      margin-top: 1rem;
+      margin-top: 0.85rem;
     }
 
     .event-note,

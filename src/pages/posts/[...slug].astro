@@ -124,40 +124,41 @@ const jsonLd = {
         type="application/ld+json"
         set:html={JSON.stringify(jsonLd)}
     />
-    <div
-        class="flex w-full rounded-(--radius-large) overflow-hidden relative mb-4"
-    >
+    <div class="post-page-shell mx-auto w-full max-w-[60rem] xl:max-w-[62rem]">
         <div
-            id="post-container"
-            class:list={[
-                "card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full ",
-                {},
-            ]}
+            class="flex w-full rounded-(--radius-large) overflow-hidden relative mb-4"
         >
+            <div
+                id="post-container"
+                class:list={[
+                    "card-base z-10 px-5 md:px-7 lg:px-8 pt-5 md:pt-6 pb-4 relative w-full",
+                    {},
+                ]}
+            >
             <!-- word count and reading time -->
             <div
-                class="flex flex-row text-black/30 dark:text-white/30 gap-5 mb-3 transition onload-animation-up"
+                class="flex flex-row flex-wrap text-black/30 dark:text-white/30 gap-4 mb-2.5 transition onload-animation-up"
             >
                 <div class="flex flex-row items-center">
                     <div
-                        class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
+                        class="transition h-5 w-5 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
                     >
                         <Icon name="material-symbols:notes-rounded" />
                     </div>
-                    <div class="text-sm">
+                    <div class="text-xs md:text-sm">
                         {remarkPluginFrontmatter.words}
                         {" " + i18n(I18nKey.wordsCount)}
                     </div>
                 </div>
                 <div class="flex flex-row items-center">
                     <div
-                        class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
+                        class="transition h-5 w-5 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
                     >
                         <Icon
                             name="material-symbols:schedule-outline-rounded"
                         />
                     </div>
-                    <div class="text-sm">
+                    <div class="text-xs md:text-sm">
                         {remarkPluginFrontmatter.minutes}
                         {
                             " " +
@@ -177,10 +178,10 @@ const jsonLd = {
                     data-pagefind-weight="10"
                     data-pagefind-meta="title"
                     class="transition w-full block font-bold mb-3
-                    text-3xl md:text-[2.25rem]/[2.75rem]
+                    text-[1.85rem]/[2.3rem] md:text-[2rem]/[2.45rem]
                     text-black/90 dark:text-white/90
-                    md:before:w-1 before:h-5 before:rounded-md before:bg-(--primary)
-                    before:absolute before:top-3 before:-left-4.5"
+                    md:before:w-1 before:h-4.5 before:rounded-md before:bg-(--primary)
+                    before:absolute before:top-2.5 before:-left-3.5 md:before:-left-4"
                 >
                     {entry.data.title}
                 </div>
@@ -188,7 +189,7 @@ const jsonLd = {
             <!-- metadata -->
             <div class="onload-animation-up">
                 <PostMetadata
-                    className="mb-5"
+                    className="mb-4"
                     published={entry.data.published}
                     updated={entry.data.updated}
                     tags={entry.data.tags}
@@ -197,7 +198,7 @@ const jsonLd = {
                 />
                 {
                     (!entry.data.cover || (entry.data.cover && !entry.data.coverInContent)) && (
-                        <div class="mt-4 border-(--line-divider) border-dashed border-b mb-5" />
+                        <div class="mt-3 border-(--line-divider) border-dashed border-b mb-4" />
                     )
                 }
             </div>
@@ -220,7 +221,7 @@ const jsonLd = {
                 isEncrypted={isEncrypted}
                 password={entry.data.password}
             >
-                <Markdown class="mb-6 markdown-content onload-animation-up">
+                <Markdown class="mb-6 markdown-content post-markdown onload-animation-up text-[0.97rem] md:text-[1rem]">
                     <Content />
                 </Markdown>
                 {
@@ -241,145 +242,146 @@ const jsonLd = {
             </PasswordProtection>
         </div>
     </div>
-    <!-- 评论 -->
-    <Comment post={entry} />
-    {postConfig.showLastModified && (
-        <>
-            <div
-                id="last-modified"
-                class="ignore"
-                data-last-modified={lastModified}
-                data-translations={JSON.stringify(lastModifiedTranslations)}
-                data-default-lang={langToTranslateMap[siteConfig.lang]}
-                style="display: none;"
-            ></div>
+        <!-- 评论 -->
+        <Comment post={entry} />
+        {postConfig.showLastModified && (
+            <>
+                <div
+                    id="last-modified"
+                    class="ignore"
+                    data-last-modified={lastModified}
+                    data-translations={JSON.stringify(lastModifiedTranslations)}
+                    data-default-lang={langToTranslateMap[siteConfig.lang]}
+                    style="display: none;"
+                ></div>
 
-            <div class="card-base p-6 mb-4">
-                <script is:inline>
-                    function runtime() {
-                        const lastModifiedElement = document.getElementById('last-modified');
-                        if (!lastModifiedElement) return;
-                        const startDate = new Date(lastModifiedElement.dataset.lastModified);
-                        const currentDate = new Date();
-                        const diff = currentDate - startDate;
-                        const seconds = Math.floor(diff / 1000);
-                        const days = Math.floor(seconds / 86400);
-                        const hours = Math.floor((seconds % 86400) / 3600);
-                        const minutes = Math.floor((seconds % 3600) / 60);
-                        const secs = seconds % 60;
-                        const years = Math.floor(days / 365);
-                        const months = Math.floor((days % 365) / 30);
-                        const remainingDays = days % 30;
+                <div class="card-base p-6 mb-4">
+                    <script is:inline>
+                        function runtime() {
+                            const lastModifiedElement = document.getElementById('last-modified');
+                            if (!lastModifiedElement) return;
+                            const startDate = new Date(lastModifiedElement.dataset.lastModified);
+                            const currentDate = new Date();
+                            const diff = currentDate - startDate;
+                            const seconds = Math.floor(diff / 1000);
+                            const days = Math.floor(seconds / 86400);
+                            const hours = Math.floor((seconds % 86400) / 3600);
+                            const minutes = Math.floor((seconds % 3600) / 60);
+                            const secs = seconds % 60;
+                            const years = Math.floor(days / 365);
+                            const months = Math.floor((days % 365) / 30);
+                            const remainingDays = days % 30;
 
-                        // 获取当前语言翻译数据
-                        const translations = JSON.parse(lastModifiedElement.dataset.translations);
-                        const defaultLang = lastModifiedElement.dataset.defaultLang;
-                        // translate.js 在 localStorage 中使用 'selected-language' 存储目标语言
-                        const currentLang = localStorage.getItem('selected-language') || defaultLang;
-                        
-                        // 获取对应的翻译文本
-                        const langTranslations = translations[currentLang] || translations[defaultLang] || Object.values(translations)[0];
+                            // 获取当前语言翻译数据
+                            const translations = JSON.parse(lastModifiedElement.dataset.translations);
+                            const defaultLang = lastModifiedElement.dataset.defaultLang;
+                            // translate.js 在 localStorage 中使用 'selected-language' 存储目标语言
+                            const currentLang = localStorage.getItem('selected-language') || defaultLang;
+                            
+                            // 获取对应的翻译文本
+                            const langTranslations = translations[currentLang] || translations[defaultLang] || Object.values(translations)[0];
 
-                        const prefix = langTranslations.lastModifiedPrefix;
-                        const yearKey = langTranslations.year;
-                        const monthKey = langTranslations.month;
-                        const dayKey = langTranslations.day;
-                        const hourKey = langTranslations.hour;
-                        const minuteKey = langTranslations.minute;
-                        const secondKey = langTranslations.second;
+                            const prefix = langTranslations.lastModifiedPrefix;
+                            const yearKey = langTranslations.year;
+                            const monthKey = langTranslations.month;
+                            const dayKey = langTranslations.day;
+                            const hourKey = langTranslations.hour;
+                            const minuteKey = langTranslations.minute;
+                            const secondKey = langTranslations.second;
 
-                        let runtimeString = prefix + ' ';
-                        if (years > 0) {
-                            runtimeString += `${years} ${yearKey} `;
+                            let runtimeString = prefix + ' ';
+                            if (years > 0) {
+                                runtimeString += `${years} ${yearKey} `;
+                            }
+                            if (months > 0) {
+                                runtimeString += `${months} ${monthKey} `;
+                            }
+                            if (remainingDays > 0) {
+                                runtimeString += `${remainingDays} ${dayKey} `;
+                            }
+                            runtimeString += `${hours} ${hourKey} `;
+                            if (minutes < 10) {
+                                runtimeString += `0${minutes} ${minuteKey} `;
+                            } else {
+                                runtimeString += `${minutes} ${minuteKey} `;
+                            }
+                            if (secs < 10) {
+                                runtimeString += `0${secs} ${secondKey}`;
+                            } else {
+                                runtimeString += `${secs} ${secondKey}`;
+                            }
+                            document.getElementById("modifiedtime").innerHTML = runtimeString;
                         }
-                        if (months > 0) {
-                            runtimeString += `${months} ${monthKey} `;
-                        }
-                        if (remainingDays > 0) {
-                            runtimeString += `${remainingDays} ${dayKey} `;
-                        }
-                        runtimeString += `${hours} ${hourKey} `;
-                        if (minutes < 10) {
-                            runtimeString += `0${minutes} ${minuteKey} `;
-                        } else {
-                            runtimeString += `${minutes} ${minuteKey} `;
-                        }
-                        if (secs < 10) {
-                            runtimeString += `0${secs} ${secondKey}`;
-                        } else {
-                            runtimeString += `${secs} ${secondKey}`;
-                        }
-                        document.getElementById("modifiedtime").innerHTML = runtimeString;
-                    }
-                    setInterval(runtime, 1000);
-                </script>
-                <div class="card-base p-1 mb-0.1">
-                    <div class="flex items-center gap-2">
-                        <div class="transition h-9 w-9 rounded-lg overflow-hidden relative flex items-center justify-center mr-0">
-                            <Icon
-                                name="material-symbols:history-rounded"
-                                class="text-4xl text-(--primary) transition-transform group-hover:translate-x-0.5 bg-(--enter-btn-bg) p-2 rounded-md"
-                            />
-                        </div>
-                        <div class="flex flex-col gap-0.1">
-                            <div id="modifiedtime" class="text-[1.0rem] leading-tight text-black/75 dark:text-white/75 ignore"></div>
-                            <p class="text-[0.8rem] leading-tight text-black/75 dark:text-white/75">
-                                {i18n(I18nKey.lastModifiedOutdated)}
-                            </p>
+                        setInterval(runtime, 1000);
+                    </script>
+                    <div class="card-base p-1 mb-0.1">
+                        <div class="flex items-center gap-2">
+                            <div class="transition h-9 w-9 rounded-lg overflow-hidden relative flex items-center justify-center mr-0">
+                                <Icon
+                                    name="material-symbols:history-rounded"
+                                    class="text-4xl text-(--primary) transition-transform group-hover:translate-x-0.5 bg-(--enter-btn-bg) p-2 rounded-md"
+                                />
+                            </div>
+                            <div class="flex flex-col gap-0.1">
+                                <div id="modifiedtime" class="text-[1.0rem] leading-tight text-black/75 dark:text-white/75 ignore"></div>
+                                <p class="text-[0.8rem] leading-tight text-black/75 dark:text-white/75">
+                                    {i18n(I18nKey.lastModifiedOutdated)}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
-    )}
-    <div
-        class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full"
-    >
-        <a
-            href={entry.data.nextSlug
-                ? getPostUrlBySlug(entry.data.nextSlug)
-                : "#"}
-            class:list={[
-                "w-full font-bold overflow-hidden active:scale-95",
-                { "pointer-events-none": !entry.data.nextSlug },
-            ]}
+            </>
+        )}
+        <div
+            class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full"
         >
-            {
-                entry.data.nextSlug && (
-                    <div class="btn-card rounded-2xl w-full h-15 max-w-full px-4 flex items-center justify-start! gap-4">
-                        <Icon
-                            name="material-symbols:chevron-left-rounded"
-                            class="text-[2rem] text-(--primary)"
-                        />
-                        <div class="overflow-hidden transition text-ellipsis whitespace-nowrap max-w-[calc(100%-3rem)] text-black/75 dark:text-white/75">
-                            {entry.data.nextTitle}
+            <a
+                href={entry.data.nextSlug
+                    ? getPostUrlBySlug(entry.data.nextSlug)
+                    : "#"}
+                class:list={[
+                    "w-full font-bold overflow-hidden active:scale-95",
+                    { "pointer-events-none": !entry.data.nextSlug },
+                ]}
+            >
+                {
+                    entry.data.nextSlug && (
+                        <div class="btn-card rounded-2xl w-full h-15 max-w-full px-4 flex items-center justify-start! gap-4">
+                            <Icon
+                                name="material-symbols:chevron-left-rounded"
+                                class="text-[2rem] text-(--primary)"
+                            />
+                            <div class="overflow-hidden transition text-ellipsis whitespace-nowrap max-w-[calc(100%-3rem)] text-black/75 dark:text-white/75">
+                                {entry.data.nextTitle}
+                            </div>
                         </div>
-                    </div>
-                )
-            }
-        </a>
-        <a
-            href={entry.data.prevSlug
-                ? getPostUrlBySlug(entry.data.prevSlug)
-                : "#"}
-            class:list={[
-                "w-full font-bold overflow-hidden active:scale-95",
-                { "pointer-events-none": !entry.data.prevSlug },
-            ]}
-        >
-            {
-                entry.data.prevSlug && (
-                    <div class="btn-card rounded-2xl w-full h-15 max-w-full px-4 flex items-center justify-end! gap-4">
-                        <div class="overflow-hidden transition text-ellipsis whitespace-nowrap max-w-[calc(100%-3rem)] text-black/75 dark:text-white/75">
-                            {entry.data.prevTitle}
+                    )
+                }
+            </a>
+            <a
+                href={entry.data.prevSlug
+                    ? getPostUrlBySlug(entry.data.prevSlug)
+                    : "#"}
+                class:list={[
+                    "w-full font-bold overflow-hidden active:scale-95",
+                    { "pointer-events-none": !entry.data.prevSlug },
+                ]}
+            >
+                {
+                    entry.data.prevSlug && (
+                        <div class="btn-card rounded-2xl w-full h-15 max-w-full px-4 flex items-center justify-end! gap-4">
+                            <div class="overflow-hidden transition text-ellipsis whitespace-nowrap max-w-[calc(100%-3rem)] text-black/75 dark:text-white/75">
+                                {entry.data.prevTitle}
+                            </div>
+                            <Icon
+                                name="material-symbols:chevron-right-rounded"
+                                class="text-[2rem] text-(--primary)"
+                            />
                         </div>
-                        <Icon
-                            name="material-symbols:chevron-right-rounded"
-                            class="text-[2rem] text-(--primary)"
-                        />
-                    </div>
-                )
-            }
-        </a>
+                    )
+                }
+            </a>
+        </div>
     </div>
 </GridLayout>
