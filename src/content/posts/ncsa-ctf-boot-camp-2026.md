@@ -3,7 +3,7 @@ title: NCSA CTF Boot Camp 2026
 published: 2026-07-08
 description: กิจกรรม NCSA CTF Boot Camp 2026 และการแนะแนวอาชีพด้านความมั่นคงปลอดภัยไซเบอร์ ผ่านสื่ออิเล็กทรอนิกส์ สำหรับนักเรียนและนักศึกษา
 cover: /assets/posts/ncsa-ctf-boot-camp-2026.jpg
-coverInContent: true
+coverInContent: false
 category: Activities
 tags:
   - NCSA
@@ -24,24 +24,35 @@ draft: false
 > NCSA CTF Boot Camp 2026  
 > การแนะแนวอาชีพทางด้านการรักษาความมั่นคงปลอดภัยไซเบอร์ (ผ่านสื่ออิเล็กทรอนิกส์)
 
+<figure class="event-hero">
+  <img src="/assets/posts/ncsa-ctf-boot-camp-2026.jpg" alt="NCSA CTF Boot Camp 2026" />
+</figure>
+
 กิจกรรมนี้เป็นอีกหนึ่งหมุดหมายที่น่าสนใจของเส้นทางด้าน Cybersecurity เพราะไม่ได้มีแค่บรรยากาศของค่ายหรือการฝึกแบบ CTF เท่านั้น แต่ยังมีส่วนของการแนะแนวอาชีพด้านความมั่นคงปลอดภัยไซเบอร์อย่างชัดเจน เหมาะกับทั้งนักเรียนระดับมัธยมศึกษาและนักศึกษาระดับอุดมศึกษาที่กำลังมองหาทิศทางในสายนี้
 
-## ภาพรวมของกิจกรรม
+<div class="event-note">
+  <strong>ภาพรวมของกิจกรรม</strong>
+  <p>NCSA CTF Boot Camp 2026 ถูกออกแบบมาในลักษณะของกิจกรรมที่ช่วยเปิดมุมมองให้ผู้เข้าร่วมได้เห็นทั้งโลกของการแข่งขันเชิงเทคนิคและภาพรวมของสายอาชีพ Cybersecurity ไปพร้อมกัน ทำให้กิจกรรมนี้มีความหมายมากกว่าการเข้าร่วมอบรมทั่วไป เพราะเป็นทั้งพื้นที่เรียนรู้และพื้นที่สร้างแรงบันดาลใจ</p>
+</div>
 
-NCSA CTF Boot Camp 2026 ถูกออกแบบมาในลักษณะของกิจกรรมที่ช่วยเปิดมุมมองให้ผู้เข้าร่วมได้เห็นทั้งโลกของการแข่งขันเชิงเทคนิคและภาพรวมของสายอาชีพ Cybersecurity ไปพร้อมกัน ทำให้กิจกรรมนี้มีความหมายมากกว่าการเข้าร่วมอบรมทั่วไป เพราะเป็นทั้งพื้นที่เรียนรู้และพื้นที่สร้างแรงบันดาลใจ
+<div class="event-note">
+  <strong>วัตถุประสงค์ของโครงการ</strong>
+  <p>เพื่อสร้างความตระหนักรู้ทางด้านความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity Awareness) พร้อมการแนะแนวเส้นทางอาชีพด้านความมั่นคงปลอดภัยไซเบอร์ให้กับกลุ่มเป้าหมายในระดับมัธยมศึกษา และระดับอุดมศึกษา เพื่อเป็นการผลักดันให้ประเทศไทยผลิตบุคลากรทางไซเบอร์อย่างเพียงพอสอดรับกับความต้องการของประเทศ</p>
+</div>
 
-## วัตถุประสงค์ของโครงการ
+<div class="event-note">
+  <strong>ทำไมกิจกรรมนี้ถึงน่าสนใจ</strong>
+  <ul>
+    <li>เชื่อมโลกของการแข่งขัน CTF กับเส้นทางอาชีพจริง</li>
+    <li>ช่วยสร้าง Cybersecurity Awareness ให้กับผู้เรียนตั้งแต่ช่วงต้น</li>
+    <li>เป็นกิจกรรมที่มีทั้งมิติของแรงบันดาลใจและการแนะแนวเชิงอาชีพ</li>
+    <li>มีการเผยแพร่ผ่านหลายช่องทางทั้งคณะ มหาวิทยาลัย และเว็บไซต์ข่าว</li>
+  </ul>
+</div>
 
-เพื่อสร้างความตระหนักรู้ทางด้านความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity Awareness) พร้อมการแนะแนวเส้นทางอาชีพด้านความมั่นคงปลอดภัยไซเบอร์ให้กับกลุ่มเป้าหมายในระดับมัธยมศึกษา และระดับอุดมศึกษา เพื่อเป็นการผลักดันให้ประเทศไทยผลิตบุคลากรทางไซเบอร์อย่างเพียงพอสอดรับกับความต้องการของประเทศ
-
-## ทำไมกิจกรรมนี้ถึงน่าสนใจ
-
-- เชื่อมโลกของการแข่งขัน CTF กับเส้นทางอาชีพจริง
-- ช่วยสร้าง Cybersecurity Awareness ให้กับผู้เรียนตั้งแต่ช่วงต้น
-- เป็นกิจกรรมที่มีทั้งมิติของแรงบันดาลใจและการแนะแนวเชิงอาชีพ
-- มีการเผยแพร่ผ่านหลายช่องทางทั้งคณะ มหาวิทยาลัย และเว็บไซต์ข่าว
-
-## อ้างอิงและข่าวประชาสัมพันธ์
+<div class="event-note">
+  <strong>อ้างอิงและข่าวประชาสัมพันธ์</strong>
+</div>
 
 <div class="event-link-grid">
   <a class="event-link-card" href="https://www.facebook.com/share/p/18qcwufkWV/" target="_blank" rel="noopener noreferrer">
@@ -59,6 +70,49 @@ NCSA CTF Boot Camp 2026 ถูกออกแบบมาในลักษณ�
 </div>
 
 <style>
+  .event-hero {
+    margin: 1.2rem auto 1.6rem;
+    width: min(100%, 42rem);
+  }
+
+  .event-hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1.1rem;
+    border: 1px solid rgba(126, 101, 216, 0.18);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 14px 32px rgba(7, 7, 21, 0.18);
+  }
+
+  .event-note {
+    margin: 1.15rem 0 0;
+    padding: 1rem 1.05rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(126, 101, 216, 0.16);
+    background: linear-gradient(180deg, rgba(30, 28, 58, 0.38), rgba(20, 18, 39, 0.52));
+  }
+
+  .event-note strong {
+    display: block;
+    margin-bottom: 0.55rem;
+    color: rgba(245, 247, 255, 0.96);
+    font-size: 1rem;
+  }
+
+  .event-note p,
+  .event-note ul {
+    margin: 0;
+  }
+
+  .event-note ul {
+    padding-left: 1.1rem;
+  }
+
+  .event-note li + li {
+    margin-top: 0.45rem;
+  }
+
   .event-link-grid {
     display: grid;
     gap: 0.9rem;
@@ -93,5 +147,17 @@ NCSA CTF Boot Camp 2026 ถูกออกแบบมาในลักษณ�
     color: rgba(220, 228, 247, 0.74);
     line-height: 1.55;
     font-size: 0.95rem;
+  }
+
+  @media (max-width: 640px) {
+    .event-hero {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .event-note,
+    .event-link-card {
+      padding: 0.9rem 0.95rem;
+    }
   }
 </style>
