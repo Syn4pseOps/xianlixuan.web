@@ -18,6 +18,7 @@ export interface Props {
     hideTagsForMobile?: boolean;
     isHome?: boolean;
     className?: string;
+    compact?: boolean;
     slug?: string;
     postUrl?: string;
 }
@@ -31,49 +32,57 @@ const {
     hideTagsForMobile,
     isHome,
     className = "",
+    compact = false,
     slug,
     postUrl
 } = Astro.props;
 const finalPostUrl = postUrl || (slug ? url(`/posts/${slug}/`) : "");
 const categoryParts = getCategoryPathParts(category ?? null);
+const metaWrapClass = compact ? "gap-x-3 gap-y-1.5" : "gap-x-4 gap-y-2";
+const metaIconClass = compact ? "text-[1.05rem]" : "text-xl";
+const metaTextClass = compact ? "text-[0.82rem]" : "text-sm";
+const metaDividerClass = compact
+    ? "mx-1 text-(--meta-divider) text-[0.78rem]"
+    : "mx-1.5 text-(--meta-divider) text-sm";
 
 const { enabled: analyticsEnabled, platform, baseUrl, apiKey, websiteId } = getAnalyticsConfig();
 ---
 
-<div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-x-4 gap-y-2", className]}>
+<div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center", metaWrapClass, className]}>
     <!-- publish date -->
     <div class="flex items-center">
         <div class="meta-icon">
-            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+            <Icon name="material-symbols:calendar-today-outline-rounded" class={metaIconClass}></Icon>
         </div>
-        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
+        <span class:list={["text-50 font-medium", metaTextClass]}>{formatDateToYYYYMMDD(published)}</span>
     </div>
     <!-- update date -->
     {!hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
         <div class="flex items-center">
             <div class="meta-icon">
-                <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
+                <Icon name="material-symbols:edit-calendar-outline-rounded" class={metaIconClass}></Icon>
             </div>
-            <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
+            <span class:list={["text-50 font-medium", metaTextClass]}>{formatDateToYYYYMMDD(updated)}</span>
         </div>
     )}
     <!-- categories -->
     <div class="flex items-center">
         <div class="meta-icon">
-            <Icon name="material-symbols:book-2-outline-rounded" class="text-xl"></Icon>
+            <Icon name="material-symbols:book-2-outline-rounded" class={metaIconClass}></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
             {categoryParts && categoryParts.length > 0 ? (
                 categoryParts.map((categoryName, index) => (
                     <>
                         {index > 0 && (
-                            <div class="mx-1.5 text-(--meta-divider) text-sm">/</div>
+                            <div class={metaDividerClass}>/</div>
                         )}
                         <a
                             href={getCategoryUrl(categoryParts.slice(0, index + 1))}
                             aria-label={`View all posts in the ${categoryName} category`}
-                            class="link-lg transition text-50 text-sm font-medium
-                                        hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"
+                            class:list={["link-lg transition text-50 font-medium",
+                                metaTextClass,
+                                "hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"]}
                         >
                             {categoryName}
                         </a>
@@ -81,8 +90,9 @@ const { enabled: analyticsEnabled, platform, baseUrl, apiKey, websiteId } = getA
                 ))
             ) : (
                 <a href={getCategoryUrl(null)} aria-label={`View all posts in the ${i18n(I18nKey.uncategorized)} category`}
-                    class="link-lg transition text-50 text-sm font-medium
-                                hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap">
+                    class:list={["link-lg transition text-50 font-medium",
+                        metaTextClass,
+                        "hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"]}>
                     {i18n(I18nKey.uncategorized)}
                 </a>
             )}
@@ -91,18 +101,19 @@ const { enabled: analyticsEnabled, platform, baseUrl, apiKey, websiteId } = getA
     <!-- tags -->
     <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
         <div class="meta-icon">
-            <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
+            <Icon name="material-symbols:tag-rounded" class={metaIconClass}></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
             {(tags && tags.length > 0) && tags.map((tag, i) => (
-                <div class:list={[{"hidden": i == 0}, "mx-1.5 text-(--meta-divider) text-sm"]}>/</div>
+                <div class:list={[{"hidden": i == 0}, metaDividerClass]}>/</div>
                 <a href={getTagUrl(tag)} aria-label={`View all posts with the ${tag.trim()} tag`}
-                    class="link-lg transition text-50 text-sm font-medium
-                                hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap">
+                    class:list={["link-lg transition text-50 font-medium",
+                        metaTextClass,
+                        "hover:text-(--primary) dark:hover:text-(--primary) whitespace-nowrap"]}>
                     {tag.trim()}
                 </a>
             ))}
-            {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
+            {!(tags && tags.length > 0) && <div class:list={["transition text-50 font-medium", metaTextClass]}>{i18n(I18nKey.noTags)}</div>}
         </div>
     </div>
     <!-- 访问量（首页不显示，且启用统计时显示） -->
@@ -117,9 +128,9 @@ const { enabled: analyticsEnabled, platform, baseUrl, apiKey, websiteId } = getA
             data-i18n-error={i18n(I18nKey.statsError)}
         >
             <div class="meta-icon">
-                <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
+                <Icon name="material-symbols:visibility-outline-rounded" class={metaIconClass}></Icon>
             </div>
-            <span class="text-50 text-sm font-medium page-views-display">{i18n(I18nKey.statsLoading)}</span>
+            <span class:list={["text-50 font-medium page-views-display", metaTextClass]}>{i18n(I18nKey.statsLoading)}</span>
         </div>
     )}
 </div>

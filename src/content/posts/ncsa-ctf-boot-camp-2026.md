@@ -73,8 +73,8 @@ draft: false
 
 <style>
   .event-kicker {
-    margin: 0.15rem 0 1rem;
-    padding: 0.95rem 1rem;
+    margin: 0.1rem 0 0.85rem;
+    padding: 0.8rem 0.9rem;
     border-radius: 1rem;
     border: 1px solid rgba(126, 101, 216, 0.14);
     background: linear-gradient(180deg, rgba(26, 24, 48, 0.66), rgba(18, 17, 34, 0.84));
@@ -83,7 +83,7 @@ draft: false
   .event-kicker-title {
     margin: 0;
     color: rgba(245, 247, 255, 0.96);
-    font-size: 1.02rem;
+    font-size: 0.96rem;
     font-weight: 700;
     line-height: 1.55;
   }
@@ -91,13 +91,13 @@ draft: false
   .event-kicker-subtitle {
     margin: 0.3rem 0 0;
     color: rgba(220, 228, 247, 0.78);
-    font-size: 0.94rem;
-    line-height: 1.7;
+    font-size: 0.86rem;
+    line-height: 1.6;
   }
 
   .event-hero {
-    margin: 1rem auto 1.45rem;
-    width: min(100%, 36rem);
+    margin: 0.85rem auto 1.15rem;
+    width: min(100%, 30rem);
   }
 
   .event-hero img {
@@ -111,8 +111,8 @@ draft: false
   }
 
   .event-note {
-    margin: 1rem 0 0;
-    padding: 0.95rem 1rem;
+    margin: 0.85rem 0 0;
+    padding: 0.8rem 0.9rem;
     border-radius: 1rem;
     border: 1px solid rgba(126, 101, 216, 0.16);
     background: linear-gradient(180deg, rgba(30, 28, 58, 0.38), rgba(20, 18, 39, 0.52));
@@ -120,9 +120,9 @@ draft: false
 
   .event-note strong {
     display: block;
-    margin-bottom: 0.55rem;
+    margin-bottom: 0.45rem;
     color: rgba(245, 247, 255, 0.96);
-    font-size: 1rem;
+    font-size: 0.92rem;
   }
 
   .event-note p,
@@ -140,16 +140,16 @@ draft: false
 
   .event-link-grid {
     display: grid;
-    gap: 0.9rem;
-    margin-top: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 0.8rem;
+    margin-top: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
   }
 
   .event-link-card {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
-    padding: 1rem 1.05rem;
+    gap: 0.38rem;
+    padding: 0.85rem 0.95rem;
     border-radius: 1rem;
     border: 1px solid rgba(126, 101, 216, 0.22);
     background: linear-gradient(180deg, rgba(38, 35, 71, 0.82), rgba(22, 20, 43, 0.92));
@@ -165,18 +165,18 @@ draft: false
 
   .event-link-card strong {
     color: rgba(245, 247, 255, 0.96);
-    font-size: 1rem;
+    font-size: 0.92rem;
   }
 
   .event-link-card span {
     color: rgba(220, 228, 247, 0.74);
-    line-height: 1.55;
-    font-size: 0.95rem;
+    line-height: 1.5;
+    font-size: 0.86rem;
   }
 
   @media (max-width: 640px) {
     .event-kicker {
-      padding: 0.9rem 0.95rem;
+      padding: 0.78rem 0.85rem;
     }
 
     .event-hero {
@@ -186,7 +186,7 @@ draft: false
 
     .event-note,
     .event-link-card {
-      padding: 0.9rem 0.95rem;
+      padding: 0.8rem 0.85rem;
     }
   }
 </style>
