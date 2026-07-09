@@ -332,6 +332,7 @@ export class WidgetManager {
         const hasLeftComponents = this.hasContentOnSide("left", headings, currentPath);
         const hasRightComponents = this.hasContentOnSide("right", headings, currentPath);
         const hasAnyComponents = hasLeftComponents || hasRightComponents;
+        const reserveLeftDesktopSpace = hasRightComponents && !hasLeftComponents;
 
         // Desktop: Left if hasLeft, Right if hasRight
         const hasLeftSidebar = hasLeftComponents;
@@ -344,9 +345,11 @@ export class WidgetManager {
             ${
                 hasLeftSidebar && hasRightSidebar
                     ? "lg:grid-cols-[17.5rem_1fr_17.5rem]"
+                    : reserveLeftDesktopSpace
+                        ? "lg:grid-cols-[17.5rem_1fr_17.5rem]"
                     : hasLeftSidebar
                         ? "lg:grid-cols-[17.5rem_1fr]"
-                        : hasRightSidebar
+                    : hasRightSidebar
                             ? "lg:grid-cols-[1fr_17.5rem]"
                             : "lg:grid-cols-1"
             }
@@ -373,6 +376,8 @@ export class WidgetManager {
                 hasRightSidebar
                     ? hasLeftSidebar
                         ? "lg:flex lg:flex-col lg:max-w-70 lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2"
+                        : reserveLeftDesktopSpace
+                            ? "lg:flex lg:flex-col lg:max-w-70 lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2"
                         : "lg:flex lg:flex-col lg:max-w-70 lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
                     : "lg:hidden"
             }
@@ -400,6 +405,8 @@ export class WidgetManager {
             ${
                 hasLeftSidebar && hasRightSidebar
                     ? "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
+                    : reserveLeftDesktopSpace
+                        ? "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
                     : hasLeftSidebar
                         ? "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
                         : hasRightSidebar
