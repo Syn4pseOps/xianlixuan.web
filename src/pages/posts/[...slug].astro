@@ -113,7 +113,7 @@ const jsonLd = {
     banner={entry.data.cover}
     title={entry.data.title}
     description={entry.data.description}
-    lang={entry.data.lang}
+    lang={siteConfig.lang}
     setOGTypeArticle={true}
     postSlug={entry.id}
     headings={headings}
@@ -222,9 +222,11 @@ const jsonLd = {
                 isEncrypted={isEncrypted}
                 password={entry.data.password}
             >
-                <Markdown class="mb-5 markdown-content post-markdown onload-animation-up text-[0.92rem] md:text-[0.95rem]">
-                    <Content />
-                </Markdown>
+                <div lang={entry.data.lang || siteConfig.lang}>
+                    <Markdown class="mb-5 markdown-content post-markdown onload-animation-up text-[0.92rem] md:text-[0.95rem]">
+                        <Content />
+                    </Markdown>
+                </div>
                 {
                     postConfig.license.enable && (
                         <License
