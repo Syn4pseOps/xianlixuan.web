@@ -33,6 +33,7 @@ type TierKey = keyof typeof tierInfo;
 type Achievement = {
     title: string;
     officialTitle: string;
+    description?: string;
     issuer: string;
     issued: string;
     year: string;
@@ -45,6 +46,20 @@ type Achievement = {
 };
 
 const achievements: Achievement[] = [
+    {
+        title: "CTF Boot Camp #4",
+        officialTitle: "CTF Boot Camp #4 - Cybersecurity Workshop Certificate",
+        description: "Completed an intensive hands-on cybersecurity workshop focused on CTF challenges, security fundamentals, and vulnerability analysis.",
+        issuer: "National Cyber Security Agency (NCSA)",
+        issued: "Jul 5, 2026",
+        year: "2026",
+        category: "Hands-on workshop",
+        tier: "silver",
+        proof: ["2-day practical workshop", "CTF & vulnerability analysis", "NCSA-issued"],
+        preview: "/assets/hall-of-fame/ncsa-ctf-boot-camp-4.jpg",
+        credential: "/assets/hall-of-fame/ncsa-ctf-boot-camp-4.jpg",
+        fileKind: "IMAGE",
+    },
     {
         title: "Cisco Ethical Hacker",
         officialTitle: "Ethical Hacker",
@@ -239,6 +254,9 @@ const yearGroups = Object.entries(
                                             <p class="hof-card-issuer">{item.issuer}</p>
                                             <p class="hof-card-date">{item.issued}</p>
                                             <p class="hof-card-official">{item.officialTitle}</p>
+                                            {item.description && (
+                                                <p class="hof-card-description">{item.description}</p>
+                                            )}
                                         </div>
 
                                         <div class="hof-card-bottom">
@@ -558,6 +576,12 @@ const yearGroups = Object.entries(
         font-size: 0.9rem;
         line-height: 1.58;
         color: rgba(238, 238, 248, 0.86);
+    }
+
+    .hof-card-description {
+        font-size: 0.84rem;
+        line-height: 1.58;
+        color: rgba(205, 204, 229, 0.72);
     }
 
     .hof-card-bottom {
