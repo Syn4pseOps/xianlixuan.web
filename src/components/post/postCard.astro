@@ -84,7 +84,7 @@ const defaultCoverGradient = "linear-gradient(135deg, color-mix(in oklch, oklch(
     </div>
 
     <a href={url} aria-label={title} class:list={["group",
-            "max-h-[20vh] h-[20vh] @min-[768px]:max-h-none @min-[768px]:h-auto mx-4 mt-4 -mb-2 @min-[768px]:mb-0 @min-[768px]:mx-0 @min-[768px]:mt-0",
+            "h-auto max-h-none mx-4 mt-4 -mb-2 @min-[768px]:mb-0 @min-[768px]:mx-0 @min-[768px]:mt-0",
             "@min-[768px]:w-(--coverWidth) relative @min-[768px]:absolute @min-[768px]:top-(--coverMargin) @min-[768px]:bottom-(--coverMargin) rounded-xl overflow-hidden active:scale-95",
             {"@min-[768px]:right-(--coverMargin)": isCoverOnRight, "@min-[768px]:left-(--coverMargin)": !isCoverOnRight}
         ]}
@@ -97,7 +97,8 @@ const defaultCoverGradient = "linear-gradient(135deg, color-mix(in oklch, oklch(
         </div>
         {hasCover ? (
             <ImageWrapper src={cover} basePath={imageBaseDir} alt="Cover Image of the Post"
-                class="w-full h-full">
+                class="w-full h-auto @min-[768px]:h-full"
+                imageClass="block w-full h-auto object-contain @min-[768px]:h-full @min-[768px]:object-cover">
             </ImageWrapper>
         ) : (
             <div class="w-full h-full flex items-center justify-center p-4 @min-[768px]:p-6"
