@@ -218,27 +218,27 @@ onDestroy(() => {
 <!-- search bar for desktop view (collapsed by default) -->
 <div
     id="search-bar"
-    class="hidden lg:flex transition-all items-center h-11 rounded-lg
+    class="hidden md:flex transition-all items-center h-11 rounded-lg
         {isDesktopSearchExpanded ? 'bg-black/4 hover:bg-black/6 focus-within:bg-black/6 dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10' : 'btn-plain scale-animation active:scale-90'}
-        {isDesktopSearchExpanded ? 'w-48' : 'w-11'}"
+        {isDesktopSearchExpanded ? 'w-44' : 'w-28'}"
     role="button"
     tabindex="0"
     aria-label="Search"
     onmouseenter={() => {if (!isDesktopSearchExpanded) toggleDesktopSearch()}}
     onmouseleave={collapseDesktopSearch}
 >
-    <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none {isDesktopSearchExpanded ? 'ml-3' : 'left-1/2 -translate-x-1/2'} transition my-auto {isDesktopSearchExpanded ? 'text-black/30 dark:text-white/30' : ''}"></Icon>
+    <Icon icon="material-symbols:search" class="absolute ml-2.5 text-[1.1rem] pointer-events-none transition my-auto text-black/30 dark:text-white/45"></Icon>
     <input id="search-input-desktop" placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop}
         onfocus={() => {if (!isDesktopSearchExpanded) toggleDesktopSearch(); search(keywordDesktop, true)}}
         onblur={handleBlur}
         class="transition-all pl-10 text-sm bg-transparent outline-0
-            h-full {isDesktopSearchExpanded ? 'w-36' : 'w-0'} text-black/50 dark:text-white/50"
+            h-full {isDesktopSearchExpanded ? 'w-36' : 'w-24'} text-black/50 dark:text-white/50"
     >
 </div>
 
 <!-- toggle btn for phone/tablet view -->
 <button onclick={togglePanel} aria-label="Search Panel" id="search-switch"
-        class="btn-plain scale-animation lg:hidden! rounded-lg w-11 h-11 active:scale-90 flex items-center justify-center">
+        class="btn-plain scale-animation md:hidden! rounded-lg w-11 h-11 active:scale-90 flex items-center justify-center">
     <Icon icon="material-symbols:search" class="text-[1.25rem]"></Icon>
 </button>
 
@@ -248,7 +248,7 @@ onDestroy(() => {
         class="float-panel-closed absolute md:w-120 top-20 left-4 md:left-[unset] right-4 z-50 search-panel"
 >
     <!-- search bar inside panel for phone/tablet -->
-    <div id="search-bar-inside" class="flex relative lg:hidden transition-all items-center h-11 rounded-xl
+    <div id="search-bar-inside" class="flex relative md:hidden transition-all items-center h-11 rounded-xl
       bg-black/4 hover:bg-black/6 focus-within:bg-black/6
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
   ">
@@ -262,7 +262,7 @@ onDestroy(() => {
     {#each result as item}
         <a href={item.url}
            onclick={(e) => handleResultClick(e, item.url)}
-           class="transition first-of-type:mt-2 lg:first-of-type:mt-0 group block
+           class="transition first-of-type:mt-2 md:first-of-type:mt-0 group block
        rounded-xl text-lg px-3 py-2 hover:bg-(--btn-plain-bg-hover) active:bg-(--btn-plain-bg-active)">
             <div class="transition text-90 inline-flex font-bold group-hover:text-(--primary)">
                 {item.meta.title}<Icon icon="fa6-solid:chevron-right" class="transition text-[0.75rem] translate-x-1 my-auto text-(--primary)"></Icon>
