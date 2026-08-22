@@ -3,139 +3,76 @@ import { navbarConfig, siteConfig } from "@/config";
 import { LinkPresets } from "@constants/link-presets";
 import { LinkPreset, type NavbarLink } from "@/types/config";
 import { url } from "@utils/url";
-import { getNavbarTransparentModeForWallpaperMode, getDefaultWallpaperMode } from "@utils/wallpaper";
-import NavLinks from "@components/navbar/navLinks.astro";
 import NavMenu from "@components/navbar/navMenu.svelte";
 import Search from "@components/navbar/search.svelte";
 import Translator from "@components/navbar/translator.svelte";
-import WallpaperSwitch from "@components/navbar/wallpaperSwitch.svelte";
 
-
-const className = Astro.props.class;
-
-// 获取导航栏透明模式配置 - 根据当前壁纸模式读取正确的配置
-const navbarTransparentMode = getNavbarTransparentModeForWallpaperMode(getDefaultWallpaperMode());
-
-let links: NavbarLink[] = navbarConfig.links.map(
-    (item: NavbarLink | LinkPreset): NavbarLink => {
-        if (typeof item === "number") {
-            return LinkPresets[item];
-        }
-        return item;
-    },
+const links: NavbarLink[] = navbarConfig.links.map(
+    (item: NavbarLink | LinkPreset): NavbarLink =>
+        typeof item === "number" ? LinkPresets[item] : item,
 );
+
+const normalizePath = (path: string) => {
+    const normalized = path.replace(/\/+$/, "");
+    return normalized || "/";
+};
+
+const currentPath = normalizePath(Astro.url.pathname);
+const isCurrent = (link: NavbarLink) => {
+    if (link.external) return false;
+    const linkPath = normalizePath(url(link.url));
+    return linkPath === "/"
+        ? currentPath === "/"
+        : currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
+};
 ---
 
-<div id="navbar" class="z-50 onload-animation-down px-3 sm:px-6 md:px-0" data-transparent-mode={navbarTransparentMode}>
-    <div class="absolute h-8 left-0 right-0 -top-8 bg-(--card-bg) transition"></div> <!-- used for onload animation -->
-    <div class:list={[
-        className,
-        "overflow-visible! max-w-(--page-width) h-18 mx-auto flex items-center justify-between md:px-4"]}>
-        <a href={url('/')} class="navbar-brand btn-plain scale-animation active:scale-95" aria-label={`Go to ${siteConfig.title} homepage`}>
-            <div class="navbar-brand-copy">
-                <div class="navbar-brand-title-row">
-                    <div class="navbar-brand-title notranslate">{siteConfig.title}</div>
-                    <div class="navbar-brand-cursor terminal-sync-cursor" aria-hidden="true"></div>
-                </div>
-            </div>
+<a class="skip-link" href="#swup-container">Skip to content</a>
+
+<header id="navbar" class="onload-animation-down">
+    <div class="navbar-inner">
+        <a href={url("/")} class="navbar-brand notranslate" aria-label={`Go to ${siteConfig.title} homepage`}>
+            <span class="navbar-monogram" aria-hidden="true">S</span>
+            <span class="navbar-wordmark">YNAPSE</span>
         </a>
-        <div class="hidden md:flex items-center navbar-nav-links">
-            {links.map((l) => {
-                return <NavLinks link={l} />;
-            })}
-        </div>
-        <div class="flex items-center navbar-buttons" id="navbar-buttons">
-            <Search client:idle></Search>
-            <Translator client:idle></Translator>
-            <WallpaperSwitch client:idle></WallpaperSwitch>
-            <NavMenu client:idle links={links}></NavMenu>
+
+        <nav class="navbar-primary" aria-label="Primary">
+            {links.map((link) => (
+                <a
+                    href={link.external ? link.url : url(link.url)}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    class:list={["navbar-link notranslate", { "is-current": isCurrent(link) }]}
+                    aria-current={isCurrent(link) ? "page" : undefined}
+                >
+                    {link.name}
+                </a>
+            ))}
+        </nav>
+
+        <div class="navbar-actions" id="navbar-buttons">
+            <Translator client:idle />
+            <Search client:idle />
+            <NavMenu client:idle links={links} />
         </div>
     </div>
-</div>
-
-<script>
-// 为semifull模式添加滚动检测逻辑
-function initSemifullScrollDetection() {
-    const navbar = document.getElementById('navbar');
-    if (!navbar) return;
-
-    const transparentMode = navbar.getAttribute('data-transparent-mode');
-    if (transparentMode !== 'semifull') return;
-
-    // 移除之前的滚动事件监听器（如果存在）
-    if (window.semifullScrollHandler) {
-        window.removeEventListener('scroll', window.semifullScrollHandler);
-    }
-
-    let ticking = false;
-
-    function updateNavbarState() {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const threshold = 50; // 滚动阈值
-
-        if (scrollTop > threshold) {
-            navbar?.classList.add('scrolled');
-        } else {
-            navbar?.classList.remove('scrolled');
-        }
-
-        ticking = false;
-    }
-
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateNavbarState);
-            ticking = true;
-        }
-    }
-
-    // 保存新的事件处理器引用
-    window.semifullScrollHandler = requestTick;
-
-    // 监听滚动事件
-    window.addEventListener('scroll', requestTick, { passive: true });
-
-    // 初始化状态
-    updateNavbarState();
-}
-
-// 将函数暴露到全局对象，供页面切换时调用
-window.initSemifullScrollDetection = initSemifullScrollDetection;
-
-// 页面加载完成后初始化滚动检测
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSemifullScrollDetection);
-} else {
-    initSemifullScrollDetection();
-}
-</script>
+</header>
 
 {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
 async function loadPagefind() {
     try {
         const response = await fetch(scriptUrl, { method: 'HEAD' });
-        if (!response.ok) {
-            throw new Error(`Pagefind script not found: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`Pagefind script not found: ${response.status}`);
         const pagefind = await import(scriptUrl);
-
-        await pagefind.options({
-            excerptLength: 20
-        });
-
+        await pagefind.options({ excerptLength: 20 });
         window.pagefind = pagefind;
-
         document.dispatchEvent(new CustomEvent('pagefindready'));
-        console.log('Pagefind loaded and initialized successfully, event dispatched.');
-    } catch (error) {
-        console.error('Failed to load Pagefind:', error);
+    } catch (_) {
         window.pagefind = {
             search: () => Promise.resolve({ results: [] }),
             options: () => Promise.resolve(),
         };
         document.dispatchEvent(new CustomEvent('pagefindloaderror'));
-        console.log('Pagefind load error, event dispatched.');
     }
 }
 

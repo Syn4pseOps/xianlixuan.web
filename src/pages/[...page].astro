@@ -1,32 +1,311 @@
 ---
 export const prerender = true;
 
-
+import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
 
 import { PAGE_SIZE } from "@constants/constants";
 import { getSortedPosts } from "@utils/post";
-import IntroCard from "@components/introCard.astro";
+import { formatDateToYYYYMMDD } from "@utils/date";
+import { getPostUrl } from "@utils/url";
 import Pagination from "@components/pagination.astro";
-import PostPage from "@components/postPage.astro";
 import GridLayout from "@layouts/grid.astro";
-
 
 export const getStaticPaths = (async ({ paginate }) => {
     const allBlogPosts = await getSortedPosts();
     return paginate(allBlogPosts, { pageSize: PAGE_SIZE });
 }) satisfies GetStaticPaths;
-// https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
-
 
 const { page } = Astro.props;
-
-const len = page.data.length;
 const isFirstPage = page.currentPage === 1;
+const startIndex = (page.currentPage - 1) * PAGE_SIZE;
+
+const getCategoryLabel = (entry: CollectionEntry<"posts">) => {
+    const category = entry.data.category;
+    if (Array.isArray(category)) return category.join(" / ");
+    return category || "Field Note";
+};
+
+const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) => ({
+    entry,
+    caseNumber: String(startIndex + index + 1).padStart(3, "0"),
+    dateValue: formatDateToYYYYMMDD(new Date(entry.data.published)),
+    isLatest: index === 0 && isFirstPage,
+    category: getCategoryLabel(entry),
+}));
 ---
 
 <GridLayout>
-    {isFirstPage && <IntroCard></IntroCard>}
-    <PostPage page={page}></PostPage>
-    <Pagination class="mx-auto onload-animation-up" page={page} style={`animation-delay: ${(len)*50}ms`}></Pagination>
+    {isFirstPage && (
+        <section class="index-hero" aria-labelledby="site-title">
+            <div class="index-monogram" aria-hidden="true">S</div>
+            <h1 id="site-title">Synapse</h1>
+            <p class="index-byline">Phichit Sapnan · Wang</p>
+            <p class="index-role">offensive security · CTF · agentic AI</p>
+
+            <div class="index-rule" aria-hidden="true"></div>
+
+            <dl class="index-stats">
+                <div>
+                    <dt>Status</dt>
+                    <dd>CS Student</dd>
+                </div>
+                <div>
+                    <dt>Case Files</dt>
+                    <dd>{page.total}</dd>
+                </div>
+                <div>
+                    <dt>Credentials</dt>
+                    <dd>7</dd>
+                </div>
+                <div>
+                    <dt>Base</dt>
+                    <dd>Thailand</dd>
+                </div>
+            </dl>
+        </section>
+    )}
+
+    <section class="case-index" aria-labelledby="case-index-title">
+        <h2 id="case-index-title">Index of Recent Cases</h2>
+
+        <div class="case-list">
+            {caseRows.map((row) => (
+                <a class="case-row" href={getPostUrl(row.entry)}>
+                    <span class="case-status">{row.isLatest ? "Latest" : ""}</span>
+                    <span class="case-number">No. {row.caseNumber}</span>
+                    <time datetime={row.dateValue}>{row.dateValue.replaceAll("-", ".")}</time>
+                    <strong>{row.entry.data.title}</strong>
+                    <span class="case-category">{row.category}</span>
+                </a>
+            ))}
+        </div>
+
+        <a class="full-index-link" href="/blog/">Full index <span aria-hidden="true">→</span></a>
+    </section>
+
+    {page.lastPage > 1 && (
+        <Pagination class="mx-auto onload-animation-up" page={page} />
+    )}
 </GridLayout>
+
+<style>
+    .index-hero {
+        min-height: 19rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1rem 0 3.5rem;
+        text-align: center;
+    }
+
+    .index-monogram {
+        color: rgba(216, 212, 202, 0.34);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 5.8rem;
+        font-style: italic;
+        font-weight: 700;
+        line-height: 0.9;
+    }
+
+    .index-hero h1 {
+        margin: 1rem 0 0;
+        color: #d8d4ca;
+        font-family: var(--font-mono);
+        font-size: 0.84rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .index-byline {
+        margin: 0.45rem 0 0;
+        color: rgba(216, 212, 202, 0.52);
+        font-size: 1rem;
+    }
+
+    .index-role {
+        margin: 0.2rem 0 0;
+        color: rgba(216, 212, 202, 0.34);
+        font-size: 0.92rem;
+        font-style: italic;
+    }
+
+    .index-rule {
+        width: 4.5rem;
+        height: 1px;
+        margin: 1.5rem auto 1.3rem;
+        background: rgba(121, 47, 58, 0.68);
+    }
+
+    .index-stats {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        color: rgba(216, 212, 202, 0.42);
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+    }
+
+    .index-stats div {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .index-stats div + div::before {
+        content: "/";
+        margin: 0 0.65rem;
+        color: rgba(216, 212, 202, 0.18);
+    }
+
+    .index-stats dt,
+    .index-stats dd {
+        margin: 0;
+    }
+
+    .index-stats dd {
+        color: rgba(216, 212, 202, 0.72);
+    }
+
+    .case-index {
+        width: min(100%, 48rem);
+        margin: 0 auto;
+    }
+
+    .case-index h2 {
+        margin: 0 0 1rem;
+        color: rgba(216, 212, 202, 0.58);
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        font-weight: 500;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .case-list {
+        border-top: 1px solid rgba(216, 212, 202, 0.08);
+    }
+
+    .case-row {
+        display: grid;
+        grid-template-columns: 3.25rem 4.4rem 5.6rem minmax(0, 1fr) 7.5rem;
+        align-items: baseline;
+        min-height: 3rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(216, 212, 202, 0.08);
+        color: rgba(216, 212, 202, 0.54);
+        text-decoration: none;
+        transition: color 160ms ease, background-color 160ms ease;
+    }
+
+    .case-row:hover {
+        color: #d8d4ca;
+        background: rgba(216, 212, 202, 0.025);
+    }
+
+    .case-status,
+    .case-number,
+    .case-row time,
+    .case-category {
+        font-family: var(--font-mono);
+        font-size: 0.63rem;
+        text-transform: uppercase;
+    }
+
+    .case-status {
+        color: #9a4552;
+    }
+
+    .case-number,
+    .case-row time {
+        color: rgba(216, 212, 202, 0.32);
+    }
+
+    .case-row strong {
+        min-width: 0;
+        padding-right: 1rem;
+        color: rgba(216, 212, 202, 0.76);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 500;
+        overflow-wrap: anywhere;
+    }
+
+    .case-category {
+        color: rgba(216, 212, 202, 0.38);
+        text-align: right;
+    }
+
+    .full-index-link {
+        display: block;
+        width: max-content;
+        margin: 1.4rem auto 0;
+        color: rgba(216, 212, 202, 0.48);
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    .full-index-link:hover {
+        color: #d8d4ca;
+    }
+
+    @media (max-width: 760px) {
+        .index-hero {
+            min-height: 17rem;
+            padding-bottom: 2.75rem;
+        }
+
+        .index-monogram {
+            font-size: 4.7rem;
+        }
+
+        .index-stats {
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            gap: 0.55rem 1.2rem;
+        }
+
+        .index-stats div + div::before {
+            display: none;
+        }
+
+        .case-row {
+            grid-template-columns: 4.2rem minmax(0, 1fr);
+            gap: 0.25rem 0.65rem;
+            padding: 0.9rem 0;
+        }
+
+        .case-status {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .case-number {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .case-row time {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        .case-row strong {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            align-self: center;
+            padding-right: 0;
+        }
+
+        .case-category {
+            grid-column: 2;
+            grid-row: 3;
+            text-align: left;
+        }
+    }
+</style>

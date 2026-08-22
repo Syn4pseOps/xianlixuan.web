@@ -138,7 +138,7 @@ let groups = $derived.by(() => {
             {#each group.posts as post}
                 <a href={getPostUrl(post)}
                     aria-label={post.data.title}
-                    class="group btn-plain block! h-10 w-full rounded-lg hover:text-[initial]"
+                    class="group btn-plain block! h-10 w-full rounded-none hover:text-[initial]"
                 >
                     <div class="flex flex-row justify-start items-center h-full">
                         <!-- date -->
@@ -148,7 +148,7 @@ let groups = $derived.by(() => {
                         <!-- dot and line -->
                         <div class="w-[15%] md:w-[10%] relative dash-line h-full flex items-center">
                             <div class="transition-all mx-auto w-1 h-1 rounded group-hover:h-5
-                                bg-[oklch(0.5_0.05_var(--hue))] group-hover:bg-(--primary)
+                                bg-[rgba(216,212,202,0.24)] group-hover:bg-(--primary)
                                 outline-4 z-50
                                 outline-(--card-bg)
                                 group-hover:outline-(--btn-plain-bg-hover)

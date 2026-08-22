@@ -73,7 +73,7 @@ site:
     # ๅฃ็บธ้…็ฝฎ
     wallpaper:
         # ๆจกๅผ ("banner" ๆจชๅน… | "fullscreen" ๅ…จๅฑ | "none" ็บฏ่ฒ)
-        mode: "banner"
+        mode: "none"
         # ๅพ็ๆบ้…็ฝฎ (fullscreen ๅ’ banner ๆจกๅผๅ…ฑไบซ)
         src:
             # ๆก้ขๅฃ็บธๅพ็ (็ธๅฏนไบ /public ็ฎๅฝ•; ๆ”ฏๆๅ•ๅผ ๅพ็ๆ–ๅพ็ๆ•ฐ็ป๏ผๅฝ“ๆ•ฐ็ป้•ฟๅบฆ > 1 ๆ—ถ่ชๅจๅฏ็”จ่ฝฎๆ’ญ)
@@ -144,7 +144,7 @@ site:
     # ๅ ่ฝฝ้กต้…็ฝฎ
     loadingOverlay:
         # ๆฏๅฆๅฏ็”จๅ ่ฝฝ้กต
-        enable: true
+        enable: false
         # ๆฏๅฆ็ญๅพ…ๆ€ๆ่ตๆบ (ๅฆๅพ็ใ€ๆ ทๅผ่กจ) ๅ ่ฝฝๅฎๆ
         waitForAllResources: true
         # ๅ ่ฝฝๆ ้ข้…็ฝฎ
@@ -197,37 +197,8 @@ navbar:
 # ไพง่พนๆ ้…็ฝฎ
 sidebar:
     components:
-        left:
-            - type: "profile"
-              position: "top"
-              visibility:
-                  mode: "exclude"
-                  paths: ["^/posts/", "^/archive"]
-            - type: "announcement"
-              position: "top"
-              visibility:
-                  mode: "exclude"
-                  paths: ["^/posts/", "^/archive"]
-            - type: "toc"
-              position: "sticky"
-              depth: 3
-            - type: "statistics"
-              position: "sticky"
-              visibility:
-                  mode: "include"
-                  paths: ["^/$", "^/archive/?$", "^/about/?$"]
-        right:
-            - type: "directory"
-              position: "sticky"
-            - type: "categories"
-              position: "sticky"
-              responsive:
-                  collapseThreshold: 5
-              depth: 3
-            - type: "tags"
-              position: "sticky"
-              responsive:
-                  collapseThreshold: 20
+        left: []
+        right: []
 
 # ่ตๆ–้…็ฝฎ
 profile:
@@ -324,7 +295,7 @@ footer:
 # ็ฒ’ๅญ็นๆ•้…็ฝฎ
 particle:
     # ๅฏ็”จ็ฒ’ๅญ็นๆ•
-    enable: true
+    enable: false
     # ็ฒ’ๅญๆ•ฐ้
     particleNum: 6
     # ็ฒ’ๅญ่ถ็•้ๅถๆฌกๆ•ฐ๏ผ-1ไธบๆ— ้ๅพช็ฏ
@@ -365,7 +336,7 @@ particle:
 # ้ณไนๆ’ญๆ”พๅจ้…็ฝฎ
 musicPlayer:
     # ๅฏ็”จ้ณไนๆ’ญๆ”พๅจๅ่ฝ
-    enable: true
+    enable: false
     # ้ป่ฎคๆจกๅผ ("meting" API | "local" ๆฌๅฐ)
     mode: "meting"
     # meting ๆจกๅผไธ“ๅฑ้…็ฝฎ

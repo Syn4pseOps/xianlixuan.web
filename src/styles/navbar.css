@@ -1,377 +1,185 @@
-/*
- * 导航栏半透明效果样式
- * Navbar Translucent Effects Styles
- * 只有当页面启用banner时才应用半透明效果
-*/
-
-
-/* 导航区域基础布局样式（避免 flex 子项溢出） */
-.navbar-nav-links {
-    min-width: 0;
-    flex-shrink: 1;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, gap 0.3s ease;
+.skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    background: #d8d4ca;
+    color: #080807;
+    transform: translateY(-180%);
 }
 
-/* 导航链接样式 */
-.nav-link-container {
-    position: relative;
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+#navbar {
+    width: 100%;
+    background: rgba(8, 8, 7, 0.94);
+    border-bottom: 1px solid rgba(216, 212, 202, 0.1);
+    backdrop-filter: blur(12px);
+}
+
+.navbar-inner {
+    width: min(100% - 2rem, var(--page-width));
+    height: var(--navbar-height);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .navbar-brand {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: 0.7rem;
     min-width: 0;
-    height: auto;
-    padding: 0.2rem 0.1rem;
-    border-radius: 0;
-    overflow: visible;
-    background: transparent;
-    box-shadow: none;
+    color: #d8d4ca;
+    text-decoration: none;
+}
+
+.navbar-monogram {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.7rem;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+    color: #d8d4ca;
+}
+
+.navbar-wordmark,
+.navbar-link {
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.navbar-wordmark {
+    color: rgba(216, 212, 202, 0.58);
+}
+
+.navbar-primary {
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    height: 100%;
+}
+
+.navbar-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.8rem;
+    color: rgba(216, 212, 202, 0.58);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 160ms ease;
+}
+
+.navbar-link::after {
+    content: "";
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0.85rem;
+    left: 0.8rem;
+    height: 1px;
+    background: #792f3a;
+    transform: scaleX(0);
+    transform-origin: center;
     transition: transform 160ms ease;
 }
 
-.navbar-brand-copy {
-    min-width: 0;
+.navbar-link:hover,
+.navbar-link.is-current {
+    color: #d8d4ca;
+}
+
+.navbar-link:hover::after,
+.navbar-link.is-current::after {
+    transform: scaleX(1);
+}
+
+.navbar-actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    min-width: max-content;
 }
 
-.navbar-brand-title-row {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
+#navbar .lang-switch-shell {
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
-.navbar-brand-title {
-    white-space: nowrap;
-    font-family: 'Press Start 2P', var(--font-mono), monospace;
-    font-size: clamp(0.72rem, 0.82vw, 0.92rem);
-    line-height: 1.12;
-    letter-spacing: 0.08em;
-    color: rgba(224, 232, 255, 0.96);
-    text-shadow: none;
+#navbar .lang-switch-track {
+    border-radius: 0 !important;
+    background: #792f3a !important;
+    box-shadow: none !important;
 }
 
-.navbar-brand-cursor {
-    font-size: clamp(0.72rem, 0.82vw, 0.92rem);
+#navbar .lang-switch-option {
+    border-radius: 0 !important;
+    color: rgba(216, 212, 202, 0.42) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.64rem !important;
 }
 
-/* 小屏幕时只显示图标 */
-@media (max-width: 1279px) {
-    .nav-link-item {
-        width: 2.75rem; /* 11 * 0.25rem */
-        padding-left: 0;
-        padding-right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+#navbar .lang-switch-option.is-active {
+    color: #eeeae1 !important;
+}
+
+#navbar .btn-plain,
+#navbar button {
+    color: rgba(216, 212, 202, 0.62);
+    border-radius: 0;
+}
+
+#navbar .btn-plain:hover,
+#navbar button:hover {
+    color: #d8d4ca;
+    background: rgba(216, 212, 202, 0.05);
+}
+
+#navbar .float-panel,
+#navbar .dropdown-content,
+#search-panel,
+#translate-panel,
+#nav-menu-panel {
+    border: 1px solid rgba(216, 212, 202, 0.12) !important;
+    border-radius: 0 !important;
+    background: #0c0c0b !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42) !important;
+}
+
+@media (max-width: 767px) {
+    .navbar-inner {
+        width: min(100% - 1.25rem, var(--page-width));
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.5rem;
     }
 
-    .nav-link-text {
+    .navbar-primary {
         display: none;
     }
 
-    .nav-link-icon {
-        margin-left: 0;
-    }
-}
-
-/* 大屏幕时显示图标+文字 */
-@media (min-width: 1280px) {
-    .nav-link-item {
-        padding-left: 0.75rem; /* 3 * 0.25rem */
-        padding-right: 0.75rem;
+    .navbar-wordmark {
+        font-size: 0.65rem;
     }
 
-    .nav-link-text {
-        display: inline;
-    }
-}
-
-/* 按钮区域基础布局样式（避免 flex 子项溢出） */
-.navbar-buttons {
-    min-width: 0;
-    flex-shrink: 0;
-}
-
-/* 无banner时使用原始card-base样式，不添加额外的透明效果 */
-/* 确保导航栏在没有banner时有基本的背景色和圆角（低优先级，不覆盖card-base） */
-#navbar > div {
-    background: var(--card-bg);
-    border-radius: var(--radius-large);
-    border: 1px solid rgba(164, 182, 255, 0.16);
-    box-shadow:
-        0 18px 44px rgba(1, 4, 17, 0.36),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-/* 半透明模式 - 在有banner时启用 */
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="semi"] > div {
-    backdrop-filter: blur(20px) saturate(145%) !important;
-    background: linear-gradient(150deg, rgba(12, 20, 47, 0.72), rgba(6, 11, 27, 0.62)) !important;
-    border: 1px solid rgba(164, 182, 255, 0.18) !important;
-    border-radius: 0.75rem !important;
-    box-shadow: 0 14px 34px rgba(1, 4, 17, 0.3) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-/* 半透明模式 - 在有banner时启用 - 暗色主题 */
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="semi"] > div {
-    background: linear-gradient(150deg, rgba(12, 20, 47, 0.72), rgba(6, 11, 27, 0.62)) !important;
-    border: 1px solid rgba(164, 182, 255, 0.18) !important;
-    box-shadow: 0 14px 34px rgba(1, 4, 17, 0.3) !important;
-}
-
-/* 完全透明模式 - 在有banner时启用 */
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="full"] > div {
-    backdrop-filter: none !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-/* 完全透明模式 - 在有banner时启用 - 暗色主题 */
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="full"] > div {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-/* 半完全透明模式 - 在有banner时启用 - 默认状态：页面顶部时完全透明 */
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="semifull"] > div {
-    backdrop-filter: none !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-/* 半完全透明模式 - 在有banner时启用 - 默认状态：页面顶部时完全透明 - 暗色主题 */
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="semifull"] > div {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-/* 半完全透明模式 - 在有banner时启用 - 滚动状态：下滑后变为半透明圆角 */
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="semifull"].scrolled > div {
-    backdrop-filter: blur(20px) saturate(145%) !important;
-    background: linear-gradient(150deg, rgba(12, 20, 47, 0.72), rgba(6, 11, 27, 0.62)) !important;
-    border: 1px solid rgba(164, 182, 255, 0.18) !important;
-    border-radius: 0.75rem !important;
-    box-shadow: 0 14px 34px rgba(1, 4, 17, 0.3) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-/* 半完全透明模式 - 在有banner时启用 - 滚动状态：下滑后变为半透明圆角 - 暗色主题 */
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #navbar[data-transparent-mode="semifull"].scrolled > div {
-    background: linear-gradient(150deg, rgba(12, 20, 47, 0.72), rgba(6, 11, 27, 0.62)) !important;
-    border: 1px solid rgba(164, 182, 255, 0.18) !important;
-    box-shadow: 0 14px 34px rgba(1, 4, 17, 0.3) !important;
-}
-
-/* 二级菜单、主题色、夜间模式菜单、手机端导航在有banner时启用半透明效果 */
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) .dropdown-content,
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #display-setting,
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #nav-menu-panel,
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #translate-panel,
-:is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #search-panel {
-    backdrop-filter: blur(20px) saturate(145%) !important;
-    background: linear-gradient(150deg, rgba(12, 20, 47, 0.78), rgba(6, 11, 27, 0.72)) !important;
-    border: 1px solid rgba(164, 182, 255, 0.18) !important;
-    box-shadow: 0 18px 40px rgba(1, 4, 17, 0.34) !important;
-}
-/* 二级菜单、主题色、夜间模式菜单、手机端导航在有banner时启用半透明效果 - 暗色主题 */
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) .dropdown-content,
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #display-setting,
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #nav-menu-panel,
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #translate-panel,
-:root.dark :is(#banner-wrapper ~ *, body:has(#banner-wrapper)) #search-panel {
-    background: linear-gradient(150deg, rgba(12, 20, 47, 0.78), rgba(6, 11, 27, 0.72)) !important;
-    border: 1px solid rgba(164, 182, 255, 0.18) !important;
-    box-shadow: 0 18px 40px rgba(1, 4, 17, 0.34) !important;
-}
-
-/* 响应式优化 */
-
-/* 桌面端&平板端布局 */
-@media (min-width: 768px) {
-    /* 使用 Grid 布局确保中间区域在有空间时居中 */
-    #navbar > div {
-        display: grid !important;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        column-gap: clamp(0.75rem, 1.6vw, 1.4rem);
-        justify-content: stretch;
-        align-items: center;
-    }
-    /* 确保左侧 Home 按钮不拉伸并靠左 */
-    #navbar > div > a:first-child {
-        justify-self: start;
+    .navbar-actions {
+        gap: 0;
     }
 
-    #navbar .navbar-nav-links {
-        position: static;
-        left: unset;
-        translate: none;
-        min-width: 0;
-        width: 100%;
-        justify-self: stretch;
-        justify-content: center;
-        gap: clamp(0.12rem, 1vw, 0.36rem);
-    }
-
-    #navbar .navbar-buttons {
-        display: flex !important;
-        align-items: center;
-        justify-self: end;
-        width: max-content;
-        min-width: max-content;
-        position: relative;
-        z-index: 2;
-        gap: clamp(0.12rem, 1vw, 0.36rem);
-    }
-}
-
-/* 非大屏桌面端&平板端优化 */
-@media (min-width: 768px) and (max-width: 1279px) {
-    #navbar .navbar-nav-links {
-        gap: 0.2rem;
-    }
-
-    #navbar .navbar-buttons {
-        gap: 0.2rem;
-    }
-
-    /* 搜索状态下的避让逻辑以防重叠 */
-    #navbar.is-searching .navbar-nav-links {
-        opacity: 0;
-        scale: 0.9;
-        pointer-events: none;
-        visibility: hidden;
-    }
-}
-
-/* 手机端导航栏 */
-@media (max-width: 768px) {
-    #navbar > div {
-        max-width: none !important;
-        width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    .navbar-brand {
-        height: 2.8rem;
-        padding: 0.5rem 0.82rem 0.42rem 0.72rem;
-    }
-
-    .navbar-brand-title {
-        font-size: 0.68rem;
-    }
-
-    .navbar-brand-cursor {
-        font-size: 0.68rem;
-    }
-}
-/* 手机端导航栏 - 小屏 */
-@media (max-width: 512px) {
-    #navbar > div {
-        border-radius: 0.3rem !important;
-        margin: 0 !important;
-        padding-left: 0.6rem !important;
-        padding-right: 0.6rem !important;
-        max-width: none !important;
-        width: 100% !important;
-    }
-
-    #navbar-buttons {
-        gap: 0.123rem !important;
-    }
-    /* Only size the trigger buttons; do not affect nested buttons inside panels */
     #navbar-buttons button:not(.float-panel *) {
-        width: 2.4rem !important;
-        height: 2.4rem !important;
-        padding: 0 !important;
-    }
-
-    /* home button */
-    #navbar > div > a:first-child {
-        width: auto !important;
-        max-width: min(9rem, 48vw) !important;
-        height: 2.5rem !important;
-        padding: 0 0.5rem !important;
-    }
-
-    .navbar-brand {
-        height: 2.5rem;
-        padding: 0.42rem 0.62rem 0.38rem 0.58rem;
-    }
-
-    .navbar-brand-title {
-        font-size: 0.6rem;
-    }
-
-    .navbar-brand-cursor {
-        font-size: 0.6rem;
-    }
-}
-
-/* 手机端导航栏 - 更小屏 */
-@media (min-width: 333px) and (max-width: 444px) {
-    #navbar-buttons {
-        gap: 0.111rem !important;
-    }
-    /* Only size the trigger buttons; do not affect nested buttons inside panels */
-    #navbar-buttons button:not(.float-panel *) {
-        width: 2.1rem !important;
-        height: 2.1rem !important;
-        padding: 0 !important;
-    }
-
-    /* home button */
-    #navbar > div > a:first-child {
-        max-width: min(8rem, 46vw) !important;
-        height: 2.2rem !important;
-        padding: 0 0.42rem !important;
-    }
-
-    .navbar-brand {
-        height: 2.2rem;
-        padding: 0.32rem 0.5rem 0.3rem 0.48rem;
-    }
-
-    .navbar-brand-title {
-        font-size: 0.54rem;
-        letter-spacing: 0.07em;
-    }
-
-    .navbar-brand-cursor {
-        font-size: 0.54rem;
-    }
-}
-
-/* 手机端导航栏按钮 -超小屏 */
-@media (max-width: 333px) {
-    #navbar-buttons {
-        gap: 0 !important;
-        justify-content: flex-end !important;
-    }
-
-    #navbar > div > a:first-child {
-        max-width: 5.9rem !important;
-        padding: 0 0.35rem !important;
-    }
-
-    .navbar-brand {
-        height: 2.08rem;
-        padding: 0.28rem 0.42rem 0.26rem 0.4rem;
-    }
-
-    .navbar-brand-title {
-        font-size: 0.49rem;
-        letter-spacing: 0.06em;
-    }
-
-    .navbar-brand-cursor {
-        font-size: 0.49rem;
+        width: 2.45rem;
+        height: 2.45rem;
+        padding: 0;
     }
 }

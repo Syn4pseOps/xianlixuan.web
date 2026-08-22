@@ -75,14 +75,14 @@ draft: false
   .event-kicker {
     margin: 0.1rem 0 0.85rem;
     padding: 0.8rem 0.9rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(126, 101, 216, 0.14);
-    background: linear-gradient(180deg, rgba(26, 24, 48, 0.66), rgba(18, 17, 34, 0.84));
+    border-radius: 0;
+    border: 1px solid rgba(216, 212, 202, 0.12);
+    background: #0a0a09;
   }
 
   .event-kicker-title {
     margin: 0;
-    color: rgba(245, 247, 255, 0.96);
+    color: rgba(216, 212, 202, 0.92);
     font-size: 0.96rem;
     font-weight: 700;
     line-height: 1.55;
@@ -90,7 +90,7 @@ draft: false
 
   .event-kicker-subtitle {
     margin: 0.3rem 0 0;
-    color: rgba(220, 228, 247, 0.78);
+    color: rgba(216, 212, 202, 0.58);
     font-size: 0.86rem;
     line-height: 1.6;
   }
@@ -104,24 +104,24 @@ draft: false
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 1.1rem;
-    border: 1px solid rgba(126, 101, 216, 0.18);
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: 0 14px 32px rgba(7, 7, 21, 0.18);
+    border-radius: 0;
+    border: 1px solid rgba(216, 212, 202, 0.12);
+    background: #0a0a09;
+    box-shadow: none;
   }
 
   .event-note {
     margin: 0.85rem 0 0;
     padding: 0.8rem 0.9rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(126, 101, 216, 0.16);
-    background: linear-gradient(180deg, rgba(30, 28, 58, 0.38), rgba(20, 18, 39, 0.52));
+    border-radius: 0;
+    border: 1px solid rgba(216, 212, 202, 0.1);
+    background: rgba(216, 212, 202, 0.025);
   }
 
   .event-note strong {
     display: block;
     margin-bottom: 0.45rem;
-    color: rgba(245, 247, 255, 0.96);
+    color: rgba(216, 212, 202, 0.9);
     font-size: 0.92rem;
   }
 
@@ -150,26 +150,26 @@ draft: false
     flex-direction: column;
     gap: 0.38rem;
     padding: 0.85rem 0.95rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(126, 101, 216, 0.22);
-    background: linear-gradient(180deg, rgba(38, 35, 71, 0.82), rgba(22, 20, 43, 0.92));
+    border-radius: 0;
+    border: 1px solid rgba(216, 212, 202, 0.12);
+    background: #0a0a09;
     text-decoration: none;
     transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
   }
 
   .event-link-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(132, 181, 255, 0.42);
-    background: linear-gradient(180deg, rgba(42, 39, 79, 0.92), rgba(24, 22, 48, 0.98));
+    border-color: rgba(154, 69, 82, 0.58);
+    background: rgba(216, 212, 202, 0.035);
   }
 
   .event-link-card strong {
-    color: rgba(245, 247, 255, 0.96);
+    color: rgba(216, 212, 202, 0.9);
     font-size: 0.92rem;
   }
 
   .event-link-card span {
-    color: rgba(220, 228, 247, 0.74);
+    color: rgba(216, 212, 202, 0.54);
     line-height: 1.5;
     font-size: 0.86rem;
   }

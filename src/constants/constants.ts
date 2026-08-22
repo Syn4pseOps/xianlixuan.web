@@ -11,7 +11,7 @@ export const WALLPAPER_FULLSCREEN = "fullscreen",
 // Navbar height (px)
 export const NAVBAR_HEIGHT = 72;
 // Distance between navbar and main content when scroll following is released (rem)
-export const NAVBAR_GAP = 1.25;
+export const NAVBAR_GAP = 2.75;
 // Following distance for navbar in non-banner mode (rem)
 export const NAVBAR_FOLLOW_DISTANCE = 0;
 
@@ -29,7 +29,7 @@ export const SIDEBAR_TOP = 1;
 export const SIDEBAR_SPACING = 1;
 
 // Page width (rem)
-export const PAGE_WIDTH = 90;
+export const PAGE_WIDTH = 56;
 
 // Category constants
 export const UNCATEGORIZED = "uncategorized";

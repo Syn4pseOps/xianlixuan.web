@@ -8,7 +8,6 @@ import { LinkPreset } from "@/types/config";
 import Markdown from "@components/common/markdown.astro";
 import Comment from "@components/comment.astro";
 import GridLayout from "@layouts/grid.astro";
-import BackwardButton from "@components/backwardButton.astro";
 
 const aboutPost = await getEntry("spec", "about");
 if (!aboutPost) {
@@ -28,7 +27,10 @@ const { Content: ThaiContent } = await render(aboutPostThai);
 <GridLayout title={pageTitle} description={pageDescription} headings={headings}>
     <div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32 mb-4">
         <div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
-            <BackwardButton currentPath={Astro.url.pathname} />
+            <header class="page-index-header">
+                <h1>{pageTitle}</h1>
+                <p>Identity · practice · current focus</p>
+            </header>
             <div id="about-language-root" class="mt-2">
                 <div data-about-lang="en" class="about-copy-block notranslate">
                     <Markdown class="">

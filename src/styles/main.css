@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Thai:wght@400;500;600&display=swap');
+
 @import 'tailwindcss';
 
 /* 字体导入 - JetBrains Mono (mono) for code */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 /* Local fonts — Novecento Sans Wide (display) + Plus Jakarta Sans (body) */
 @font-face {
@@ -53,10 +54,10 @@
 }
 
 :root {
-    --font-display: 'Novecento', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --font-display: 'EB Garamond', 'Noto Serif Thai', Georgia, serif;
+    --font-sans: 'EB Garamond', 'Noto Serif Thai', Georgia, serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
-    --font-thai: 'Noto Sans Thai', 'Leelawadee UI', 'Sarabun', 'Segoe UI', Tahoma, sans-serif;
+    --font-thai: 'Noto Serif Thai', 'Leelawadee UI', 'Sarabun', Tahoma, serif;
     --terminal-cursor-width: 0.52em;
     --terminal-cursor-height: 1.05em;
     --terminal-cursor-radius: 999px;
@@ -68,13 +69,13 @@
 
 html, body {
     font-family: var(--font-sans);
-    font-feature-settings: 'ss01', 'ss02', 'cv01', 'cv11';
+    font-feature-settings: normal;
 }
 
 h1, h2, h3, h4, h5, h6,
 .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0.01em;
+    letter-spacing: 0;
 }
 
 h1, h2, h3 {
@@ -142,7 +143,7 @@ code, pre, kbd, samp, .font-mono {
     --transition-duration-300: 300ms;
     --transition-duration-600: 600ms;
 
-    --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --font-sans: 'EB Garamond', 'Noto Serif Thai', Georgia, serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
@@ -804,6 +805,152 @@ code, pre, kbd, samp, .font-mono {
 
 .collapsed {
     height: var(--collapsedHeight);
+}
+
+/* Monochrome case-file presentation */
+:root {
+    color-scheme: dark;
+    --radius-large: 0;
+}
+
+*,
+*::before,
+*::after {
+    letter-spacing: 0 !important;
+}
+
+html,
+body {
+    background: #080807;
+    color: rgba(216, 212, 202, 0.88);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(216, 212, 202, 0.24) #080807;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: #080807;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: rgba(216, 212, 202, 0.22);
+}
+
+a {
+    color: inherit;
+}
+
+.card-base,
+.card-base-transparent {
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+#content-wrapper > .flex > .card-base {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+#content-wrapper > .flex {
+    overflow: visible !important;
+    border-radius: 0 !important;
+}
+
+.custom-md {
+    color: rgba(216, 212, 202, 0.82);
+    font-size: 1.05rem;
+    line-height: 1.72;
+}
+
+.custom-md h1 {
+    margin-bottom: 2.8rem;
+    color: #d8d4ca;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.custom-md h2 {
+    margin-top: 2.65rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(216, 212, 202, 0.1);
+    color: #d8d4ca;
+    font-size: 1.55rem;
+    font-weight: 500;
+}
+
+.custom-md h3 {
+    margin-top: 2rem;
+    color: rgba(216, 212, 202, 0.94);
+    font-size: 1.18rem;
+}
+
+.custom-md p,
+.custom-md li {
+    color: rgba(216, 212, 202, 0.78);
+}
+
+.custom-md strong {
+    color: #e7e3da;
+    font-weight: 600;
+}
+
+.custom-md a {
+    color: #d2b7a8;
+    text-decoration-color: rgba(121, 47, 58, 0.65);
+    text-underline-offset: 0.2em;
+}
+
+.custom-md blockquote {
+    border-left-color: #792f3a;
+    background: transparent;
+    color: rgba(216, 212, 202, 0.65);
+}
+
+.page-index-header {
+    margin-bottom: 2.75rem;
+    text-align: center;
+}
+
+.page-index-header h1 {
+    margin: 0;
+    color: #d8d4ca;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.page-index-header p {
+    margin-top: 0.65rem;
+    color: rgba(216, 212, 202, 0.42);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+    .custom-md {
+        font-size: 1rem;
+        line-height: 1.68;
+    }
+
+    .custom-md h2 {
+        font-size: 1.35rem;
+    }
 }
 
 /* 剧透效果 */
