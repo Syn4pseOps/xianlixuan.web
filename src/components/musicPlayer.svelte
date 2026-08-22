@@ -21,7 +21,7 @@ const STORAGE = {
     index: "syna4pseops-music-index",
     track: "syna4pseops-music-track",
     position: "syna4pseops-music-position",
-    volume: "syna4pseops-music-volume",
+    volume: "syna4pseops-music-volume-v2",
     muted: "syna4pseops-music-muted",
     expanded: "syna4pseops-music-expanded",
 };
@@ -40,7 +40,9 @@ let autoplayFallbackArmed = false;
 
 function readNumber(key: string, fallback: number): number {
     try {
-        const value = Number(localStorage.getItem(key));
+        const storedValue = localStorage.getItem(key);
+        if (storedValue === null || storedValue.trim() === "") return fallback;
+        const value = Number(storedValue);
         return Number.isFinite(value) ? value : fallback;
     } catch {
         return fallback;
@@ -227,6 +229,7 @@ onDestroy(() => {
     class:is-expanded={isExpanded}
     class:is-playing={isPlaying}
     class:is-muted={isMuted}
+    data-volume={volume}
     aria-label="Music player"
 >
     <div class="deck-shell">
