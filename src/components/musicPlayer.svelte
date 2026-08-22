@@ -36,6 +36,7 @@ let isLoading = $state(false);
 let volume = $state(0.4);
 let savedPosition = 0;
 let saveTick = 0;
+let autoplayFallbackArmed = false;
 
 function readNumber(key: string, fallback: number): number {
     try {
@@ -87,13 +88,39 @@ function handleError() {
     isPlaying = false;
 }
 
-async function attemptPlay() {
-    if (!audio || !currentTrack.url) return;
+async function attemptPlay(): Promise<boolean> {
+    if (!audio || !currentTrack.url) return false;
+    if (!audio.paused && !audio.ended) return true;
     try {
         await audio.play();
+        return true;
     } catch {
         isPlaying = false;
+        return false;
     }
+}
+
+function removeAutoplayFallback() {
+    if (!autoplayFallbackArmed || typeof document === "undefined") return;
+    document.removeEventListener("click", handleAutoplayInteraction, true);
+    document.removeEventListener("keydown", handleAutoplayInteraction, true);
+    autoplayFallbackArmed = false;
+}
+
+function handleAutoplayInteraction(event: Event) {
+    const target = event.target;
+    if (target instanceof Element && target.closest(".music-deck")) return;
+
+    void attemptPlay().then((started) => {
+        if (started) removeAutoplayFallback();
+    });
+}
+
+function armAutoplayFallback() {
+    if (autoplayFallbackArmed || typeof document === "undefined") return;
+    autoplayFallbackArmed = true;
+    document.addEventListener("click", handleAutoplayInteraction, true);
+    document.addEventListener("keydown", handleAutoplayInteraction, true);
 }
 
 async function togglePlay() {
@@ -166,11 +193,19 @@ onMount(() => {
     audio.addEventListener("error", handleError);
     audio.load();
 
+    if (musicPlayerConfig.autoplay) {
+        armAutoplayFallback();
+        void attemptPlay().then((started) => {
+            if (started) removeAutoplayFallback();
+        });
+    }
+
     window.addEventListener("pagehide", saveState);
 });
 
 onDestroy(() => {
     saveState();
+    removeAutoplayFallback();
     if (typeof window !== "undefined") {
         window.removeEventListener("pagehide", saveState);
     }

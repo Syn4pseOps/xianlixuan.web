@@ -369,7 +369,7 @@ musicPlayer:
                 # ๆ—ถ้•ฟ
                 duration: 296
     # ๆฏๅฆ่ชๅจๆ’ญๆ”พ
-    autoplay: false
+    autoplay: true
 
 # ็ๆฟๅจ้…็ฝฎ
 pio:
