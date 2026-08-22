@@ -110,7 +110,7 @@ const selectedProjects = [
                     <span class="case-status">{row.isLatest ? "Latest" : ""}</span>
                     <span class="case-number">No. {row.caseNumber}</span>
                     <time datetime={row.dateValue}>{row.dateValue.replaceAll("-", ".")}</time>
-                    <strong>{row.entry.data.title}</strong>
+                    <strong class="notranslate" translate="no">{row.entry.data.title}</strong>
                     <span class="case-category">{row.category}</span>
                 </a>
             ))}

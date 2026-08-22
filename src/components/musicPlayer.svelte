@@ -19,6 +19,7 @@ const emptyTrack: MusicPlayerTrack = {
 
 const STORAGE = {
     index: "syna4pseops-music-index",
+    track: "syna4pseops-music-track",
     position: "syna4pseops-music-position",
     volume: "syna4pseops-music-volume",
     muted: "syna4pseops-music-muted",
@@ -49,6 +50,7 @@ function saveState() {
     if (!audio) return;
     try {
         localStorage.setItem(STORAGE.index, String(currentIndex));
+        localStorage.setItem(STORAGE.track, String(currentTrack.id));
         localStorage.setItem(STORAGE.position, String(audio.currentTime || 0));
         localStorage.setItem(STORAGE.volume, String(volume));
         localStorage.setItem(STORAGE.muted, String(isMuted));
@@ -133,7 +135,15 @@ onMount(() => {
 
     const restoredIndex = Math.floor(readNumber(STORAGE.index, 0));
     currentIndex = Math.min(Math.max(restoredIndex, 0), tracks.length - 1);
-    savedPosition = Math.max(readNumber(STORAGE.position, 0), 0);
+    let restoredTrack: string | null = null;
+    try {
+        restoredTrack = localStorage.getItem(STORAGE.track);
+    } catch {
+        restoredTrack = null;
+    }
+    savedPosition = restoredTrack === String(currentTrack.id)
+        ? Math.max(readNumber(STORAGE.position, 0), 0)
+        : 0;
     volume = Math.min(Math.max(readNumber(STORAGE.volume, 0.4), 0), 1);
 
     try {
@@ -197,7 +207,7 @@ onDestroy(() => {
                 >
                     <i></i><i></i><i></i><i></i>
                 </button>
-                <span class="deck-track">
+                <span class="deck-track notranslate" translate="no">
                     <span class="deck-title">{currentTrack.title}</span>
                     <span class="deck-artist">{currentTrack.artist}</span>
                 </span>

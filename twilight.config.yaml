@@ -357,19 +357,17 @@ musicPlayer:
         playlist:
             - # ๅ—่กจ็คบไพ
                 # ๅบๅท
-                id: 1
+                id: "sovereign-of-the-veil"
                 # ๆ ้ข
-                title: "Deep Sea Breath"
+                title: "SOVEREIGN OF THE VEIL"
                 # ไฝ่€…
-                artist: "Youzee Music"
+                artist: "Syn4pseOps"
                 # ๅฐ้ข
-                cover: "/assets/brand/syna4pseops-mark.png"
+                cover: "/assets/brand/syna4pseops-music.jpg"
                 # ้ณไน่ทฏๅพ
-                url: "assets/music/深海之息.m4a"
-                # ๆญ่ฏ่ทฏๅพ
-                lrc: "assets/music/深海之息.lrc"
+                url: "/assets/music/sovereign-of-the-veil.mp3"
                 # ๆ—ถ้•ฟ
-                duration: 146
+                duration: 296
     # ๆฏๅฆ่ชๅจๆ’ญๆ”พ
     autoplay: false
 
