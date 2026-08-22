@@ -19,6 +19,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 const isFirstPage = page.currentPage === 1;
 const startIndex = (page.currentPage - 1) * PAGE_SIZE;
+const heroName = "Syn4pseOps".split("");
 
 const getCategoryLabel = (entry: CollectionEntry<"posts">) => {
     const category = entry.data.category;
@@ -44,7 +45,7 @@ const selectedProjects = [
     },
     {
         status: "Active",
-        title: "Syna4pseOps Case Files",
+        title: "Syn4pseOps Case Files",
         description: "The public lab notebook behind this site: event records, technical notes, and documented lessons.",
         focus: "Research log",
         href: "/blog/",
@@ -70,9 +71,12 @@ const selectedProjects = [
                 height="512"
                 aria-hidden="true"
             />
-            <h1 id="site-title">Syna4pseOps</h1>
-            <p class="index-byline">Phichit Sapnan · Wang</p>
-            <p class="index-role">offensive security · CTF · agentic AI</p>
+            <h1 id="site-title" class="notranslate" aria-label="Syn4pseOps">
+                <span class="index-title-letters" aria-hidden="true">
+                    {heroName.map((letter) => <span>{letter}</span>)}
+                </span>
+            </h1>
+            <p class="index-role notranslate">A journey through cybersecurity, code, trials, and the unknown.</p>
 
             <div class="index-rule" aria-hidden="true"></div>
 
@@ -156,31 +160,37 @@ const selectedProjects = [
 
     .index-brandmark {
         display: block;
-        width: 6.25rem;
-        height: 6.25rem;
+        width: 7.5rem;
+        height: 7.5rem;
         object-fit: contain;
         opacity: 0.78;
     }
 
     .index-hero h1 {
-        margin: 1rem 0 0;
-        color: #d8d4ca;
-        font-family: var(--font-mono);
-        font-size: 0.9rem;
-        font-weight: 500;
+        margin: 1.25rem 0 0;
+        color: rgba(216, 212, 202, 0.64);
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-transform: uppercase;
     }
 
-    .index-byline {
-        margin: 0.45rem 0 0;
-        color: rgba(216, 212, 202, 0.52);
-        font-size: 1rem;
+    .index-title-letters {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.57rem;
     }
 
     .index-role {
-        margin: 0.2rem 0 0;
-        color: rgba(216, 212, 202, 0.34);
-        font-size: 0.92rem;
+        max-width: 36rem;
+        margin: 0.5rem 1rem 0;
+        color: rgba(216, 212, 202, 0.42);
+        font-size: 0.98rem;
         font-style: italic;
+        line-height: 1.5;
+        text-wrap: balance;
     }
 
     .index-rule {
@@ -410,8 +420,17 @@ const selectedProjects = [
         }
 
         .index-brandmark {
-            width: 5.25rem;
-            height: 5.25rem;
+            width: 6rem;
+            height: 6rem;
+        }
+
+        .index-title-letters {
+            gap: 0.42rem;
+        }
+
+        .index-role {
+            max-width: 22rem;
+            font-size: 0.92rem;
         }
 
         .index-stats {

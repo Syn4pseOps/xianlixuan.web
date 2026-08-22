@@ -5,7 +5,7 @@ description: เกี่ยวกับผม
 
 ## WHOAMI
 
-สวัสดีครับ ผม **พิชิต ทรัพย์นันท์** - ส่วนใหญ่คนมักจะเรียกผมว่า **หวัง (Wang)** และในโลกออนไลน์ผมใช้ชื่อว่า **Syna4pseOps**
+สวัสดีครับ ผม **พิชิต ทรัพย์นันท์** - ส่วนใหญ่คนมักจะเรียกผมว่า **หวัง (Wang)** และในโลกออนไลน์ผมใช้ชื่อว่า **Syn4pseOps**
 
 ผมเป็นนิสิตวิทยาการคอมพิวเตอร์จากประเทศไทยที่ทำงานคาบเกี่ยวระหว่างด้าน **Offensive Security** และ **Agentic AI Systems** ในตอนกลางวัน ผมสนุกกับการเจาะ Web Apps, ระบบเครือข่าย และ Active Directory ในการแข่ง CTF และในสภาพแวดล้อมจำลอง (Lab) ส่วนในตอนกลางคืน ผมใช้เวลาไปกับการพัฒนาระบบนิเวศของ Multi-agent AI และจดบันทึกทุกอย่างที่ได้เรียนรู้ระหว่างทาง
 
@@ -42,8 +42,8 @@ description: เกี่ยวกับผม
 
 ## ช่องทางการติดต่อ (Connect)
 
-- **GitHub** - [Syna4pseOps](https://github.com/xianlixuan)
+- **GitHub** - [Syn4pseOps](https://github.com/xianlixuan)
 - **Facebook** - [Phichit Sapnan](https://www.facebook.com/profile.php?id=61577921184248)
 - **LinkedIn** - [Phichit Sapnan](https://www.linkedin.com/in/phichit-sapnan-12a704416?utm_source=share_via&utm_content=profile&utm_medium=member_android)
-- **Medium** - [Syna4pseOps](https://medium.com/@wanginfotechio)
+- **Medium** - [Syn4pseOps](https://medium.com/@wanginfotechio)
 - ทักทายกันมาได้ตลอดเลยครับ ไม่ว่าจะเป็นการหาคนร่วมโปรเจกต์ (Collabs), หาทีมลงแข่ง CTF หรืออยากพูดคุยแลกเปลี่ยนเรื่อง AI กับ Cybersecurity !!

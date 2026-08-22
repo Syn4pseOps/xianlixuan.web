@@ -11,7 +11,7 @@ const tracks = musicPlayerConfig.local?.playlist ?? [];
 const emptyTrack: MusicPlayerTrack = {
     id: "empty",
     title: "No track loaded",
-    artist: "Syna4pseOps",
+    artist: "Syn4pseOps",
     cover: "/assets/brand/syna4pseops-mark.png",
     url: "",
     duration: 0,
@@ -233,7 +233,7 @@ onDestroy(() => {
             title={isExpanded ? "Hide music player" : "Show music player"}
         >
             <span class="toggle-disc" aria-hidden="true">
-                <img src="/assets/brand/syna4pseops-music.jpg" alt="" />
+                <img src="/assets/brand/syna4pseops-music.jpg?v=20260823" alt="" />
             </span>
         </button>
     </div>

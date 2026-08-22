@@ -242,7 +242,7 @@
     object-fit: cover;
     border-radius: 50%;
     filter: saturate(1.05) contrast(1.04);
-    transform: scale(1.16);
+    transform: scale(1.02);
 }
 
 .music-deck.is-playing .toggle-disc {

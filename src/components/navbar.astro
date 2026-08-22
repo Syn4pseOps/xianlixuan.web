@@ -31,6 +31,7 @@ const links: LocalizedNavbarLink[] = navbarConfig.links.map(
 );
 
 const currentPath = normalizePath(Astro.url.pathname);
+const navbarWordmark = "yn4pseOps".split("");
 const isCurrent = (link: NavbarLink) => {
     if (link.external) return false;
     const linkPath = normalizePath(url(link.url));
@@ -54,7 +55,11 @@ const isCurrent = (link: NavbarLink) => {
                 height="512"
                 aria-hidden="true"
             />
-            <span class="navbar-wordmark">Syna4pseOps</span>
+            <span class="navbar-wordmark" aria-label="yn4pseOps">
+                <span class="navbar-wordmark-letters" aria-hidden="true">
+                    {navbarWordmark.map((letter) => <span>{letter}</span>)}
+                </span>
+            </span>
         </a>
 
         <nav class="navbar-primary" aria-label="Primary">

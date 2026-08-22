@@ -13,7 +13,7 @@ tags:
   - Career Guidance
 lang: th
 pinned: true
-author: Syna4pseOps
+author: Syn4pseOps
 sourceLink: https://www.msu.ac.th/th/%e0%b8%a3%e0%b8%b2%e0%b8%a2%e0%b8%a5%e0%b8%b0%e0%b9%80%e0%b8%ad%e0%b8%b5%e0%b8%a2%e0%b8%94%e0%b8%82%e0%b9%88%e0%b8%b2%e0%b8%a7/?hid=13056
 licenseName: Event Reference Links
 licenseUrl: https://www.msu.ac.th/th/%e0%b8%a3%e0%b8%b2%e0%b8%a2%e0%b8%a5%e0%b8%b0%e0%b9%80%e0%b8%ad%e0%b8%b5%e0%b8%a2%e0%b8%94%e0%b8%82%e0%b9%88%e0%b8%b2%e0%b8%a7/?hid=13056

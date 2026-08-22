@@ -4,7 +4,7 @@ title: About
 
 ## whoami
 
-Hi, I'm **Phichit Sapnan** - most people call me **Wang**, and online I go by **Syna4pseOps**.
+Hi, I'm **Phichit Sapnan** - most people call me **Wang**, and online I go by **Syn4pseOps**.
 
 I'm a Computer Science student from Thailand working at the intersection of **offensive security** and **agentic AI systems**. By day I break web apps, networks, and Active Directory in CTFs and lab environments; by night I'm engineering multi-agent AI ecosystems and writing down everything I learn along the way.
 
@@ -38,8 +38,8 @@ This site is the casual side of my portfolio - a public lab notebook of challeng
 
 ## Connect
 
-- **GitHub** - [Syna4pseOps](https://github.com/xianlixuan)
+- **GitHub** - [Syn4pseOps](https://github.com/xianlixuan)
 - **Facebook** - [Phichit Sapnan](https://www.facebook.com/profile.php?id=61577921184248)
 - **LinkedIn** - [Phichit Sapnan](https://www.linkedin.com/in/phichit-sapnan-12a704416?utm_source=share_via&utm_content=profile&utm_medium=member_android)
-- **Medium** - [Syna4pseOps](https://medium.com/@wanginfotechio)
+- **Medium** - [Syn4pseOps](https://medium.com/@wanginfotechio)
 - Feel free to reach out for collabs, CTF teams, or AI/security chats.

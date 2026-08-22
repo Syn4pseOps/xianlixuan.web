@@ -3,7 +3,7 @@ site:
     # ็ซ็น URL๏ผไปฅๆ–ๆ ็ป“ๅฐพ๏ผ
     siteURL: "https://syna4pseops.pages.dev/"
     # ็ซ็นๆ ้ข
-    title: "Syna4pseOps"
+    title: "Syn4pseOps"
     # ็ซ็นๅฏๆ ้ข
     subtitle: "Phichit Sapnan (Wang) โ€” Computer Science Student | Cybersecurity & Agentic Federation Developer"
     # ่ฏญ่จ€้…็ฝฎ
@@ -99,7 +99,7 @@ site:
                 # ๅจไธป้กตๆพ็คบๆ–ๆฌ
                 enable: false
                 # ไธปๆ ้ข
-                title: "Syna4pseOps.exe"
+                title: "Syn4pseOps.exe"
                 # ๅฏๆ ้ข๏ผๆ”ฏๆๅ•ไธชๅญ—็ฌฆไธฒๆ–ๅญ—็ฌฆไธฒๆ•ฐ็ป
                 subtitle: "Retro cyberpunk notes from the shoreline."
                 # ๅฏๆ ้ขๆ“ๅญ—ๆบๆ•ๆ
@@ -207,7 +207,7 @@ profile:
     # ๅคดๅ้…็ฝฎ (็ธๅฏนไบ /public ็ฎๅฝ•)
     avatar: "/assets/images/avatar.jpg"
     # ไฟกๆฏ้…็ฝฎ
-    name: "Syna4pseOps"
+    name: "Syn4pseOps"
     # ็ฎ€ไป้…็ฝฎ
     bio: "Phichit Sapnan (Wang)\n\n\"Breaking systems to learn, writing code and context to remember.\"\n\nDedicated to exploring offensive security vulnerabilities and digital forensics while engineering next-generation multi-agent AI ecosystems."
     # ้“พๆฅ้…็ฝฎ
