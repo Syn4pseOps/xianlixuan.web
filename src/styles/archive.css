@@ -1,0 +1,217 @@
+.archive-page {
+    width: min(100%, 48rem);
+    min-height: 32rem;
+    margin: 0 auto;
+    padding: 0.2rem 0 6rem;
+}
+
+.archive-ledger {
+    width: 100%;
+}
+
+.archive-filter {
+    margin-bottom: 3.25rem;
+    text-align: center;
+}
+
+.archive-filter-label,
+.archive-ledger-header h1,
+.archive-ledger-header p,
+.archive-year,
+.archive-post-date,
+.archive-empty {
+    font-family: var(--font-mono);
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.archive-filter-label {
+    margin: 0 0 0.8rem;
+    color: rgba(216, 212, 202, 0.38);
+    font-size: 0.62rem;
+}
+
+.archive-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.36rem 1rem;
+}
+
+.archive-tag {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(216, 212, 202, 0.54);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    cursor: pointer;
+    transition: color 160ms ease;
+}
+
+.archive-tag:hover,
+.archive-tag:focus-visible,
+.archive-tag.is-active {
+    color: #eeeae1;
+}
+
+.archive-tag.is-active {
+    text-decoration: underline;
+    text-decoration-color: #702131;
+    text-underline-offset: 0.28rem;
+}
+
+.archive-tag:focus-visible {
+    outline: none;
+    text-decoration: underline;
+    text-decoration-color: #702131;
+    text-underline-offset: 0.28rem;
+}
+
+.archive-ledger-header {
+    margin-bottom: 3.35rem;
+    text-align: center;
+}
+
+.archive-ledger-header h1 {
+    margin: 0;
+    color: rgba(238, 234, 225, 0.92);
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.archive-ledger-header p {
+    margin: 0.65rem 0 0;
+    color: rgba(216, 212, 202, 0.38);
+    font-size: 0.61rem;
+}
+
+.archive-year-group + .archive-year-group {
+    margin-top: 3.7rem;
+}
+
+.archive-year {
+    margin: 0 0 1.45rem;
+    color: rgba(216, 212, 202, 0.52);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.archive-post-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.archive-post-list li {
+    border-bottom: 1px dotted rgba(216, 212, 202, 0.14);
+}
+
+.archive-post-link {
+    display: grid;
+    min-height: 3.55rem;
+    align-items: center;
+    grid-template-columns: 3rem minmax(0, 1fr) minmax(7rem, 14rem);
+    gap: 1rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.archive-post-date {
+    color: rgba(216, 212, 202, 0.46);
+    font-size: 0.65rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.archive-post-title {
+    min-width: 0;
+    overflow: hidden;
+    color: rgba(238, 234, 225, 0.84);
+    font-family: var(--font-sans);
+    font-size: 1.08rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 160ms ease, transform 160ms ease;
+}
+
+.archive-post-tags {
+    min-width: 0;
+    overflow: hidden;
+    color: rgba(216, 212, 202, 0.36);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 160ms ease;
+}
+
+.archive-post-link:hover .archive-post-title,
+.archive-post-link:focus-visible .archive-post-title {
+    color: #eeeae1;
+    transform: translateX(0.18rem);
+}
+
+.archive-post-link:hover .archive-post-tags,
+.archive-post-link:focus-visible .archive-post-tags {
+    color: rgba(216, 212, 202, 0.58);
+}
+
+.archive-post-link:focus-visible {
+    outline: 1px solid rgba(112, 33, 49, 0.82);
+    outline-offset: 0.18rem;
+}
+
+.archive-empty {
+    margin: 0;
+    color: rgba(216, 212, 202, 0.44);
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .archive-page {
+        min-height: 28rem;
+        padding-top: 0;
+    }
+
+    .archive-filter {
+        margin-bottom: 2.7rem;
+    }
+
+    .archive-tag-list {
+        gap: 0.32rem 0.8rem;
+    }
+
+    .archive-tag {
+        font-size: 0.82rem;
+    }
+
+    .archive-ledger-header {
+        margin-bottom: 2.8rem;
+    }
+
+    .archive-post-link {
+        min-height: 4.1rem;
+        padding: 0.62rem 0;
+        grid-template-columns: 2.75rem minmax(0, 1fr);
+        gap: 0.18rem 0.8rem;
+    }
+
+    .archive-post-date {
+        grid-row: 1 / span 2;
+    }
+
+    .archive-post-title {
+        font-size: 1rem;
+    }
+
+    .archive-post-tags {
+        grid-column: 2;
+        text-align: left;
+    }
+}

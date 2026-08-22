@@ -4,8 +4,6 @@ import { onMount } from "svelte";
 import { getPostUrl } from "@utils/url";
 import { getCategoryPathLabel, getCategoryPathParts } from "@utils/category";
 import { parseTags } from "@utils/tag";
-import { i18n } from "@i18n/translation";
-import I18nKey from "@i18n/i18nKey";
 
 
 interface Post {
@@ -45,11 +43,23 @@ function formatDate(date: Date | string) {
     const d = new Date(date);
     const month = (d.getMonth() + 1).toString().padStart(2, "0");
     const day = d.getDate().toString().padStart(2, "0");
-    return `${month}-${day}`;
+    return `${month}.${day}`;
 }
 
 function formatTag(tagList: string[]) {
-    return tagList.map((t) => `#${t}`).join(" ");
+    return parseTags(tagList).join(" · ");
+}
+
+function setTag(tag: string | null) {
+    tags = tag ? [tag] : [];
+
+    const params = new URLSearchParams(window.location.search);
+    params.delete("tag");
+    if (tag) params.set("tag", tag);
+
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
+    window.history.replaceState(null, "", nextUrl);
 }
 
 function isCategoryMatch(category: string | string[] | null | undefined, targets: string[]) {
@@ -119,57 +129,66 @@ let groups = $derived.by(() => {
 
     return groupedPostsArray;
 });
+
+let availableTags = $derived.by(() => {
+    const names = new Set<string>();
+    sortedPosts.forEach((post) => {
+        parseTags(post.data.tags).forEach((tag) => names.add(tag));
+    });
+    return Array.from(names).sort((a, b) => a.localeCompare(b));
+});
+
+let filteredCount = $derived(groups.reduce((count, group) => count + group.posts.length, 0));
 </script>
 
-<div>
-    {#each groups as group}
-        <div>
-            <div class="flex flex-row w-full items-center h-15">
-                <div class="w-[15%] md:w-[10%] transition text-2xl font-bold text-right text-75">
-                    {group.year}
-                </div>
-                <div class="w-[15%] md:w-[10%]">
-                    <div class="h-3 w-3 bg-none rounded-full outline-solid outline-(--primary) mx-auto outline-offset-2 z-50 outline-3"></div>
-                </div>
-                <div class="w-[70%] md:w-[80%] transition text-left text-50">
-                    {group.posts.length} {i18n(group.posts.length === 1 ? I18nKey.postCount : I18nKey.postsCount)}
-                </div>
-            </div>
-            {#each group.posts as post}
-                <a href={getPostUrl(post)}
-                    aria-label={post.data.title}
-                    class="group btn-plain block! h-10 w-full rounded-none hover:text-[initial]"
-                >
-                    <div class="flex flex-row justify-start items-center h-full">
-                        <!-- date -->
-                        <div class="w-[15%] md:w-[10%] transition text-sm text-right text-50">
-                            {formatDate(post.data.published)}
-                        </div>
-                        <!-- dot and line -->
-                        <div class="w-[15%] md:w-[10%] relative dash-line h-full flex items-center">
-                            <div class="transition-all mx-auto w-1 h-1 rounded group-hover:h-5
-                                bg-[rgba(216,212,202,0.24)] group-hover:bg-(--primary)
-                                outline-4 z-50
-                                outline-(--card-bg)
-                                group-hover:outline-(--btn-plain-bg-hover)
-                                group-active:outline-(--btn-plain-bg-active)"
-                            ></div>
-                        </div>
-                        <!-- post title -->
-                        <div class="w-[70%] md:max-w-[65%] md:w-[65%] text-left font-bold
-                            group-hover:translate-x-1 transition-all group-hover:text-(--primary)
-                            text-75 pr-8 whitespace-nowrap text-ellipsis overflow-hidden"
-                        >
-                            {post.data.title}
-                        </div>
-                        <!-- tag list -->
-                        <div class="hidden md:block md:w-[15%] text-left text-sm transition whitespace-nowrap text-ellipsis overflow-hidden text-30"
-                        >
-                            {formatTag(post.data.tags)}
-                        </div>
-                    </div>
-                </a>
+<div class="archive-ledger">
+    <section class="archive-filter" aria-labelledby="archive-filter-label">
+        <p id="archive-filter-label" class="archive-filter-label">Filter by tag</p>
+        <div class="archive-tag-list" aria-label="Filter archive by tag">
+            <button
+                type="button"
+                class="archive-tag"
+                class:is-active={tags.length === 0}
+                aria-pressed={tags.length === 0}
+                onclick={() => setTag(null)}
+            >All</button>
+            {#each availableTags as tag}
+                <button
+                    type="button"
+                    class="archive-tag"
+                    class:is-active={tags.includes(tag)}
+                    aria-pressed={tags.includes(tag)}
+                    onclick={() => setTag(tags.includes(tag) ? null : tag)}
+                >{tag}</button>
             {/each}
         </div>
+    </section>
+
+    <header class="archive-ledger-header">
+        <h1>Full Ledger</h1>
+        <p>{filteredCount} {filteredCount === 1 ? "post" : "posts"}</p>
+    </header>
+
+    {#if groups.length === 0}
+        <p class="archive-empty">No posts match this tag.</p>
+    {/if}
+
+    {#each groups as group}
+        <section class="archive-year-group" aria-labelledby={`archive-year-${group.year}`}>
+            <h2 id={`archive-year-${group.year}`} class="archive-year">{group.year}</h2>
+            <ol class="archive-post-list">
+            {#each group.posts as post}
+                <li>
+                    <a href={getPostUrl(post)} aria-label={post.data.title} class="archive-post-link">
+                        <time datetime={new Date(post.data.published).toISOString()} class="archive-post-date">
+                            {formatDate(post.data.published)}
+                        </time>
+                        <span class="archive-post-title">{post.data.title}</span>
+                        <span class="archive-post-tags">{formatTag(post.data.tags)}</span>
+                    </a>
+                </li>
+            {/each}
+            </ol>
+        </section>
     {/each}
 </div>

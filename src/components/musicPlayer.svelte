@@ -233,7 +233,7 @@ onDestroy(() => {
             title={isExpanded ? "Hide music player" : "Show music player"}
         >
             <span class="toggle-disc" aria-hidden="true">
-                <img src="/assets/brand/syna4pseops-mark.png" alt="" />
+                <img src="/assets/brand/syna4pseops-music.jpg" alt="" />
             </span>
         </button>
     </div>
