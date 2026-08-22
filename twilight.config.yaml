@@ -1,9 +1,9 @@
 ﻿# ็ซ็น้…็ฝฎ
 site:
     # ็ซ็น URL๏ผไปฅๆ–ๆ ็ป“ๅฐพ๏ผ
-    siteURL: "https://twilight.spr-aachen.com/"
+    siteURL: "https://syna4pseops.pages.dev/"
     # ็ซ็นๆ ้ข
-    title: "Synapse"
+    title: "Syna4pseOps"
     # ็ซ็นๅฏๆ ้ข
     subtitle: "Phichit Sapnan (Wang) โ€” Computer Science Student | Cybersecurity & Agentic Federation Developer"
     # ่ฏญ่จ€้…็ฝฎ
@@ -99,7 +99,7 @@ site:
                 # ๅจไธป้กตๆพ็คบๆ–ๆฌ
                 enable: false
                 # ไธปๆ ้ข
-                title: "Synapse.exe"
+                title: "Syna4pseOps.exe"
                 # ๅฏๆ ้ข๏ผๆ”ฏๆๅ•ไธชๅญ—็ฌฆไธฒๆ–ๅญ—็ฌฆไธฒๆ•ฐ็ป
                 subtitle: "Retro cyberpunk notes from the shoreline."
                 # ๅฏๆ ้ขๆ“ๅญ—ๆบๆ•ๆ
@@ -162,7 +162,9 @@ site:
             # ๅจ็”ปๅ‘จๆ (s)
             interval: 1.5
     # favicon ้…็ฝฎ
-    favicon: []
+    favicon:
+        - src: "/assets/brand/syna4pseops-favicon.png"
+          sizes: "64x64"
     # bangumi ้…็ฝฎ
     bangumi:
         # ็”จๆท ID
@@ -205,7 +207,7 @@ profile:
     # ๅคดๅ้…็ฝฎ (็ธๅฏนไบ /public ็ฎๅฝ•)
     avatar: "/assets/images/avatar.jpg"
     # ไฟกๆฏ้…็ฝฎ
-    name: "Synapse"
+    name: "Syna4pseOps"
     # ็ฎ€ไป้…็ฝฎ
     bio: "Phichit Sapnan (Wang)\n\n\"Breaking systems to learn, writing code and context to remember.\"\n\nDedicated to exploring offensive security vulnerabilities and digital forensics while engineering next-generation multi-agent AI ecosystems."
     # ้“พๆฅ้…็ฝฎ
@@ -336,9 +338,9 @@ particle:
 # ้ณไนๆ’ญๆ”พๅจ้…็ฝฎ
 musicPlayer:
     # ๅฏ็”จ้ณไนๆ’ญๆ”พๅจๅ่ฝ
-    enable: false
+    enable: true
     # ้ป่ฎคๆจกๅผ ("meting" API | "local" ๆฌๅฐ)
-    mode: "meting"
+    mode: "local"
     # meting ๆจกๅผไธ“ๅฑ้…็ฝฎ
     meting:
         # Meting API ๅฐๅ€
@@ -357,19 +359,19 @@ musicPlayer:
                 # ๅบๅท
                 id: 1
                 # ๆ ้ข
-                title: "ๆทฑๆตทไนๆฏ"
+                title: "Deep Sea Breath"
                 # ไฝ่€…
                 artist: "Youzee Music"
                 # ๅฐ้ข
-                cover: "https://p1.music.126.net/PhKOqFtljgHDDpKYM2ADUA==/109951169858309716.jpg"
+                cover: "/assets/brand/syna4pseops-mark.png"
                 # ้ณไน่ทฏๅพ
-                url: "assets/music/ๆทฑๆตทไนๆฏ.m4a"
+                url: "assets/music/深海之息.m4a"
                 # ๆญ่ฏ่ทฏๅพ
-                lrc: "assets/music/ๆทฑๆตทไนๆฏ.lrc"
+                lrc: "assets/music/深海之息.lrc"
                 # ๆ—ถ้•ฟ
                 duration: 146
     # ๆฏๅฆ่ชๅจๆ’ญๆ”พ
-    autoplay: true
+    autoplay: false
 
 # ็ๆฟๅจ้…็ฝฎ
 pio:

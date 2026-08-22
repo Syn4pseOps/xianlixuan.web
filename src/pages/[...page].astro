@@ -33,13 +33,44 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
     isLatest: index === 0 && isFirstPage,
     category: getCategoryLabel(entry),
 }));
+
+const selectedProjects = [
+    {
+        status: "In development",
+        title: "Agentic Federation Framework",
+        description: "A multi-agent AI ecosystem focused on practical coordination, tooling, and security workflows.",
+        focus: "Agentic AI",
+        href: "/about/",
+    },
+    {
+        status: "Active",
+        title: "Syna4pseOps Case Files",
+        description: "The public lab notebook behind this site: event records, technical notes, and documented lessons.",
+        focus: "Research log",
+        href: "/blog/",
+    },
+    {
+        status: "Ongoing",
+        title: "Offensive Security Labs",
+        description: "Hands-on practice across web security, Active Directory, digital forensics, and CTF challenges.",
+        focus: "Security labs",
+        href: "/archive/",
+    },
+];
 ---
 
 <GridLayout>
     {isFirstPage && (
         <section class="index-hero" aria-labelledby="site-title">
-            <div class="index-monogram" aria-hidden="true">S</div>
-            <h1 id="site-title">Synapse</h1>
+            <img
+                class="index-brandmark"
+                src="/assets/brand/syna4pseops-mark.png"
+                alt=""
+                width="512"
+                height="512"
+                aria-hidden="true"
+            />
+            <h1 id="site-title">Syna4pseOps</h1>
             <p class="index-byline">Phichit Sapnan · Wang</p>
             <p class="index-role">offensive security · CTF · agentic AI</p>
 
@@ -84,6 +115,29 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
         <a class="full-index-link" href="/blog/">Full index <span aria-hidden="true">→</span></a>
     </section>
 
+    {isFirstPage && (
+        <section class="project-index" aria-labelledby="project-index-title">
+            <div class="project-index-heading">
+                <h2 id="project-index-title">Selected Projects</h2>
+                <p>Current work and active research</p>
+            </div>
+
+            <div class="project-list">
+                {selectedProjects.map((project) => (
+                    <a class="project-row" href={project.href}>
+                        <span class="project-status">{project.status}</span>
+                        <span class="project-copy">
+                            <strong>{project.title}</strong>
+                            <span>{project.description}</span>
+                        </span>
+                        <span class="project-focus">{project.focus}</span>
+                        <span class="project-arrow" aria-hidden="true">→</span>
+                    </a>
+                ))}
+            </div>
+        </section>
+    )}
+
     {page.lastPage > 1 && (
         <Pagination class="mx-auto onload-animation-up" page={page} />
     )}
@@ -100,22 +154,20 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
         text-align: center;
     }
 
-    .index-monogram {
-        color: rgba(216, 212, 202, 0.34);
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 5.8rem;
-        font-style: italic;
-        font-weight: 700;
-        line-height: 0.9;
+    .index-brandmark {
+        display: block;
+        width: 6.25rem;
+        height: 6.25rem;
+        object-fit: contain;
+        opacity: 0.78;
     }
 
     .index-hero h1 {
         margin: 1rem 0 0;
         color: #d8d4ca;
         font-family: var(--font-mono);
-        font-size: 0.84rem;
+        font-size: 0.9rem;
         font-weight: 500;
-        text-transform: uppercase;
     }
 
     .index-byline {
@@ -135,7 +187,7 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
         width: 4.5rem;
         height: 1px;
         margin: 1.5rem auto 1.3rem;
-        background: rgba(121, 47, 58, 0.68);
+        background: var(--accent-strong, #702131);
     }
 
     .index-stats {
@@ -145,7 +197,7 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
         margin: 0;
         color: rgba(216, 212, 202, 0.42);
         font-family: var(--font-mono);
-        font-size: 0.65rem;
+        font-size: 0.74rem;
         text-transform: uppercase;
     }
 
@@ -211,12 +263,12 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
     .case-row time,
     .case-category {
         font-family: var(--font-mono);
-        font-size: 0.63rem;
+        font-size: 0.74rem;
         text-transform: uppercase;
     }
 
     .case-status {
-        color: #9a4552;
+        color: var(--accent-strong, #702131);
     }
 
     .case-number,
@@ -245,7 +297,7 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
         margin: 1.4rem auto 0;
         color: rgba(216, 212, 202, 0.48);
         font-family: var(--font-mono);
-        font-size: 0.66rem;
+        font-size: 0.74rem;
         text-decoration: none;
         text-transform: uppercase;
     }
@@ -254,14 +306,112 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
         color: #d8d4ca;
     }
 
+    .project-index {
+        width: min(100%, 48rem);
+        margin: 4.5rem auto 0;
+    }
+
+    .project-index-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.85rem;
+    }
+
+    .project-index-heading h2,
+    .project-index-heading p {
+        margin: 0;
+        font-family: var(--font-mono);
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .project-index-heading h2 {
+        color: rgba(216, 212, 202, 0.7);
+        font-size: 0.74rem;
+    }
+
+    .project-index-heading p {
+        color: rgba(216, 212, 202, 0.48);
+        font-size: 0.74rem;
+    }
+
+    .project-list {
+        border-top: 1px solid rgba(216, 212, 202, 0.1);
+    }
+
+    .project-row {
+        display: grid;
+        grid-template-columns: 7.5rem minmax(0, 1fr) 7rem 1.5rem;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(216, 212, 202, 0.1);
+        color: inherit;
+        text-decoration: none;
+        transition: background-color 160ms ease;
+    }
+
+    .project-row:hover {
+        background: rgba(216, 212, 202, 0.025);
+    }
+
+    .project-status,
+    .project-focus,
+    .project-arrow {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        text-transform: uppercase;
+    }
+
+    .project-status {
+        color: var(--accent-strong, #702131);
+    }
+
+    .project-copy {
+        display: grid;
+        gap: 0.2rem;
+        min-width: 0;
+    }
+
+    .project-copy strong {
+        color: rgba(216, 212, 202, 0.86);
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .project-copy > span {
+        color: rgba(216, 212, 202, 0.58);
+        font-size: 0.86rem;
+        line-height: 1.45;
+    }
+
+    .project-focus {
+        color: rgba(216, 212, 202, 0.48);
+        text-align: right;
+    }
+
+    .project-arrow {
+        color: rgba(216, 212, 202, 0.48);
+        text-align: right;
+        transition: color 160ms ease, transform 160ms ease;
+    }
+
+    .project-row:hover .project-arrow {
+        color: var(--accent-strong, #702131);
+        transform: translateX(0.2rem);
+    }
+
     @media (max-width: 760px) {
         .index-hero {
             min-height: 17rem;
             padding-bottom: 2.75rem;
         }
 
-        .index-monogram {
-            font-size: 4.7rem;
+        .index-brandmark {
+            width: 5.25rem;
+            height: 5.25rem;
         }
 
         .index-stats {
@@ -306,6 +456,42 @@ const caseRows = page.data.map((entry: CollectionEntry<"posts">, index: number) 
             grid-column: 2;
             grid-row: 3;
             text-align: left;
+        }
+
+        .project-index {
+            margin-top: 3.75rem;
+        }
+
+        .project-index-heading {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .project-row {
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 0.45rem 0.75rem;
+        }
+
+        .project-status {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .project-copy {
+            grid-column: 1 / -1;
+            grid-row: 2;
+        }
+
+        .project-focus {
+            grid-column: 1;
+            grid-row: 3;
+            text-align: left;
+        }
+
+        .project-arrow {
+            grid-column: 2;
+            grid-row: 1;
         }
     }
 </style>

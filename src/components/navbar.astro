@@ -21,6 +21,7 @@ const currentPath = normalizePath(Astro.url.pathname);
 const isCurrent = (link: NavbarLink) => {
     if (link.external) return false;
     const linkPath = normalizePath(url(link.url));
+    if (linkPath === "/blog" && currentPath.startsWith("/posts/")) return true;
     return linkPath === "/"
         ? currentPath === "/"
         : currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
@@ -32,8 +33,15 @@ const isCurrent = (link: NavbarLink) => {
 <header id="navbar" class="onload-animation-down">
     <div class="navbar-inner">
         <a href={url("/")} class="navbar-brand notranslate" aria-label={`Go to ${siteConfig.title} homepage`}>
-            <span class="navbar-monogram" aria-hidden="true">S</span>
-            <span class="navbar-wordmark">YNAPSE</span>
+            <img
+                class="navbar-mark"
+                src={url("/assets/brand/syna4pseops-mark.png")}
+                alt=""
+                width="512"
+                height="512"
+                aria-hidden="true"
+            />
+            <span class="navbar-wordmark">Syna4pseOps</span>
         </a>
 
         <nav class="navbar-primary" aria-label="Primary">
@@ -57,6 +65,42 @@ const isCurrent = (link: NavbarLink) => {
         </div>
     </div>
 </header>
+
+<script is:inline>
+    (() => {
+        const normalizePath = (value) => {
+            const normalized = value.replace(/\/+$/, "");
+            return normalized || "/";
+        };
+
+        const syncActiveNavigation = () => {
+            const currentPath = normalizePath(window.location.pathname);
+            document.querySelectorAll("#navbar .navbar-primary .navbar-link").forEach((link) => {
+                const linkPath = normalizePath(new URL(link.href, window.location.origin).pathname);
+                const isPostRoute = linkPath === "/blog" && currentPath.startsWith("/posts/");
+                const isCurrent = isPostRoute || (linkPath === "/"
+                    ? currentPath === "/"
+                    : currentPath === linkPath || currentPath.startsWith(`${linkPath}/`));
+
+                link.classList.toggle("is-current", isCurrent);
+                if (isCurrent) {
+                    link.setAttribute("aria-current", "page");
+                } else {
+                    link.removeAttribute("aria-current");
+                }
+            });
+        };
+
+        if (!window.__syna4pseOpsNavSync) {
+            window.__syna4pseOpsNavSync = true;
+            document.addEventListener("astro:after-swap", syncActiveNavigation);
+            document.addEventListener("swup:contentReplaced", syncActiveNavigation);
+            window.addEventListener("popstate", syncActiveNavigation);
+        }
+
+        syncActiveNavigation();
+    })();
+</script>
 
 {import.meta.env.PROD && <script is:inline define:vars={{scriptUrl: url('/pagefind/pagefind.js')}}>
 async function loadPagefind() {

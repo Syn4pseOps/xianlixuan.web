@@ -42,6 +42,7 @@ interface Props {
 }
 
 let { title, banner, description, lang, setOGTypeArticle, postSlug } = Astro.props;
+const contentImage = banner;
 
 // apply a class to the body element to decide the height of the banner, only used for initial page load
 const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
@@ -53,9 +54,10 @@ const configHue = siteConfig.themeColor.hue;
 // 获取导航栏透明模式配置
 const navbarTransparentMode =
     siteConfig.wallpaper.banner?.navbar?.transparentMode || "semi";
+const enableBanner = siteConfig.wallpaper.mode === "banner";
 // 判断是否应该显示顶部高光效果（只在full和semifull模式下显示）
 const shouldShowTopHighlight =
-    navbarTransparentMode === "full" || navbarTransparentMode === "semifull";
+    enableBanner && (navbarTransparentMode === "full" || navbarTransparentMode === "semifull");
 
 // 获取默认banner图片的辅助函数
 const getDefaultBanner = (): string => {
@@ -89,8 +91,6 @@ const getDefaultBanner = (): string => {
 // TODO don't use post cover as banner for now
 banner = getDefaultBanner();
 
-const enableBanner = siteConfig.wallpaper.mode === "banner";
-
 let pageTitle: string;
 if (title) {
     pageTitle = `${title} - ${siteConfig.title}`;
@@ -98,10 +98,14 @@ if (title) {
     pageTitle = siteConfig.title;
 }
 
-let ogImageUrl: string | undefined;
+let ogImageUrl: string;
 if (siteConfig.generateOgImages && postSlug) {
     ogImageUrl = new URL(`/og/${postSlug}.png`, Astro.site).toString();
+} else {
+    ogImageUrl = new URL(contentImage || "/assets/brand/syna4pseops-social.png", Astro.site).toString();
 }
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
 const favicons: Favicon[] =
     siteConfig.favicon.length > 0 ? siteConfig.favicon : defaultFavicons;
@@ -138,6 +142,8 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
         <title>{pageTitle}</title>
         <!-- description -->
         <meta name="description" content={description || pageTitle}>
+        <link rel="canonical" href={canonicalUrl} />
+        <meta name="theme-color" content="#030303" />
         <!-- keywords -->
         {siteConfig.keywords && siteConfig.keywords.length > 0 && (
             <meta name="keywords" content={siteConfig.keywords.join(', ')} />
@@ -146,10 +152,11 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
         <meta name="author" content={profileConfig.name}>
         <!-- Open Graph -->
         <meta property="og:site_name" content={siteConfig.title}>
-        <meta property="og:url" content={Astro.url}>
+        <meta property="og:url" content={canonicalUrl}>
         <meta property="og:title" content={pageTitle}>
         <meta property="og:description" content={description || pageTitle}>
-        {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:alt" content={`${siteConfig.title} preview`} />
         {
             setOGTypeArticle ? (
                 <meta property="og:type" content="article" />
@@ -159,9 +166,10 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
         }
         <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content={Astro.url}>
+        <meta property="twitter:url" content={canonicalUrl}>
         <meta name="twitter:title" content={pageTitle}>
         <meta name="twitter:description" content={description || pageTitle}>
+        <meta name="twitter:image" content={ogImageUrl}>
         <!-- viewport -->
         <meta name="viewport" content="width=device-width" />
         <!-- generator -->
@@ -328,27 +336,29 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
 
     :root {
         --retro-neon-cyan: #d8d4ca;
-        --retro-neon-pink: #9a4552;
-        --retro-neon-red: #792f3a;
+        --retro-neon-pink: #702131;
+        --retro-neon-red: #5c1522;
         --retro-neon-gold: #b9a778;
-        --retro-neon-purple: #792f3a;
+        --retro-neon-purple: #5c1522;
         --retro-shadow: none;
 
+        --accent: #5c1522;
+        --accent-strong: #702131;
         --primary: var(--retro-neon-purple);
-        --page-bg: #080807;
+        --page-bg: #030303;
         --card-bg: transparent;
         --card-bg-transparent: transparent;
 
         --btn-content: #d8d4ca;
         --btn-regular-bg: rgba(216, 212, 202, 0.05);
         --btn-regular-bg-hover: rgba(216, 212, 202, 0.09);
-        --btn-regular-bg-active: rgba(121, 47, 58, 0.18);
+        --btn-regular-bg-active: rgba(92, 21, 34, 0.28);
 
         --btn-plain-bg-hover: rgba(216, 212, 202, 0.05);
-        --btn-plain-bg-active: rgba(121, 47, 58, 0.16);
+        --btn-plain-bg-active: rgba(92, 21, 34, 0.24);
 
         --btn-card-bg-hover: rgba(216, 212, 202, 0.04);
-        --btn-card-bg-active: rgba(121, 47, 58, 0.14);
+        --btn-card-bg-active: rgba(92, 21, 34, 0.22);
 
         --deep-text: #d8d4ca;
         --title-active: #eeeae1;
@@ -360,18 +370,18 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
 
         --inline-code-bg: rgba(216, 212, 202, 0.07);
         --inline-code-color: #d2b7a8;
-        --selection-bg: rgba(121, 47, 58, 0.34);
-        --codeblock-selection: rgba(121, 47, 58, 0.26);
-        --codeblock-bg: #0d0d0c;
-        --codeblock-topbar-bg: #11110f;
+        --selection-bg: rgba(92, 21, 34, 0.52);
+        --codeblock-selection: rgba(92, 21, 34, 0.4);
+        --codeblock-bg: #070707;
+        --codeblock-topbar-bg: #090909;
 
         --license-block-bg: rgba(216, 212, 202, 0.035);
 
-        --link-underline: rgba(121, 47, 58, 0.5);
+        --link-underline: rgba(112, 33, 49, 0.72);
         --link-hover: #eeeae1;
         --link-active: #ffffff;
 
-        --float-panel-bg: #0c0c0b;
+        --float-panel-bg: #070707;
 
         --scrollbar-bg-light: rgba(216, 212, 202, 0.2);
         --scrollbar-bg-hover-light: rgba(216, 212, 202, 0.32);
@@ -383,8 +393,8 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
 
         --toc-badge-bg: rgba(216, 212, 202, 0.07);
         --toc-btn-hover: rgba(216, 212, 202, 0.06);
-        --toc-btn-active: rgba(121, 47, 58, 0.16);
-        --toc-item-active: rgba(121, 47, 58, 0.12);
+        --toc-btn-active: rgba(92, 21, 34, 0.24);
+        --toc-item-active: rgba(92, 21, 34, 0.2);
     }
 
     html {
@@ -716,7 +726,7 @@ if (typeof window !== 'undefined') {
         if (overlay) {
             overlay.classList.add('fade-out');
         }
-        // 等待 LoadingOverlay 淡出（600ms）
+        const revealDelay = overlay ? 260 : 0;
         setTimeout(() => {
             if (overlay) {
                 overlay.style.display = 'none';
@@ -732,17 +742,17 @@ if (typeof window !== 'undefined') {
                     setTimeout(() => {
                         document.documentElement.classList.remove('show-initial-animation');
                         document.documentElement.classList.remove('banner-restoring');
-                    }, 1200);
-                }, 600);
+                    }, 700);
+                }, 360);
             } else {
                 // 非 banner 模式，直接触发淡入
                 document.documentElement.classList.remove('is-loading');
                 document.documentElement.classList.add('show-initial-animation');
                 setTimeout(() => {
                     document.documentElement.classList.remove('show-initial-animation');
-                }, 1200);
+                }, 700);
             }
-        }, 600);
+        }, revealDelay);
     };
 
     const configCarrier = document.getElementById('config-carrier');

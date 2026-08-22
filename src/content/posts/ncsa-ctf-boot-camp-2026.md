@@ -13,7 +13,7 @@ tags:
   - Career Guidance
 lang: th
 pinned: true
-author: Synapse
+author: Syna4pseOps
 sourceLink: https://www.msu.ac.th/th/%e0%b8%a3%e0%b8%b2%e0%b8%a2%e0%b8%a5%e0%b8%b0%e0%b9%80%e0%b8%ad%e0%b8%b5%e0%b8%a2%e0%b8%94%e0%b8%82%e0%b9%88%e0%b8%b2%e0%b8%a7/?hid=13056
 licenseName: Event Reference Links
 licenseUrl: https://www.msu.ac.th/th/%e0%b8%a3%e0%b8%b2%e0%b8%a2%e0%b8%a5%e0%b8%b0%e0%b9%80%e0%b8%ad%e0%b8%b5%e0%b8%a2%e0%b8%94%e0%b8%82%e0%b9%88%e0%b8%b2%e0%b8%a7/?hid=13056
@@ -33,17 +33,17 @@ draft: false
 กิจกรรมนี้เป็นอีกหนึ่งหมุดหมายที่น่าสนใจของเส้นทางด้าน Cybersecurity เพราะไม่ได้มีแค่บรรยากาศของค่ายหรือการฝึกแบบ CTF เท่านั้น แต่ยังมีส่วนของการแนะแนวอาชีพด้านความมั่นคงปลอดภัยไซเบอร์อย่างชัดเจน เหมาะกับทั้งนักเรียนระดับมัธยมศึกษาและนักศึกษาระดับอุดมศึกษาที่กำลังมองหาทิศทางในสายนี้
 
 <div class="event-note">
-  <strong>ภาพรวมของกิจกรรม</strong>
+  <h2>ภาพรวมของกิจกรรม</h2>
   <p>NCSA CTF Boot Camp 2026 ถูกออกแบบมาในลักษณะของกิจกรรมที่ช่วยเปิดมุมมองให้ผู้เข้าร่วมได้เห็นทั้งโลกของการแข่งขันเชิงเทคนิคและภาพรวมของสายอาชีพ Cybersecurity ไปพร้อมกัน ทำให้กิจกรรมนี้มีความหมายมากกว่าการเข้าร่วมอบรมทั่วไป เพราะเป็นทั้งพื้นที่เรียนรู้และพื้นที่สร้างแรงบันดาลใจ</p>
 </div>
 
 <div class="event-note">
-  <strong>วัตถุประสงค์ของโครงการ</strong>
+  <h2>วัตถุประสงค์ของโครงการ</h2>
   <p>เพื่อสร้างความตระหนักรู้ทางด้านความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity Awareness) พร้อมการแนะแนวเส้นทางอาชีพด้านความมั่นคงปลอดภัยไซเบอร์ให้กับกลุ่มเป้าหมายในระดับมัธยมศึกษา และระดับอุดมศึกษา เพื่อเป็นการผลักดันให้ประเทศไทยผลิตบุคลากรทางไซเบอร์อย่างเพียงพอสอดรับกับความต้องการของประเทศ</p>
 </div>
 
 <div class="event-note">
-  <strong>ทำไมกิจกรรมนี้ถึงน่าสนใจ</strong>
+  <h2>ทำไมกิจกรรมนี้ถึงน่าสนใจ</h2>
   <ul>
     <li>เชื่อมโลกของการแข่งขัน CTF กับเส้นทางอาชีพจริง</li>
     <li>ช่วยสร้าง Cybersecurity Awareness ให้กับผู้เรียนตั้งแต่ช่วงต้น</li>
@@ -53,7 +53,7 @@ draft: false
 </div>
 
 <div class="event-note">
-  <strong>อ้างอิงและข่าวประชาสัมพันธ์</strong>
+  <h2>อ้างอิงและข่าวประชาสัมพันธ์</h2>
 </div>
 
 <div class="event-link-grid">
@@ -77,7 +77,7 @@ draft: false
     padding: 0.8rem 0.9rem;
     border-radius: 0;
     border: 1px solid rgba(216, 212, 202, 0.12);
-    background: #0a0a09;
+    background: #060606;
   }
 
   .event-kicker-title {
@@ -106,7 +106,7 @@ draft: false
     height: auto;
     border-radius: 0;
     border: 1px solid rgba(216, 212, 202, 0.12);
-    background: #0a0a09;
+    background: #060606;
     box-shadow: none;
   }
 
@@ -118,11 +118,14 @@ draft: false
     background: rgba(216, 212, 202, 0.025);
   }
 
-  .event-note strong {
+  .event-note h2 {
     display: block;
-    margin-bottom: 0.45rem;
+    margin: 0 0 0.45rem;
+    padding: 0;
+    border: 0;
     color: rgba(216, 212, 202, 0.9);
     font-size: 0.92rem;
+    font-weight: 600;
   }
 
   .event-note p,
@@ -152,14 +155,14 @@ draft: false
     padding: 0.85rem 0.95rem;
     border-radius: 0;
     border: 1px solid rgba(216, 212, 202, 0.12);
-    background: #0a0a09;
+    background: #060606;
     text-decoration: none;
     transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
   }
 
   .event-link-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(154, 69, 82, 0.58);
+    border-color: rgba(112, 33, 49, 0.82);
     background: rgba(216, 212, 202, 0.035);
   }
 

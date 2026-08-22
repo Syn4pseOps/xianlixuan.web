@@ -4,6 +4,7 @@ import { onMount } from "svelte";
 import {
     getDefaultLanguage,
     getSiteLanguage,
+    getStoredLanguage,
     getTranslateLanguageFromConfig,
     setStoredLanguage,
 } from "@/utils/language";
@@ -23,10 +24,18 @@ const thaiCode = languages.find((lang) => lang.name === "TH")?.code || "thai";
 let currentLanguage = $state(fallbackLanguage);
 
 function syncCurrentLanguage() {
+    const pageLanguage = document.getElementById("swup-container")?.getAttribute("data-page-lang");
+    if (!getStoredLanguage() && (pageLanguage === "en" || pageLanguage === "th")) {
+        currentLanguage = pageLanguage === "th" ? thaiCode : englishCode;
+        document.documentElement.lang = pageLanguage;
+        return;
+    }
+
     const storedLanguage = getSiteLanguage();
     currentLanguage = languages.some((lang) => lang.code === storedLanguage)
         ? storedLanguage
         : fallbackLanguage;
+    document.documentElement.lang = currentLanguage === thaiCode ? "th" : "en";
 }
 
 async function changeLanguage(languageCode: string) {
@@ -55,6 +64,7 @@ async function changeLanguage(languageCode: string) {
 
     setStoredLanguage(languageCode);
     currentLanguage = languageCode;
+    document.documentElement.lang = languageCode === thaiCode ? "th" : "en";
     window.dispatchEvent(new CustomEvent("twilight:language-changed", {
         detail: { languageCode }
     }));
@@ -62,6 +72,11 @@ async function changeLanguage(languageCode: string) {
 
 onMount(() => {
     syncCurrentLanguage();
+    document.addEventListener("astro:after-swap", syncCurrentLanguage);
+
+    return () => {
+        document.removeEventListener("astro:after-swap", syncCurrentLanguage);
+    };
 });
 </script>
 

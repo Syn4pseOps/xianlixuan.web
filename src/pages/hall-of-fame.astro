@@ -186,9 +186,9 @@ const yearGroups = Object.entries(
 
     .hof-year h2 {
         margin: 0 0 0.9rem;
-        color: rgba(216, 212, 202, 0.42);
+        color: rgba(216, 212, 202, 0.56);
         font-family: var(--font-mono);
-        font-size: 0.68rem;
+        font-size: 0.74rem;
         font-weight: 500;
         text-align: center;
     }
@@ -202,12 +202,12 @@ const yearGroups = Object.entries(
     .hof-card {
         min-width: 0;
         border: 1px solid rgba(216, 212, 202, 0.12);
-        background: #0a0a09;
+        background: #060606;
         transition: border-color 180ms ease, transform 180ms ease;
     }
 
     .hof-card:hover {
-        border-color: rgba(154, 69, 82, 0.55);
+        border-color: rgba(112, 33, 49, 0.82);
         transform: translateY(-2px);
     }
 
@@ -216,7 +216,7 @@ const yearGroups = Object.entries(
         aspect-ratio: 4 / 3;
         overflow: hidden;
         border-bottom: 1px solid rgba(216, 212, 202, 0.1);
-        background: #0d0d0c;
+        background: #080808;
     }
 
     .hof-preview img {
@@ -242,9 +242,9 @@ const yearGroups = Object.entries(
         align-items: center;
         justify-content: space-between;
         gap: 0.5rem;
-        color: #9a4552;
+        color: var(--accent-strong, #702131);
         font-family: var(--font-mono);
-        font-size: 0.58rem;
+        font-size: 0.76rem;
         text-transform: uppercase;
     }
 
@@ -270,9 +270,9 @@ const yearGroups = Object.entries(
     }
 
     .hof-issuer {
-        color: rgba(216, 212, 202, 0.42);
+        color: rgba(216, 212, 202, 0.54);
         font-family: var(--font-mono);
-        font-size: 0.61rem;
+        font-size: 0.76rem;
     }
 
     .hof-official {
@@ -281,7 +281,7 @@ const yearGroups = Object.entries(
     }
 
     .hof-description {
-        color: rgba(216, 212, 202, 0.46);
+        color: rgba(216, 212, 202, 0.58);
         font-size: 0.84rem;
     }
 
@@ -289,9 +289,9 @@ const yearGroups = Object.entries(
         margin: 0.85rem 0 0;
         padding: 0;
         list-style: none;
-        color: rgba(216, 212, 202, 0.38);
+        color: rgba(216, 212, 202, 0.5);
         font-family: var(--font-mono);
-        font-size: 0.58rem;
+        font-size: 0.74rem;
     }
 
     .hof-proof li + li {
@@ -301,7 +301,7 @@ const yearGroups = Object.entries(
     .hof-proof li::before {
         content: "·";
         margin-right: 0.4rem;
-        color: #792f3a;
+        color: var(--accent-strong, #702131);
     }
 
     .hof-open {
@@ -309,7 +309,7 @@ const yearGroups = Object.entries(
         margin-top: 1rem;
         color: rgba(216, 212, 202, 0.58);
         font-family: var(--font-mono);
-        font-size: 0.62rem;
+        font-size: 0.76rem;
         text-decoration: none;
         text-transform: uppercase;
     }
@@ -334,7 +334,25 @@ const yearGroups = Object.entries(
         }
 
         .hof-preview {
-            aspect-ratio: 16 / 10;
+            aspect-ratio: 16 / 9;
+        }
+
+        .hof-card-body {
+            padding: 0.85rem;
+        }
+
+        .hof-card h3 {
+            margin-top: 0.65rem;
+            font-size: 1.06rem;
+        }
+
+        .hof-description,
+        .hof-proof {
+            display: none;
+        }
+
+        .hof-open {
+            margin-top: 0.75rem;
         }
     }
 </style>

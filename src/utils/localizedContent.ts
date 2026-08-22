@@ -22,6 +22,11 @@ export function resolveLocalizedContentLanguage(languageCode?: string | null): L
     }
 
     if (typeof document !== "undefined") {
+        const pageLanguage = normalizeLanguageCode(
+            document.getElementById("swup-container")?.getAttribute("data-page-lang"),
+        );
+        if (pageLanguage) return pageLanguage;
+
         const switchLanguage = normalizeLanguageCode(
             document.querySelector(".lang-switch-shell")?.getAttribute("data-active"),
         );
@@ -77,6 +82,7 @@ export function updateLocalizedContent(languageCode?: string | null) {
     if (typeof document === "undefined") return;
 
     const activeLanguage = resolveLocalizedContentLanguage(languageCode);
+    document.documentElement.lang = activeLanguage;
 
     if (document.querySelector("[data-intro-lang]")) {
         toggleLocalizedBlocks("[data-intro-lang]", "data-intro-lang", activeLanguage);

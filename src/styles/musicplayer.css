@@ -1,1136 +1,298 @@
-@reference "tailwindcss";
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-}
-
-.animate-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes slide-up {
-    from {
-        translate: 0 100%;
-        opacity: 0;
-    }
-    to {
-        translate: 0 0;
-        opacity: 1;
-    }
-}
-
-.animate-slide-up {
-    animation: slide-up 0.3s ease-out;
-}
-
-@keyframes rotate {
-    from {
-        rotate: 0deg;
-    }
-    to {
-        rotate: 360deg;
-    }
-}
-
-@keyframes musicWave {
-    0%, 100% {
-        scale: 1 0.5;
-    }
-    50% {
-        scale: 1 1;
-    }
-}
-
-@keyframes spin-continuous {
-    from {
-        rotate: 0deg;
-    }
-    to {
-        rotate: 360deg;
-    }
-}
-
-.cover-container img {
-    animation: spin-continuous 3s linear infinite;
-    animation-play-state: paused;
-}
-
-.cover-container img.spinning {
-    animation-play-state: running;
-}
-
-.music-player {
-    max-width: 332px;
+.music-deck {
+    position: fixed;
+    right: 0.9rem;
+    bottom: 0.9rem;
+    z-index: 9000;
+    color: rgba(216, 212, 202, 0.72);
+    font-family: var(--font-mono);
     user-select: none;
-    isolation: isolate;
 }
 
-.music-player .orb-player {
+.deck-shell {
     position: relative;
-    width: 3.7rem;
-    height: 3.7rem;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.55rem;
 }
 
-.music-player .orb-player::before {
-    content: "";
+.deck-panel {
     position: absolute;
-    inset: 0.2rem;
-    border-radius: 999px;
-    background:
-        radial-gradient(circle, rgba(20, 16, 36, 0.92) 0%, rgba(11, 9, 23, 0.3) 62%, transparent 74%);
+    right: 0;
+    bottom: calc(100% + 0.55rem);
+    box-sizing: border-box;
+    width: 11.625rem;
+    padding: 0.7rem 0.85rem 0.62rem;
+    border: 1px solid rgba(216, 212, 202, 0.14);
+    background: #070708;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(6px) scale(0.92);
+    transform-origin: bottom right;
+    transition:
+        transform 260ms cubic-bezier(0.2, 1.2, 0.3, 1),
+        opacity 180ms ease,
+        visibility 0s linear 260ms,
+        border-color 180ms ease;
+}
+
+.music-deck.is-expanded .deck-panel {
     opacity: 1;
-    z-index: -1;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition:
+        transform 300ms cubic-bezier(0.2, 1.2, 0.3, 1),
+        opacity 200ms ease,
+        visibility 0s,
+        border-color 180ms ease;
 }
 
-.music-player .orb-player:hover::before {
-    opacity: 1;
-    transform: scale(1.03);
+.music-deck.is-playing .deck-panel {
+    border-color: rgba(112, 33, 49, 0.56);
 }
 
-.orb-record {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 999px;
-    background:
-        radial-gradient(circle at center, rgba(7, 6, 16, 1) 0 10%, rgba(16, 12, 28, 1) 10% 20%, rgba(9, 8, 19, 1) 20% 100%);
-    box-shadow:
-        0 14px 28px rgba(4, 3, 14, 0.4),
-        inset 0 0 0 1px rgba(103, 76, 170, 0.2);
-    overflow: hidden;
-    animation: spin-continuous 6.5s linear infinite;
-    animation-play-state: paused;
-}
-
-.orb-record.spinning {
-    animation-play-state: running;
-}
-
-.orb-record::before {
-    content: "";
-    position: absolute;
-    inset: 0.18rem;
-    border-radius: 999px;
-    background:
-        repeating-radial-gradient(
-            circle,
-            rgba(8, 7, 18, 1) 0 0.22rem,
-            rgba(73, 52, 14, 0.48) 0.22rem 0.24rem,
-            rgba(8, 7, 18, 1) 0.24rem 0.4rem
-        );
-    box-shadow:
-        inset 0 0 0 1px rgba(144, 112, 218, 0.18),
-        0 0 14px rgba(0, 0, 0, 0.2);
-}
-
-.orb-record-art {
-    position: absolute;
-    top: 29%;
-    left: 29%;
-    width: 42%;
-    height: 42%;
-    border-radius: 999px;
-    object-fit: cover;
-    z-index: 2;
-    box-shadow:
-        0 0 0 3px rgba(252, 182, 76, 0.78),
-        0 0 12px rgba(252, 182, 76, 0.18);
-}
-
-.orb-record-hole {
-    position: absolute;
-    top: calc(50% - 0.24rem);
-    left: calc(50% - 0.24rem);
-    width: 0.48rem;
-    height: 0.48rem;
-    border-radius: 999px;
-    background: rgba(39, 28, 10, 0.95);
-    box-shadow: 0 0 0 1px rgba(245, 200, 109, 0.26);
-    z-index: 3;
-}
-
-.orb-loader {
-    position: absolute;
-    inset: auto;
-    display: inline-flex;
+.deck-now {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 999px;
-    background: rgba(20, 16, 36, 0.9);
-    color: #f4eeff;
-    box-shadow:
-        0 6px 12px rgba(5, 4, 16, 0.3),
-        inset 0 0 0 1px rgba(180, 153, 255, 0.2);
-    z-index: 4;
-}
-
-.orb-loader svg {
-    animation: spin-continuous 1s linear infinite;
-}
-
-.expanded-player {
-    width: 332px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.music-player.expanded .expanded-player {
-    position: relative;
-}
-
-.music-player.expanded .orb-player {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.retro-player {
-    border: 1px solid rgba(117, 90, 205, 0.78);
-    border-radius: 0.88rem;
-    background:
-        linear-gradient(180deg, rgba(25, 19, 48, 0.985) 0%, rgba(13, 11, 28, 0.985) 100%);
-    box-shadow:
-        0 18px 38px rgba(3, 2, 13, 0.5),
-        inset 0 0 0 1px rgba(210, 191, 255, 0.06),
-        0 0 0 1px rgba(84, 58, 146, 0.35);
-    overflow: hidden;
-}
-
-.retro-player::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-        linear-gradient(180deg, rgba(214, 198, 255, 0.08), transparent 18%),
-        radial-gradient(circle at 22% 16%, rgba(168, 121, 255, 0.12), transparent 22%);
-    opacity: 1;
-}
-
-.retro-player::after {
-    content: "";
-    position: absolute;
-    inset: 0.38rem;
-    border-radius: 0.58rem;
-    border: 1px solid rgba(71, 52, 124, 0.45);
-    pointer-events: none;
-    box-shadow: inset 0 -10px 0 rgba(8, 7, 18, 0.22);
-}
-
-.retro-player-top {
-    position: relative;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.8rem;
-    padding-bottom: 0.48rem;
-    border-bottom: 1px solid rgba(114, 85, 196, 0.24);
-}
-
-.retro-cover {
-    width: 3rem;
-    height: 3rem;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-}
-
-.retro-cover::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 999px;
-    background:
-        repeating-radial-gradient(
-            circle,
-            rgba(8, 7, 18, 1) 0 0.26rem,
-            rgba(106, 79, 23, 0.42) 0.26rem 0.28rem,
-            rgba(8, 7, 18, 1) 0.28rem 0.44rem
-        );
-    box-shadow:
-        0 0 0 1px rgba(135, 103, 212, 0.48),
-        0 0 0 3px rgba(23, 18, 42, 0.95),
-        0 10px 22px rgba(4, 3, 14, 0.4);
-}
-
-.retro-cover::after {
-    content: "";
-    position: absolute;
-    top: calc(50% - 0.28rem);
-    left: calc(50% - 0.28rem);
-    width: 0.56rem;
-    height: 0.56rem;
-    border-radius: 999px;
-    background: rgba(35, 25, 10, 0.96);
-    box-shadow:
-        0 0 0 1px rgba(240, 201, 112, 0.24),
-        0 0 0 3px rgba(10, 9, 20, 0.72);
-    z-index: 3;
-}
-
-.retro-cover img {
-    position: absolute;
-    top: 27%;
-    left: 27%;
-    width: 46% !important;
-    height: 46% !important;
-    border-radius: 999px;
-    object-fit: cover;
-    z-index: 2;
-    box-shadow:
-        0 0 0 3px rgba(250, 187, 86, 0.78),
-        0 0 12px rgba(250, 187, 86, 0.18);
-    filter: saturate(1.08) contrast(1.04);
-}
-
-.retro-meta {
+    gap: 0.6rem;
     min-width: 0;
 }
 
-.retro-meta-button {
+.deck-track {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.12rem;
+    text-transform: uppercase;
+}
+
+.deck-title,
+.deck-artist {
     display: block;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    text-align: left;
-}
-
-.retro-meta-button:focus-visible {
-    outline: none;
-}
-
-.retro-meta-button:hover .retro-song-title,
-.retro-meta-button:focus-visible .retro-song-title {
-    color: #fff8ff;
-}
-
-.retro-heading,
-.retro-play-label,
-.retro-track-number,
-.retro-track-title {
-    font-family: "Press Start 2P", var(--font-mono), monospace;
-    letter-spacing: 0.04em;
-}
-
-.retro-song-title {
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #f4efff;
-    letter-spacing: 0;
-    text-shadow: 0 0 10px rgba(195, 177, 255, 0.12);
-    white-space: normal !important;
     overflow: hidden;
-    text-overflow: clip !important;
-}
-
-.retro-meta .retro-song-title {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.retro-song-artist,
-.retro-song-timing {
-    color: rgba(218, 207, 255, 0.7);
-}
-
-.retro-song-artist {
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    line-height: 1.2;
-    letter-spacing: 0;
-    white-space: normal !important;
-    text-overflow: clip !important;
-}
-
-.retro-song-timing {
-    display: none;
-}
-
-.retro-top-actions {
-    align-self: flex-start;
-    margin-left: auto;
-}
-
-.retro-chip-button {
-    border: 1px solid rgba(124, 92, 211, 0.4);
-    background:
-        linear-gradient(180deg, rgba(32, 24, 58, 0.98) 0%, rgba(20, 16, 38, 0.98) 100%);
-    color: rgba(224, 214, 255, 0.86);
-    box-shadow:
-        inset 0 0 0 1px rgba(207, 190, 255, 0.04),
-        0 8px 18px rgba(6, 5, 18, 0.26);
-}
-
-.retro-chip-button,
-.retro-mini-button,
-.retro-play-button {
-    position: relative;
-    overflow: hidden;
-}
-
-.retro-chip-button::before,
-.retro-mini-button::before,
-.retro-play-button::before {
-    content: "";
-    position: absolute;
-    inset: 0.15rem 0.18rem auto;
-    height: 0.32rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    pointer-events: none;
-}
-
-.retro-chip-button::after,
-.retro-mini-button::after,
-.retro-play-button::after {
-    content: "";
-    position: absolute;
-    left: 0.28rem;
-    right: 0.28rem;
-    bottom: 0.2rem;
-    height: 0.16rem;
-    border-radius: 999px;
-    background: rgba(92, 67, 167, 0.65);
-    pointer-events: none;
-}
-
-.retro-chip-button:hover {
-    color: #f4eeff;
-    border-color: rgba(170, 138, 255, 0.55);
-}
-
-.retro-close-button {
-    border-color: transparent;
-    background: transparent;
-    box-shadow: none;
-    color: rgba(218, 207, 255, 0.72);
-}
-
-.retro-close-button::before,
-.retro-close-button::after {
-    display: none;
-}
-
-.retro-progress-section {
-    margin-bottom: 0.55rem;
-}
-
-.retro-progress-bar,
-.retro-volume-bar {
-    position: relative;
-    height: 0.48rem;
-    border: 1px solid rgba(87, 65, 152, 0.62);
-    border-radius: 0.18rem;
-    background: rgba(8, 8, 18, 0.98);
-    box-shadow:
-        inset 0 1px 4px rgba(0, 0, 0, 0.62),
-        inset 0 0 0 1px rgba(51, 41, 82, 0.34);
-}
-
-.retro-progress-fill,
-.retro-volume-fill {
-    background:
-        linear-gradient(90deg, rgba(203, 171, 255, 0.96), rgba(149, 118, 235, 0.98));
-    box-shadow:
-        0 0 12px rgba(168, 133, 255, 0.32),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.retro-controls {
-    justify-content: space-between;
-    gap: 0.38rem;
-    margin-bottom: 0;
-}
-
-.retro-mini-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 1.95rem;
-    border: 1px solid rgba(109, 80, 194, 0.56);
-    border-radius: 0.58rem;
-    background:
-        linear-gradient(180deg, rgba(31, 24, 56, 0.98) 0%, rgba(18, 15, 34, 0.98) 100%);
-    color: rgba(223, 211, 255, 0.88);
-    box-shadow:
-        inset 0 0 0 1px rgba(207, 190, 255, 0.04),
-        0 8px 18px rgba(8, 7, 22, 0.25);
-}
-
-.retro-mini-button:hover {
-    color: #f6f1ff;
-    border-color: rgba(176, 147, 255, 0.58);
-}
-
-.retro-play-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-    min-width: 0;
-    height: 2.1rem;
-    padding-inline: 0.85rem;
-    border: 2px solid rgba(177, 151, 255, 0.9);
-    border-radius: 0.68rem;
-    background:
-        linear-gradient(180deg, rgba(188, 166, 255, 0.96) 0%, rgba(149, 118, 235, 0.98) 100%);
-    color: #fbf8ff;
-    box-shadow:
-        inset 0 0 0 2px rgba(73, 49, 126, 0.58),
-        0 12px 24px rgba(20, 11, 40, 0.34);
-}
-
-.retro-play-button:hover {
-    filter: brightness(1.04);
-}
-
-.retro-play-inner {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 0.22rem;
-}
-
-.retro-play-icon {
-    color: rgba(255, 250, 255, 0.92);
-    font-size: 0.82rem;
-}
-
-.retro-play-label {
-    font-size: 0.62rem;
-    line-height: 1;
-}
-
-.playlist-panel {
-    border: 1px solid rgba(107, 78, 191, 0.38);
-}
-
-.retro-flyout {
-    border-radius: 1rem;
-    background:
-        linear-gradient(180deg, rgba(18, 14, 34, 0.98) 0%, rgba(13, 11, 26, 0.98) 100%);
-    box-shadow:
-        0 12px 28px rgba(4, 4, 14, 0.4),
-        inset 0 0 0 1px rgba(192, 172, 255, 0.04);
-}
-
-.retro-flyout-header {
-    border-bottom-color: rgba(112, 82, 194, 0.34);
-}
-
-.retro-heading {
-    font-size: 0.68rem;
-    color: rgba(234, 226, 255, 0.92);
-}
-
-.retro-flyout-item {
-    border-bottom: 1px solid rgba(80, 61, 138, 0.22);
-}
-
-.retro-flyout-thumb {
-    border: 1px solid rgba(104, 78, 177, 0.35);
-}
-
-.playlist-content {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(125, 93, 211, 0.65) transparent;
-}
-
-.playlist-content::-webkit-scrollbar,
-.lyrics-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-.playlist-content::-webkit-scrollbar-track,
-.lyrics-container::-webkit-scrollbar-track {
-    background: rgba(10, 9, 19, 0.88);
-    border-left: 1px solid rgba(90, 67, 156, 0.26);
-}
-
-.playlist-content::-webkit-scrollbar-thumb,
-.lyrics-container::-webkit-scrollbar-thumb {
-    border-radius: 0.45rem;
-    border: 2px solid rgba(15, 13, 28, 0.94);
-    background: rgba(124, 118, 137, 0.78);
-}
-
-.retro-lyrics-section {
-    border-top: 1px solid rgba(98, 73, 171, 0.26);
-    border-bottom: 1px solid rgba(98, 73, 171, 0.26);
-    padding-top: 0.5rem;
-    padding-bottom: 0.35rem;
-}
-
-.retro-lyrics-container {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(125, 93, 211, 0.65) transparent;
-}
-
-.retro-lyric-line {
-    color: rgba(210, 200, 240, 0.62);
-}
-
-.retro-lyric-line.retro-lyric-line-active,
-.retro-lyric-line.text-\(--primary\) {
-    color: #b79eff;
-    text-shadow: 0 0 10px rgba(183, 158, 255, 0.18);
-}
-
-.retro-bottom-controls {
-    display: none;
-}
-
-.retro-detail-panel {
-    border-top: 1px solid rgba(104, 78, 177, 0.28);
-    padding-top: 0.72rem;
-}
-
-.retro-detail-header {
-    display: none;
-}
-
-.retro-detail-title {
-    font-size: 0.66rem;
-    color: rgba(234, 226, 255, 0.94);
-}
-
-.retro-detail-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.55rem;
-    height: 1.25rem;
-    padding-inline: 0.45rem;
-    border: 1px solid rgba(112, 82, 194, 0.34);
-    border-radius: 999px;
-    background: rgba(22, 18, 38, 0.92);
-    color: rgba(218, 207, 255, 0.78);
-    font-size: 0.56rem;
-}
-
-.retro-queue-list {
-    padding: 0.16rem;
-    border: 1px solid rgba(88, 65, 152, 0.42);
-    border-radius: 0.42rem;
-    background:
-        linear-gradient(180deg, rgba(12, 10, 24, 0.94) 0%, rgba(10, 9, 20, 0.97) 100%);
-    box-shadow: inset 0 0 0 1px rgba(199, 181, 255, 0.03);
-}
-
-.retro-queue-item {
-    position: relative;
-    align-items: center;
-    margin: 0.12rem;
-    padding: 0.56rem 1.75rem 0.56rem 0.58rem;
-    border: 1px solid rgba(82, 61, 138, 0.54);
-    border-radius: 0.28rem;
-    background:
-        linear-gradient(180deg, rgba(22, 18, 39, 0.96) 0%, rgba(15, 13, 30, 0.96) 100%);
-}
-
-.retro-queue-item:last-child {
-    border-bottom: 1px solid rgba(82, 61, 138, 0.54);
-}
-
-.retro-queue-item::after {
-    content: ">";
-    position: absolute;
-    top: 50%;
-    right: 0.82rem;
-    transform: translateY(-50%);
-    color: rgba(205, 192, 245, 0.48);
-    font-family: "Press Start 2P", var(--font-mono), monospace;
-    font-size: 0.54rem;
-}
-
-.retro-queue-item:hover,
-.retro-queue-item:focus-visible {
-    background: rgba(31, 25, 56, 0.98);
-    border-color: rgba(130, 101, 214, 0.74);
-    outline: none;
-}
-
-.retro-queue-item-active {
-    background:
-        linear-gradient(180deg, rgba(36, 30, 62, 0.98) 0%, rgba(25, 21, 44, 0.98) 100%);
-    border-color: rgba(166, 134, 255, 0.78);
-    box-shadow: 0 0 0 1px rgba(102, 75, 183, 0.28);
-}
-
-.retro-queue-thumb {
-    display: none;
-}
-
-.retro-queue-status {
-    width: 1.6rem;
-    color: rgba(221, 211, 255, 0.72);
-}
-
-.retro-track-meta {
-    min-width: 0;
-}
-
-.retro-track-meta > .text-sm,
-.retro-track-duration {
-    display: none;
-}
-
-.retro-track-title {
-    font-size: 0.58rem;
-    line-height: 1.28;
-    color: #f0ebff;
-    text-transform: uppercase;
-}
-
-.retro-detail-panel .retro-track-meta > div:nth-child(2) {
-    display: none;
-}
-
-.retro-detail-panel .retro-track-duration,
-.retro-detail-panel .retro-track-chevron {
-    display: none;
-}
-
-.retro-track-number {
-    font-size: 0.58rem;
-    color: rgba(227, 218, 255, 0.72);
-}
-
-.retro-empty-state {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 4rem;
-    border: 1px dashed rgba(108, 79, 190, 0.34);
-    border-radius: 0.72rem;
-    color: rgba(214, 204, 248, 0.62);
-    background: rgba(14, 12, 28, 0.76);
-    text-align: center;
-    padding: 0.85rem;
-}
-
-.progress-section div:hover,
-.bottom-controls > div:hover {
-    scale: 1 1.08;
-    transition: transform 0.2s ease;
-}
-
-@media (hover: none) and (pointer: coarse) {
-    .music-player button,
-    .playlist-item {
-        min-height: 44px;
-    }
-
-    .progress-section > div,
-    .bottom-controls > div:nth-child(2) {
-        height: 12px;
-    }
-}
-
-@media (max-width: 768px) {
-    .music-player {
-        max-width: 320px;
-        bottom: 8px !important;
-        right: 8px !important;
-    }
-
-    .music-player.expanded {
-        width: calc(100vw - 16px);
-        max-width: 344px;
-        right: 8px !important;
-    }
-
-    .expanded-player {
-        width: min(calc(100vw - 16px), 344px) !important;
-    }
-
-    .playlist-panel {
-        width: min(calc(100vw - 16px), 320px) !important;
-        max-width: none;
-    }
-
-    .retro-song-title {
-        font-size: 0.7rem;
-    }
-}
-
-/* Compact retro override inspired by the reference player */
-.music-player {
-    max-width: 318px;
-}
-
-.music-player .orb-player {
-    width: 3.2rem;
-    height: 3.2rem;
-}
-
-.orb-record {
-    box-shadow:
-        0 12px 24px rgba(4, 3, 14, 0.34),
-        inset 0 0 0 1px rgba(74, 57, 117, 0.24);
-}
-
-.orb-record::before {
-    box-shadow:
-        inset 0 0 0 1px rgba(101, 83, 146, 0.14),
-        0 0 8px rgba(0, 0, 0, 0.18);
-}
-
-.orb-record-art {
-    box-shadow:
-        0 0 0 2px rgba(247, 180, 82, 0.74),
-        0 0 8px rgba(252, 182, 76, 0.14);
-}
-
-.expanded-player {
-    width: 318px;
-}
-
-.music-player .expanded-player.retro-player {
-    padding: 0.72rem 0.72rem 0.76rem !important;
-    border: 1px solid rgba(89, 68, 150, 0.72);
-    border-radius: 0.82rem !important;
-    background: linear-gradient(180deg, rgba(24, 18, 44, 0.985) 0%, rgba(12, 10, 24, 0.992) 100%);
-    box-shadow:
-        0 16px 32px rgba(3, 2, 13, 0.42),
-        inset 0 0 0 1px rgba(156, 135, 214, 0.04),
-        0 0 0 1px rgba(63, 46, 103, 0.4);
-}
-
-.music-player .expanded-player.retro-player::before {
-    background:
-        linear-gradient(180deg, rgba(178, 159, 229, 0.06), transparent 16%),
-        radial-gradient(circle at 22% 16%, rgba(124, 98, 188, 0.1), transparent 20%);
-}
-
-.music-player .expanded-player.retro-player::after {
-    inset: 0.34rem;
-    border-radius: 0.5rem;
-    border-color: rgba(62, 46, 103, 0.56);
-    box-shadow: inset 0 -8px 0 rgba(8, 7, 18, 0.24);
-}
-
-.music-player .retro-player-top {
-    display: flex;
-    align-items: center;
-    gap: 0.68rem;
-    margin-bottom: 0.62rem !important;
-    padding-bottom: 0.52rem;
-    border-bottom: 1px solid rgba(76, 59, 128, 0.42);
-}
-
-.music-player .retro-cover {
-    width: 2.55rem !important;
-    height: 2.55rem !important;
-}
-
-.music-player .retro-cover::before {
-    box-shadow:
-        0 0 0 1px rgba(107, 83, 166, 0.44),
-        0 0 0 3px rgba(23, 18, 42, 0.95),
-        0 8px 18px rgba(4, 3, 14, 0.34);
-}
-
-.music-player .retro-cover img {
-    box-shadow:
-        0 0 0 2px rgba(246, 182, 82, 0.76),
-        0 0 8px rgba(250, 187, 86, 0.15);
-}
-
-.music-player .retro-meta-button {
-    min-width: 0;
-}
-
-.music-player .retro-song-title {
-    font-family: "Press Start 2P", var(--font-mono), monospace !important;
-    font-size: 0.57rem !important;
-    font-weight: 400 !important;
-    line-height: 1.45 !important;
-    text-transform: uppercase;
-    text-shadow: 0 0 6px rgba(195, 177, 255, 0.1);
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: ellipsis !important;
-}
-
-.music-player .retro-meta .retro-song-title {
-    display: block !important;
-    -webkit-line-clamp: unset;
-    -webkit-box-orient: initial;
-}
-
-.music-player .retro-song-artist {
-    margin-top: 0.28rem;
-    font-size: 0.72rem !important;
-    line-height: 1.15 !important;
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: ellipsis !important;
-}
-
-.music-player .retro-top-actions {
-    display: flex;
-    align-items: flex-start;
-}
-
-.music-player .retro-close-button {
-    width: 1.5rem !important;
-    height: 1.5rem !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.music-player .retro-progress-section {
-    margin-bottom: 0.42rem !important;
-}
-
-.music-player .retro-progress-bar,
-.music-player .retro-volume-bar {
-    width: 100%;
-    height: 0.38rem !important;
-    border: 1px solid rgba(63, 47, 108, 0.78);
-    border-radius: 0.12rem !important;
-    background: rgba(8, 8, 18, 0.98);
-    box-shadow:
-        inset 0 1px 4px rgba(0, 0, 0, 0.62),
-        inset 0 0 0 1px rgba(38, 30, 61, 0.4);
-}
-
-.music-player .retro-progress-fill,
-.music-player .retro-volume-fill {
-    border-radius: 0.1rem;
-    background: linear-gradient(90deg, rgba(183, 156, 239, 0.96), rgba(128, 100, 210, 0.98));
-    box-shadow:
-        0 0 8px rgba(143, 112, 216, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.14);
-}
-
-.music-player .retro-controls {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
-    align-items: end;
-    gap: 0.28rem !important;
-}
-
-.music-player .retro-mini-button {
-    width: 1.45rem !important;
-    height: 1.28rem !important;
-    border: 0;
-    border-radius: 0.36rem !important;
-    background: linear-gradient(180deg, rgba(29, 23, 51, 0.98) 0%, rgba(16, 14, 29, 0.98) 100%);
-    box-shadow:
-        inset 0 0 0 1px rgba(130, 109, 180, 0.18),
-        0 5px 12px rgba(8, 7, 22, 0.18);
-}
-
-.music-player .retro-mini-button:hover {
-    border-color: transparent;
-    filter: brightness(1.04);
-}
-
-.music-player .retro-mini-button::before,
-.music-player .retro-play-button::before {
-    inset: 0.12rem 0.16rem auto;
-    height: 0.22rem;
-}
-
-.music-player .retro-mini-button::after,
-.music-player .retro-play-button::after {
-    left: 0.22rem;
-    right: 0.22rem;
-    bottom: 0.14rem;
-    height: 0.12rem;
-    background: rgba(80, 61, 138, 0.7);
-}
-
-.music-player .retro-mini-button svg {
-    font-size: 0.9rem !important;
-}
-
-.music-player .retro-play-button {
-    height: 1.92rem !important;
-    padding-inline: 0.78rem !important;
-    border: 1px solid rgba(158, 136, 219, 0.9);
-    border-radius: 0.56rem !important;
-    background: linear-gradient(180deg, rgba(181, 160, 243, 0.96) 0%, rgba(143, 114, 226, 0.98) 100%);
-    box-shadow:
-        inset 0 0 0 1px rgba(88, 63, 145, 0.72),
-        0 8px 18px rgba(20, 11, 40, 0.22);
-}
-
-.music-player .retro-play-inner {
-    gap: 0.16rem;
-}
-
-.music-player .retro-play-icon {
-    font-size: 0.7rem !important;
-}
-
-.music-player .retro-play-label {
-    font-size: 0.56rem;
-}
-
-.music-player .playlist-content {
-    scrollbar-color: rgba(103, 92, 127, 0.8) transparent;
-}
-
-.music-player .playlist-content::-webkit-scrollbar-track,
-.music-player .lyrics-container::-webkit-scrollbar-track {
-    border-left: 1px solid rgba(63, 48, 103, 0.34);
-}
-
-.music-player .playlist-content::-webkit-scrollbar-thumb,
-.music-player .lyrics-container::-webkit-scrollbar-thumb {
-    border-radius: 0.24rem;
-    background: rgba(110, 106, 120, 0.78);
-}
-
-.music-player .retro-detail-panel {
-    margin-top: 0.62rem !important;
-    padding-top: 0.58rem;
-    border-top: 1px solid rgba(72, 57, 118, 0.42);
-}
-
-.music-player .retro-queue-list {
-    border: 1px solid rgba(71, 55, 118, 0.62);
-}
-
-.music-player .retro-queue-item {
-    min-height: 2.1rem;
-    padding: 0.5rem 1.45rem 0.48rem 0.54rem !important;
-    border: 1px solid rgba(77, 59, 126, 0.68);
-}
-
-.music-player .retro-queue-item::after {
-    right: 0.68rem;
-    color: rgba(145, 132, 181, 0.48);
-    font-size: 0.44rem;
-}
-
-.music-player .retro-queue-item:hover,
-.music-player .retro-queue-item:focus-visible {
-    background: rgba(26, 22, 46, 0.98);
-    border-color: rgba(107, 85, 169, 0.86);
-}
-
-.music-player .retro-queue-item-active {
-    background: linear-gradient(180deg, rgba(32, 27, 54, 0.98) 0%, rgba(22, 18, 37, 0.98) 100%);
-    border-color: rgba(138, 115, 200, 0.86);
-    box-shadow: 0 0 0 1px rgba(86, 66, 141, 0.28);
-}
-
-.music-player .retro-track-title {
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-    .music-player {
-        max-width: 312px;
-    }
-
-    .music-player.expanded {
-        max-width: 320px;
-    }
-
-    .expanded-player {
-        width: min(calc(100vw - 16px), 320px) !important;
-    }
-
-    .music-player .retro-song-title {
-        font-size: 0.54rem !important;
-    }
+.deck-title {
+    color: rgba(238, 234, 225, 0.8);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0;
 }
 
-/* Final layout polish for the compact retro player */
-.music-player .retro-controls {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: end;
-    gap: 0.34rem !important;
+.deck-artist {
+    color: rgba(216, 212, 202, 0.38);
+    font-size: 0.55rem;
+    letter-spacing: 0;
 }
 
-.music-player .retro-control-cluster {
+.deck-eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    box-sizing: content-box;
+    width: 18px;
+    height: 14px;
+    margin: -0.5rem -0.55rem;
+    padding: 0.5rem 0.55rem;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.deck-eq i {
+    flex: 1;
+    height: 100%;
+    background: rgba(216, 212, 202, 0.32);
+    transform: scaleY(0.22);
+    transform-origin: bottom;
+    transition: background 160ms ease, transform 160ms ease;
+}
+
+.deck-eq:hover i,
+.deck-eq:focus-visible i {
+    background: rgba(216, 212, 202, 0.6);
+}
+
+.deck-eq:focus-visible,
+.deck-controls button:focus-visible {
+    outline: none;
+}
+
+.music-deck.is-playing:not(.is-muted) .deck-eq i {
+    background: #702131;
+    animation: deck-eq 0.9s ease-in-out infinite;
+}
+
+.music-deck.is-playing:not(.is-muted) .deck-eq i:nth-child(1) { animation-delay: -0.2s; }
+.music-deck.is-playing:not(.is-muted) .deck-eq i:nth-child(2) { animation-delay: -0.5s; }
+.music-deck.is-playing:not(.is-muted) .deck-eq i:nth-child(3) { animation-delay: -0.1s; }
+.music-deck.is-playing:not(.is-muted) .deck-eq i:nth-child(4) { animation-delay: -0.7s; }
+
+.deck-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 0.48rem;
+}
+
+.deck-controls button {
     display: inline-flex;
     align-items: center;
-    gap: 0.08rem;
-    min-height: 1.52rem;
-    padding: 0.08rem 0.1rem 0.14rem;
-    border: 1px solid rgba(71, 55, 118, 0.82);
-    background: linear-gradient(180deg, rgba(23, 18, 40, 0.98) 0%, rgba(12, 10, 24, 0.98) 100%);
-    box-shadow: inset 0 1px 0 rgba(196, 180, 236, 0.06);
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.4rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(216, 212, 202, 0.42);
+    cursor: pointer;
+    transition: color 150ms ease, transform 150ms ease;
 }
 
-.music-player .retro-control-cluster-left {
-    border-radius: 0 0 0.52rem 0.52rem;
-    padding-inline: 0.14rem 0.16rem;
+.deck-controls button:hover,
+.deck-controls button:focus-visible {
+    color: rgba(238, 234, 225, 0.86);
 }
 
-.music-player .retro-control-cluster-right {
-    border-radius: 0 0 0.52rem 0.52rem;
-    padding-inline: 0.12rem;
+.deck-controls button:active {
+    transform: scale(0.88);
 }
 
-.music-player .retro-nav-button,
-.music-player .retro-volume-button {
-    flex: 0 0 auto;
+.deck-controls button:disabled {
+    cursor: wait;
+    opacity: 0.42;
 }
 
-.music-player .retro-volume-button {
-    margin-left: 0.02rem;
+.deck-controls button svg {
+    width: 1.05rem;
+    height: 1.05rem;
 }
 
-.music-player .retro-detail-panel {
-    margin-top: 0.56rem !important;
-    padding-top: 0.52rem;
+.deck-controls .deck-play {
+    color: rgba(238, 234, 225, 0.9);
 }
 
-.music-player .retro-queue-list {
-    margin-top: 0.16rem;
+.deck-controls .deck-play svg {
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
-.music-player .retro-queue-item {
-    gap: 0.42rem;
-    min-height: 2.04rem;
+.music-toggle {
+    position: relative;
+    display: grid;
+    width: 2.85rem;
+    height: 2.85rem;
+    padding: 0;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(0.2, 1.2, 0.3, 1);
 }
 
-.music-player .retro-queue-status {
-    width: 1.45rem;
+.music-toggle:hover,
+.music-toggle:focus-visible {
+    transform: translateY(-2px) scale(1.05);
 }
 
-.music-player .retro-track-title {
-    font-size: 0.56rem;
-    letter-spacing: 0.03em;
+.music-toggle:focus-visible {
+    outline: none;
 }
 
-.music-player .retro-empty-state {
-    min-height: 3.4rem;
+.music-toggle:focus-visible .toggle-disc {
+    box-shadow:
+        0 0 0 2px rgba(216, 212, 202, 0.34),
+        inset 0 0 0 1px rgba(255, 176, 185, 0.08),
+        0 7px 18px rgba(0, 0, 0, 0.44);
 }
 
-@media (max-width: 768px) {
-    .music-player .retro-controls {
-        gap: 0.24rem !important;
+.music-toggle:active {
+    transform: scale(0.94);
+}
+
+.music-deck.is-expanded .music-toggle {
+    transform: rotate(-6deg);
+}
+
+.toggle-disc {
+    position: relative;
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    overflow: hidden;
+    place-items: center;
+    border: 1px solid rgba(153, 42, 62, 0.6);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 34% 27%, rgba(228, 87, 104, 0.72), transparent 22%),
+        radial-gradient(circle at 68% 70%, #4a0812 0%, #701323 43%, #9a263b 76%, #4a0812 100%);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 176, 185, 0.08),
+        0 7px 18px rgba(0, 0, 0, 0.44);
+}
+
+.toggle-disc::after {
+    position: absolute;
+    inset: 0.22rem;
+    border: 1px solid rgba(255, 210, 214, 0.06);
+    border-radius: 50%;
+    content: "";
+}
+
+.toggle-disc img {
+    position: relative;
+    z-index: 1;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.34));
+}
+
+.music-deck.is-playing .toggle-disc {
+    animation: disc-breathe 2.6s ease-in-out infinite;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 176, 185, 0.1),
+        0 0 14px rgba(112, 33, 49, 0.36),
+        0 7px 18px rgba(0, 0, 0, 0.44);
+}
+
+@keyframes deck-eq {
+    0%, 100% { transform: scaleY(0.22); }
+    50% { transform: scaleY(1); }
+}
+
+@keyframes disc-breathe {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.06; }
+}
+
+@media (max-width: 640px) {
+    .music-deck {
+        right: 0.65rem;
+        bottom: max(0.65rem, env(safe-area-inset-bottom));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .deck-panel,
+    .music-toggle {
+        transition: opacity 150ms ease;
+        transform: none !important;
     }
 
-    .music-player .retro-control-cluster {
-        min-height: 1.46rem;
+    .music-deck.is-playing .toggle-disc,
+    .music-deck.is-playing:not(.is-muted) .deck-eq i {
+        animation: none;
+    }
+
+    .music-deck.is-playing:not(.is-muted) .deck-eq i {
+        transform: scaleY(0.56);
     }
 }

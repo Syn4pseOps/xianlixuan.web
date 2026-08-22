@@ -61,8 +61,8 @@
     --terminal-cursor-width: 0.52em;
     --terminal-cursor-height: 1.05em;
     --terminal-cursor-radius: 999px;
-    --terminal-cursor-color: rgba(201, 184, 255, 0.9);
-    --terminal-cursor-shadow: 0 0 12px rgba(201, 184, 255, 0.18);
+    --terminal-cursor-color: #702131;
+    --terminal-cursor-shadow: 0 0 10px rgba(112, 33, 49, 0.28);
     --terminal-cursor-blink-duration: 1450ms;
     --terminal-cursor-sync-delay: 0ms;
 }
@@ -821,10 +821,14 @@ code, pre, kbd, samp, .font-mono {
 
 html,
 body {
-    background: #080807;
+    background: #030303;
     color: rgba(216, 212, 202, 0.88);
     scrollbar-width: thin;
-    scrollbar-color: rgba(216, 212, 202, 0.24) #080807;
+    scrollbar-color: rgba(216, 212, 202, 0.24) #030303;
+}
+
+html {
+    caret-color: var(--accent-strong, #702131);
 }
 
 html::-webkit-scrollbar,
@@ -835,7 +839,7 @@ body::-webkit-scrollbar {
 
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
-    background: #080807;
+    background: #030303;
 }
 
 html::-webkit-scrollbar-thumb,
@@ -869,7 +873,7 @@ a {
 
 .custom-md {
     color: rgba(216, 212, 202, 0.82);
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     line-height: 1.72;
 }
 
@@ -910,12 +914,12 @@ a {
 
 .custom-md a {
     color: #d2b7a8;
-    text-decoration-color: rgba(121, 47, 58, 0.65);
+    text-decoration-color: rgba(112, 33, 49, 0.78);
     text-underline-offset: 0.2em;
 }
 
 .custom-md blockquote {
-    border-left-color: #792f3a;
+    border-left-color: var(--accent-strong, #702131);
     background: transparent;
     color: rgba(216, 212, 202, 0.65);
 }
@@ -936,16 +940,16 @@ a {
 
 .page-index-header p {
     margin-top: 0.65rem;
-    color: rgba(216, 212, 202, 0.42);
+    color: rgba(216, 212, 202, 0.58);
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
 }
 
 @media (max-width: 640px) {
     .custom-md {
-        font-size: 1rem;
-        line-height: 1.68;
+        font-size: 1.08rem;
+        line-height: 1.74;
     }
 
     .custom-md h2 {

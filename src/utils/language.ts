@@ -150,7 +150,7 @@ export function initTranslateService(): void {
     }
     // Hard-stop blacklist for proper nouns / brand names — never translate these literal strings
     const PROPER_NOUNS = [
-        "Dogsausage", "Synapse", "Phichit Sapnan", "Phichit", "Sapnan", "Wang",
+        "Dogsausage", "Syna4pseOps", "Phichit Sapnan", "Phichit", "Sapnan", "Wang",
         "GitHub", "GitLab", "Bitbucket", "LinkedIn", "Twitter", "X",
         "Home", "Hall of Fame", "Blog", "Archive", "Portfolio", "About", "Projects", "Skills", "Timeline",
         "Categories", "Tags", "Directory", "Announcement", "Table of Contents",

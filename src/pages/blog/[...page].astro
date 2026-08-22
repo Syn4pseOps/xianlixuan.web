@@ -35,7 +35,9 @@ const len = page.data.length;
             </header>
 
             <PostPage page={page}></PostPage>
-            <Pagination class="mx-auto onload-animation-up" page={page} basePath="/blog" style={`animation-delay: ${len * 50}ms`}></Pagination>
+            {page.lastPage > 1 && (
+                <Pagination class="mx-auto onload-animation-up" page={page} basePath="/blog" style={`animation-delay: ${len * 50}ms`}></Pagination>
+            )}
         </div>
     </div>
 </GridLayout>
