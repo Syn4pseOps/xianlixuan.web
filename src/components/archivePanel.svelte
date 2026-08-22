@@ -183,7 +183,7 @@ let filteredCount = $derived(groups.reduce((count, group) => count + group.posts
                         <time datetime={new Date(post.data.published).toISOString()} class="archive-post-date">
                             {formatDate(post.data.published)}
                         </time>
-                        <span class="archive-post-title">{post.data.title}</span>
+                        <span class="archive-post-title notranslate" translate="no">{post.data.title}</span>
                         <span class="archive-post-tags">{formatTag(post.data.tags)}</span>
                     </a>
                 </li>

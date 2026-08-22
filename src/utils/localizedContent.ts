@@ -44,7 +44,7 @@ export function resolveLocalizedContentLanguage(languageCode?: string | null): L
     return "en";
 }
 
-function syncAboutHeadingIds(block: Element, isActive: boolean) {
+function syncLocalizedHeadingIds(block: Element, isActive: boolean) {
     block.querySelectorAll<HTMLElement>("h1, h2, h3, h4, h5, h6").forEach((heading) => {
         if (!heading.dataset.originalId) {
             heading.dataset.originalId = heading.id || "";
@@ -73,7 +73,7 @@ function toggleLocalizedBlocks(
         block.setAttribute("aria-hidden", String(!isActive));
 
         if (options?.syncHeadingIds) {
-            syncAboutHeadingIds(block, isActive);
+            syncLocalizedHeadingIds(block, isActive);
         }
     });
 }
@@ -90,6 +90,13 @@ export function updateLocalizedContent(languageCode?: string | null) {
 
     if (document.querySelector("[data-about-lang]")) {
         toggleLocalizedBlocks("[data-about-lang]", "data-about-lang", activeLanguage, {
+            syncHeadingIds: true,
+        });
+        window.dispatchEvent(new Event("content-decrypted"));
+    }
+
+    if (document.querySelector("[data-case-lang]")) {
+        toggleLocalizedBlocks("[data-case-lang]", "data-case-lang", activeLanguage, {
             syncHeadingIds: true,
         });
         window.dispatchEvent(new Event("content-decrypted"));
