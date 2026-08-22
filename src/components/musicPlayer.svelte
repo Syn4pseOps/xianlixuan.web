@@ -21,8 +21,8 @@ const STORAGE = {
     index: "syna4pseops-music-index",
     track: "syna4pseops-music-track",
     position: "syna4pseops-music-position",
-    volume: "syna4pseops-music-volume-v2",
-    muted: "syna4pseops-music-muted",
+    volume: "syna4pseops-music-volume-v3",
+    muted: "syna4pseops-music-muted-v2",
     expanded: "syna4pseops-music-expanded",
 };
 
@@ -33,7 +33,7 @@ let isExpanded = $state(true);
 let isPlaying = $state(false);
 let isMuted = $state(false);
 let isLoading = $state(false);
-let volume = $state(0.4);
+let volume = $state(0.7);
 let savedPosition = 0;
 let saveTick = 0;
 let autoplayFallbackArmed = false;
@@ -173,7 +173,7 @@ onMount(() => {
     savedPosition = restoredTrack === String(currentTrack.id)
         ? Math.max(readNumber(STORAGE.position, 0), 0)
         : 0;
-    volume = Math.min(Math.max(readNumber(STORAGE.volume, 0.4), 0), 1);
+    volume = Math.min(Math.max(readNumber(STORAGE.volume, 0.7), 0), 1);
 
     try {
         isMuted = localStorage.getItem(STORAGE.muted) === "true";
@@ -184,7 +184,8 @@ onMount(() => {
     }
 
     audio = new Audio(getAssetPath(currentTrack.url));
-    audio.preload = "metadata";
+    audio.preload = "auto";
+    audio.autoplay = Boolean(musicPlayerConfig.autoplay);
     audio.volume = volume;
     audio.muted = isMuted;
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
