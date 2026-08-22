@@ -38,6 +38,11 @@ function syncCurrentLanguage() {
     document.documentElement.lang = currentLanguage === thaiCode ? "th" : "en";
 }
 
+function preserveCurrentLanguageAfterSwap() {
+    setStoredLanguage(currentLanguage);
+    document.documentElement.lang = currentLanguage === thaiCode ? "th" : "en";
+}
+
 async function changeLanguage(languageCode: string) {
     if (currentLanguage === languageCode) return;
 
@@ -72,10 +77,10 @@ async function changeLanguage(languageCode: string) {
 
 onMount(() => {
     syncCurrentLanguage();
-    document.addEventListener("astro:after-swap", syncCurrentLanguage);
+    document.addEventListener("astro:after-swap", preserveCurrentLanguageAfterSwap);
 
     return () => {
-        document.removeEventListener("astro:after-swap", syncCurrentLanguage);
+        document.removeEventListener("astro:after-swap", preserveCurrentLanguageAfterSwap);
     };
 });
 </script>

@@ -8,7 +8,7 @@ import Icon from "@components/common/icon.svelte";
 
 
 interface Props {
-    links: NavbarLink[];
+    links: Array<NavbarLink & { thaiName?: string }>;
 }
 
 let { links }: Props = $props();
@@ -55,7 +55,10 @@ onMount(() => {
                         {#if link.icon}
                             <Icon icon={link.icon} class="text-[1.1rem] mr-2" />
                         {/if}
-                        <span class="notranslate">{link.name}</span>
+                        <span class="notranslate">
+                            <span class="navbar-label navbar-label-en">{link.name}</span>
+                            <span class="navbar-label navbar-label-th" lang="th">{link.thaiName ?? link.name}</span>
+                        </span>
                     </div>
                     {#if !link.external}
                         <Icon icon="material-symbols:chevron-right-rounded" class="transition text-[1.25rem] text-(--primary)" />
