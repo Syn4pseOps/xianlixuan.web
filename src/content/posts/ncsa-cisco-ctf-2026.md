@@ -19,7 +19,8 @@ comment: true
 draft: false
 ---
 
-<article class="case-file-two notranslate" lang="th" translate="no">
+<article class="case-file-two notranslate" translate="no">
+<section data-case-lang="th" class="case-language-block" lang="th" aria-hidden="false">
   <header class="case-file-header">
     <p class="case-file-number">CASE FILE 02</p>
     <h2 id="ncsa-cisco-ctf-2026">NCSA × CISCO CTF 2026</h2>
@@ -98,11 +99,100 @@ draft: false
       <div><dt>Solved</dt><dd>23</dd></div>
     </dl>
   </footer>
+</section>
+
+<section data-case-lang="en" class="case-language-block hidden" lang="en" aria-hidden="true">
+  <header class="case-file-header">
+    <p class="case-file-number">CASE FILE 02</p>
+    <h2 id="ncsa-cisco-ctf-2026-en">NCSA × CISCO CTF 2026</h2>
+    <dl class="case-file-meta">
+      <div>
+        <dt>Status</dt>
+        <dd>Archived</dd>
+      </div>
+      <div>
+        <dt>Classification</dt>
+        <dd>Cybersecurity / Capture The Flag</dd>
+      </div>
+      <div>
+        <dt>Date</dt>
+        <dd>27 June 2026</dd>
+      </div>
+      <div>
+        <dt>Rank</dt>
+        <dd>73rd — Top 100</dd>
+      </div>
+      <div>
+        <dt>Score</dt>
+        <dd>460 Points</dd>
+      </div>
+      <div>
+        <dt>Challenges Solved</dt>
+        <dd>23</dd>
+      </div>
+    </dl>
+  </header>
+
+  <figure class="case-file-hero">
+    <img src="/assets/posts/ncsa-cisco-ctf-2026.jpg" alt="Syn4pseOps placing 73rd and finishing in the Top 100 at NCSA × CISCO CTF 2026" />
+    <figcaption>73rd Place · Top 100 · 460 Points · 23 Challenges Solved</figcaption>
+  </figure>
+
+  <section class="case-file-section" aria-labelledby="the-case-en">
+    <h2 id="the-case-en">THE CASE</h2>
+    <p>On 27 June 2026, I entered another trial in the world of Cybersecurity — the <strong>NCSA × CISCO CTF 2026</strong>, held as part of the <strong>NCSA CTF Tournament Thailand 2026</strong>.</p>
+    <p>Competing under the alias <strong>Syn4pseOps</strong>, I faced a series of Capture The Flag challenges designed to test analytical thinking, problem-solving, and practical cybersecurity skills.</p>
+    <p>After navigating through the challenges, I achieved <strong>460 points</strong>, successfully solved <strong>23 challenges</strong>, and secured <strong>73rd place</strong>, earning a position among the <strong>Top 100</strong> competitors.</p>
+  </section>
+
+  <section class="case-file-section" aria-labelledby="the-record-en">
+    <h2 id="the-record-en">THE RECORD</h2>
+    <div class="case-file-result">
+      <div>
+        <strong>73rd Place</strong>
+        <span>Top 100</span>
+      </div>
+      <div>
+        <strong>460 Points</strong>
+        <span>Score</span>
+      </div>
+      <div>
+        <strong>23</strong>
+        <span>Challenges Solved</span>
+      </div>
+    </div>
+    <p>As a Top 100 participant, I became eligible to receive the <strong>Limited Edition Medal</strong> from the NCSA × CISCO CTF 2026 competition.</p>
+    <p>More than an achievement, this competition became another chapter in my journey through cybersecurity — another opportunity to test what I know, discover what I don't, and learn from every challenge along the way.</p>
+  </section>
+
+  <blockquote class="case-file-statement">
+    <p>Every flag is a clue.<br />Every challenge is a trial.<br />Every solved case becomes part of the journey.</p>
+  </blockquote>
+
+  <section class="case-file-section" aria-labelledby="participant-en">
+    <h2 id="participant-en">PARTICIPANT</h2>
+    <div class="case-file-footer">
+      <dl>
+        <div><dt>Alias</dt><dd>Syn4pseOps</dd></div>
+        <div><dt>Event</dt><dd>NCSA × CISCO CTF 2026</dd></div>
+        <div><dt>Date</dt><dd>27.06.2026</dd></div>
+        <div><dt>Rank</dt><dd>#73</dd></div>
+        <div><dt>Score</dt><dd>460</dd></div>
+        <div><dt>Solved</dt><dd>23</dd></div>
+      </dl>
+      <p class="case-file-status case-file-status-final">CASE STATUS <strong>SOLVED — ARCHIVED</strong></p>
+    </div>
+  </section>
+</section>
 </article>
 
 <style>
   .case-file-two {
     color: rgba(216, 212, 202, 0.82);
+  }
+
+  .case-language-block.hidden {
+    display: none;
   }
 
   .case-file-header {
@@ -265,6 +355,12 @@ draft: false
   .case-file-status strong {
     color: rgba(112, 33, 49, 0.98);
     font-size: 0.8rem;
+  }
+
+  .case-file-status-final {
+    margin: 1rem 0 0;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(216, 212, 202, 0.1);
   }
 
   .case-file-footer dl {
