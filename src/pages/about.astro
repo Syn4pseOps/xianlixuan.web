@@ -29,7 +29,6 @@ const { Content: ThaiContent } = await render(aboutPostThai);
         <div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
             <header class="page-index-header">
                 <h1>{pageTitle}</h1>
-                <p>Identity · practice · current focus</p>
             </header>
             <div id="about-language-root" class="mt-2">
                 <div data-about-lang="en" class="about-copy-block notranslate">
@@ -51,6 +50,39 @@ const { Content: ThaiContent } = await render(aboutPostThai);
 <style>
     .about-copy-block.hidden {
         display: none;
+    }
+
+    .page-index-header {
+        margin-bottom: 3.4rem;
+    }
+
+    .page-index-header h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.15rem;
+        width: min(100%, 34rem);
+        margin: 0 auto;
+        padding-left: 0.38em;
+        color: #d8d4ca;
+        font-family: var(--font-display);
+        font-size: 2.25rem;
+        font-weight: 400;
+        letter-spacing: 0.38em !important;
+        line-height: 1.25;
+        text-align: center;
+        text-shadow: 0 0 18px rgba(112, 33, 49, 0.24);
+        text-transform: uppercase;
+    }
+
+    .page-index-header h1::before,
+    .page-index-header h1::after {
+        width: 2.8rem;
+        height: 1px;
+        flex: 0 0 auto;
+        background: rgba(112, 33, 49, 0.58);
+        content: "";
+        box-shadow: 0 0 10px rgba(112, 33, 49, 0.2);
     }
 
     .about-copy-th :global(.custom-md) {
@@ -81,6 +113,22 @@ const { Content: ThaiContent } = await render(aboutPostThai);
     }
 
     @media (max-width: 640px) {
+        .page-index-header {
+            margin-bottom: 2.8rem;
+        }
+
+        .page-index-header h1 {
+            gap: 0.7rem;
+            padding-left: 0.3em;
+            font-size: 1.65rem;
+            letter-spacing: 0.3em !important;
+        }
+
+        .page-index-header h1::before,
+        .page-index-header h1::after {
+            width: 1.25rem;
+        }
+
         .about-copy-th :global(.custom-md) {
             font-size: 1.06rem;
             line-height: 1.76;
