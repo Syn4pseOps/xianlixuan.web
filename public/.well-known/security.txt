@@ -1,0 +1,5 @@
+Contact: https://github.com/Syn4pseOps
+Canonical: https://syn4pseops.pages.dev/.well-known/security.txt
+Preferred-Languages: th, en
+Expires: 2027-08-23T00:00:00.000Z
+Policy: https://syn4pseops.pages.dev/about/

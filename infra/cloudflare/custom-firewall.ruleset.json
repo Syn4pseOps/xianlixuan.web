@@ -1,0 +1,38 @@
+{
+  "name": "Syn4pseOps custom firewall",
+  "description": "Managed by the Syn4pseOps repository",
+  "kind": "zone",
+  "phase": "http_request_firewall_custom",
+  "rules": [
+    {
+      "action": "block",
+      "expression": "not http.request.method in {\"GET\" \"HEAD\" \"OPTIONS\"}",
+      "description": "[Syn4pseOps] Block unsupported HTTP methods",
+      "enabled": true
+    },
+    {
+      "action": "block",
+      "expression": "http.request.uri.path eq \"/admin\" or starts_with(http.request.uri.path, \"/admin/\") or http.request.uri.path eq \"/oauth\" or starts_with(http.request.uri.path, \"/oauth/\") or http.request.uri.path eq \"/login\" or starts_with(http.request.uri.path, \"/login/\")",
+      "description": "[Syn4pseOps] Block unused administration and authentication routes",
+      "enabled": true
+    },
+    {
+      "action": "block",
+      "expression": "lower(http.request.uri.path) contains \"/.env\" or lower(http.request.uri.path) contains \"/.git\" or lower(http.request.uri.path) contains \"/wp-admin\" or lower(http.request.uri.path) contains \"/phpmyadmin\" or lower(http.request.uri.path) contains \"/xmlrpc.php\" or lower(http.request.uri.path) contains \"/server-status\"",
+      "description": "[Syn4pseOps] Block common secret and framework probes",
+      "enabled": true
+    },
+    {
+      "action": "block",
+      "expression": "raw.http.request.uri.path contains \"../\" or lower(raw.http.request.uri.path) contains \"%2e%2e\" or lower(raw.http.request.uri.path) contains \"%252e%252e\"",
+      "description": "[Syn4pseOps] Block path traversal probes",
+      "enabled": true
+    },
+    {
+      "action": "managed_challenge",
+      "expression": "not cf.client.bot and http.user_agent eq \"\"",
+      "description": "[Syn4pseOps] Challenge requests without a user agent",
+      "enabled": true
+    }
+  ]
+}

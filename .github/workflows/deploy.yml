@@ -1,40 +1,54 @@
-name: Deploy to GitHub Pages
+name: Deploy to Cloudflare Pages
 
 on:
-  # 每次推送到 `main` 分支时触发这个“工作流程”
-  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
   push:
-    branches: [ main ]
-  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
+    branches: [main]
   workflow_dispatch:
 
-# 允许 job 克隆 repo 并创建一个 page deployment
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v5
-      - name: Install, build, and upload your site
-        uses: withastro/action@v5
-        with:
-          package-manager: pnpm@9.14.4
-          build-cmd: pnpm run build
-        # env:
-          # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # 对变量值使用单引号。（可选）
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: production
+      url: ${{ steps.deploy.outputs.deployment-url }}
+    env:
+      CF_PAGES: "1"
+      PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL || 'https://syn4pseops.pages.dev' }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate public assets
+        run: pnpm security:assets
+      - name: Validate security configuration
+        run: pnpm security:config
+      - name: Check Astro project
+        run: pnpm check
+      - name: Audit production dependencies
+        run: pnpm security:audit
+      - name: Build static site
+        run: pnpm build
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT || 'syn4pseops' }} --branch=${{ github.ref_name }}

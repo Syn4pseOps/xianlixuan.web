@@ -1,27 +1,50 @@
 /*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://code.iconify.design https://cloud.umami.is https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob:; connect-src 'self' https://api.iconify.design https://abacus.jasoncameron.dev https://api.github.com https://api.umami.is https://cloud.umami.is https://cloudflareinsights.com; worker-src 'self' blob:; frame-src 'self'; manifest-src 'self'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: strict-origin-when-cross-origin
-
-/atom.xml
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET
-  Access-Control-Max-Age: 86400
-
-/rss.xml
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET
-  Access-Control-Max-Age: 86400
+  X-XSS-Protection: 0
+  X-Permitted-Cross-Domain-Policies: none
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-while-revalidate=86400, stale-if-error=604800
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
+/pagefind/*
+  Cache-Control: public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400
+
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400, stale-if-error=604800
 
 /favicon/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400
 
 /pio/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400
+
+/atom.xml
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD
+  Access-Control-Max-Age: 86400
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-if-error=604800
+
+/rss.xml
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD
+  Access-Control-Max-Age: 86400
+  Cache-Control: public, max-age=300, s-maxage=3600, stale-if-error=604800
+
+/admin/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/api/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/oauth/*
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow, noarchive

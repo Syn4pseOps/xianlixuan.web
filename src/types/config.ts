@@ -18,9 +18,8 @@ export type AnalyticsConfig = {
     enabled: boolean;
     platform: "umami";
     umami: {
-        apiKey: string;
-        baseUrl: string;
-        code: string;
+        scriptUrl: string;
+        websiteId: string;
     };
 };
 

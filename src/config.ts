@@ -92,9 +92,10 @@ export const analyticsConfig: AnalyticsConfig = {
     enabled: config.analytics.enabled,
     platform: config.analytics.platform,
     umami: {
-        apiKey: config.analytics.umami.apiKey ?? import.meta.env.UMAMI_API_KEY,
-        baseUrl: config.analytics.umami.baseUrl,
-        code: config.analytics.umami.code ?? import.meta.env.UMAMI_TRACKING_CODE,
+        scriptUrl:
+            import.meta.env.PUBLIC_UMAMI_SCRIPT_URL ?? config.analytics.umami.scriptUrl,
+        websiteId:
+            import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? config.analytics.umami.websiteId,
     }
 };
 

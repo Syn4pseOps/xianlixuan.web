@@ -124,7 +124,11 @@ const bannerOffsetByPosition = {
 const bannerOffset =
     bannerOffsetByPosition[siteConfig.wallpaper.position || "center"];
 
-const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
+const {
+    enabled: analyticsEnabled,
+    scriptUrl: analyticsScriptUrl,
+    websiteId: analyticsWebsiteId,
+} = getAnalyticsConfig();
 ---
 
 <!DOCTYPE html>
@@ -260,7 +264,14 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
         <!-- 页面内容 -->
         <slot />
         <!-- Analytics -->
-        {analyticsEnabled && analyticsCode && <Fragment set:html={analyticsCode} />}
+        {analyticsEnabled && analyticsScriptUrl && analyticsWebsiteId && (
+            <script
+                is:inline
+                defer
+                src={analyticsScriptUrl}
+                data-website-id={analyticsWebsiteId}
+            ></script>
+        )}
         <!-- Music Player - 仅在启用时加载 -->
         {musicPlayerConfig.enable && <MusicPlayer client:load />}
         <!-- Pio 看板娘组件 - 如果启用了侧边栏，可能需要调整 z-index -->

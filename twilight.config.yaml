@@ -1,7 +1,7 @@
 ﻿# ็ซ็น้…็ฝฎ
 site:
     # ็ซ็น URL๏ผไปฅๆ–ๆ ็ป“ๅฐพ๏ผ
-    siteURL: "https://syna4pseops.pages.dev/"
+    siteURL: "https://syn4pseops.pages.dev/"
     # ็ซ็นๆ ้ข
     title: "Syn4pseOps"
     # ็ซ็นๅฏๆ ้ข
@@ -180,12 +180,10 @@ analytics:
     platform: "umami"
     # Umami ็ป่ฎก้…็ฝฎ
     umami:
-        # Umami API ๅฐๅ€
-        baseUrl: "https://api.umami.is"
-        # API ๅฏ้’ฅ
-        apiKey: ''
-        # Tracking code
-        code: ''
+        # Public tracking script URL (never place an API key here)
+        scriptUrl: "https://cloud.umami.is/script.js"
+        # Public Umami website ID
+        websiteId: ''
 
 # ๅฏผ่ชๆ ้…็ฝฎ
 navbar:

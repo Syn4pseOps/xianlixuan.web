@@ -1,0 +1,44 @@
+{
+  "name": "Syn4pseOps rate limits",
+  "description": "Managed by the Syn4pseOps repository",
+  "kind": "zone",
+  "phase": "http_ratelimit",
+  "rules": [
+    {
+      "action": "block",
+      "expression": "not cf.client.bot and http.request.method in {\"GET\" \"HEAD\"} and not starts_with(http.request.uri.path, \"/_astro/\") and not starts_with(http.request.uri.path, \"/assets/\") and not starts_with(http.request.uri.path, \"/pagefind/\") and not starts_with(http.request.uri.path, \"/favicon/\") and not starts_with(http.request.uri.path, \"/pio/\") and not starts_with(http.request.uri.path, \"/api/\")",
+      "description": "[Syn4pseOps] Public page flood limit",
+      "enabled": true,
+      "ratelimit": {
+        "characteristics": ["cf.colo.id", "ip.src"],
+        "period": 60,
+        "requests_per_period": 120,
+        "mitigation_timeout": 60
+      }
+    },
+    {
+      "action": "block",
+      "expression": "not cf.client.bot and (http.request.uri.path eq \"/api\" or starts_with(http.request.uri.path, \"/api/\"))",
+      "description": "[Syn4pseOps] Anonymous API limit for future endpoints",
+      "enabled": true,
+      "ratelimit": {
+        "characteristics": ["cf.colo.id", "ip.src"],
+        "period": 60,
+        "requests_per_period": 60,
+        "mitigation_timeout": 60
+      }
+    },
+    {
+      "action": "block",
+      "expression": "not cf.client.bot and (starts_with(http.request.uri.path, \"/login\") or starts_with(http.request.uri.path, \"/oauth\"))",
+      "description": "[Syn4pseOps] Authentication brute-force limit for future endpoints",
+      "enabled": true,
+      "ratelimit": {
+        "characteristics": ["cf.colo.id", "ip.src"],
+        "period": 60,
+        "requests_per_period": 5,
+        "mitigation_timeout": 900
+      }
+    }
+  ]
+}
