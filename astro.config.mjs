@@ -29,6 +29,7 @@ import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+import { sourceProtectionPlugin } from "./scripts/vite-source-protection.mjs";
 
 
 // Ref: https://astro.build/config
@@ -187,14 +188,12 @@ export default defineConfig({
         ],
     },
     vite: {
-        plugins: [tailwindcss()],
+        plugins: [tailwindcss(), sourceProtectionPlugin()],
         build: {
+            sourcemap: false,
             cssCodeSplit: true,
             cssMinify: "esbuild",
             minify: "esbuild",
-            esbuildOptions: {
-                drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
-            },
             rollupOptions: {
                 onwarn(warning, warn) {
                     if (

@@ -41,6 +41,8 @@ jobs:
           CF_PAGES: "1"
           PUBLIC_SITE_URL: https://syn4pseops.pages.dev
         run: pnpm build
+      - name: Validate production artifacts
+        run: pnpm security:artifacts
 
   dependency-review:
     if: github.event_name == 'pull_request'

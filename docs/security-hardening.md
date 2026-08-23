@@ -68,6 +68,16 @@ Authenticated API limits are intentionally absent because this site has no authe
 
 The CSP intentionally retains `unsafe-inline` for scripts and styles because the current Astro UI contains inline boot scripts and styles. `wasm-unsafe-eval` is limited to Pagefind's local WebAssembly search index; JavaScript `unsafe-eval` remains prohibited. A later CSP tightening can externalize inline handlers or generate build-time hashes without changing visual behavior.
 
+## Production Source Protection
+
+Production JavaScript and CSS are minified with esbuild, source-map generation is explicitly disabled, and production builds remove first-party `console.log`, `console.debug`, and `debugger` statements while retaining legitimate warnings and errors. A post-build sanitizer removes source-map metadata shipped in the copied Marked and Twikoo browser bundles without transforming Pagefind, WebAssembly, framework runtime code, or other third-party libraries.
+
+Moderate obfuscation is limited to the application-owned archive panel, music player, navigation menu, and language switcher entry chunks. The search wrapper is intentionally excluded because its Svelte reactive state is not compatible with the transformation; Pagefind and its WebAssembly index are also untouched. The configuration uses the CSP-safe `browser-no-eval` target and deliberately disables control-flow flattening, dead-code injection, self-defending code, debug protection, global renaming, and source maps. This keeps bundle growth and compatibility risk bounded while making compatible application modules less reusable.
+
+`scripts/validate-production-artifacts.cjs` runs after Pagefind generation and fails the build when `dist/` contains source maps, source-map references, environment files, repository metadata, private key or certificate material, executable/server files, application source files, high-confidence credential patterns, build-machine paths, unexpected dynamic code execution, or production debug logs in protected chunks. It also verifies that Cloudflare `_headers` and Pagefind exist and that no Pages Functions `_routes.json` was introduced. CI repeats this validation immediately before deployment.
+
+These controls increase the cost of copying or reverse engineering client code, but browser-delivered JavaScript, CSS, HTML, media, and data remain observable by visitors. Obfuscation is not encryption and must never be used to protect secrets.
+
 ## Input and Upload Controls
 
 There is no runtime upload endpoint. `scripts/validate-public-assets.cjs` applies build-time controls to assets committed through Git or a future CMS:

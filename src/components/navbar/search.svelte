@@ -144,6 +144,7 @@ const handleClickOutside = (event: MouseEvent) => {
 onMount(() => {
     document.addEventListener("click", handleClickOutside);
     const initializeSearch = () => {
+        if (initialized) return;
         initialized = true;
         pagefindLoaded =
             typeof window !== "undefined" &&
@@ -151,6 +152,9 @@ onMount(() => {
             typeof window.pagefind.search === "function";
         console.log("Pagefind status on init:", pagefindLoaded);
     };
+    if (typeof window !== "undefined" && window.pagefind) {
+        initializeSearch();
+    }
     if (import.meta.env.DEV) {
         console.log(
             "Pagefind is not available in development mode. Using mock data.",

@@ -56,6 +56,19 @@ function main() {
             cwd: process.cwd() // Ensure in the correct directory
         });
 
+        // Remove known third-party source-map metadata, then enforce the final artifact policy.
+        console.log('Sanitizing production artifacts...');
+        execSync('node scripts/sanitize-production-artifacts.cjs', {
+            stdio: 'inherit',
+            cwd: process.cwd()
+        });
+
+        console.log('Validating production artifacts...');
+        execSync('node scripts/validate-production-artifacts.cjs', {
+            stdio: 'inherit',
+            cwd: process.cwd()
+        });
+
         console.log('✅ Build completed!');
         console.log(`📊 Search index generated at: ${outputDir}/pagefind/`);
 

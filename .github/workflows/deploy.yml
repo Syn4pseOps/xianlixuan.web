@@ -45,6 +45,8 @@ jobs:
         run: pnpm security:audit
       - name: Build static site
         run: pnpm build
+      - name: Validate production artifacts
+        run: pnpm security:artifacts
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v3

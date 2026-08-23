@@ -9,8 +9,9 @@
 		"check": "astro check",
 		"security:audit": "pnpm audit --prod --audit-level=critical",
 		"security:assets": "node scripts/validate-public-assets.cjs",
+		"security:artifacts": "node scripts/validate-production-artifacts.cjs",
 		"security:config": "node scripts/check-security-config.cjs",
-		"security:check": "pnpm security:audit && pnpm security:assets && pnpm security:config && pnpm check",
+		"security:check": "pnpm security:audit && pnpm security:assets && pnpm security:config && pnpm check && pnpm build",
 		"dev": "node scripts/generate-icons.js && astro dev",
 		"build": "node scripts/build-with-pagefind.cjs",
 		"preview": "astro preview",
@@ -77,6 +78,7 @@
 		"@types/markdown-it": "^14.1.2",
 		"@types/mdast": "^4.0.4",
 		"@types/sanitize-html": "^2.16.1",
+		"javascript-obfuscator": "5.6.0",
 		"postcss-import": "^16.1.1"
 	},
 	"packageManager": "pnpm@9.14.4"
