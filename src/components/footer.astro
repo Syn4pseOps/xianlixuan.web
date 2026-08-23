@@ -3,9 +3,7 @@ import Icon from "@components/common/icon.astro";
 import { profileConfig } from "@/config";
 
 const currentYear = new Date().getFullYear();
-const githubUrl =
-    profileConfig.links.find((link) => link.name.toLowerCase() === "github")?.url ??
-    "https://github.com/xianlixuan";
+const githubUrl = "https://github.com/Syn4pseOps";
 ---
 
 <footer class="site-footer">
@@ -17,12 +15,12 @@ const githubUrl =
 
     <div class="footer-action">
         <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            Follow {profileConfig.name}
+            Follow the traces
         </a>
     </div>
 
     <p class="footer-signature">
-        Case files · © {currentYear} {profileConfig.name}
+        Archives • {currentYear} • {profileConfig.name}
     </p>
 </footer>
 
@@ -95,8 +93,9 @@ const githubUrl =
         margin-top: 4rem;
         padding: 1.5rem 1.5rem 6rem;
         border-top: 1px solid rgba(216, 212, 202, 0.08);
-        color: rgba(216, 212, 202, 0.38);
-        font-family: var(--font-mono);
+        color: rgba(216, 212, 202, 0.46);
+        font-family: "Courier New", Courier, var(--font-mono);
+        font-weight: 400;
         text-align: center;
         text-transform: uppercase;
     }
@@ -105,9 +104,10 @@ const githubUrl =
         display: inline-flex;
         align-items: center;
         gap: 0.375rem;
-        font-size: 0.62rem;
+        font-size: 0.64rem;
         font-variant-numeric: tabular-nums;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.24em !important;
+        line-height: 1.6;
         white-space: nowrap;
     }
 
@@ -124,26 +124,28 @@ const githubUrl =
     }
 
     .footer-action {
-        margin-top: 0.75rem;
-        font-size: 0.62rem;
-        letter-spacing: 0.14em;
+        margin-top: 1rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.24em !important;
+        line-height: 1.6;
     }
 
     .footer-action a {
-        color: rgba(216, 212, 202, 0.38);
+        color: rgba(216, 212, 202, 0.46);
         text-decoration: none;
         transition: color 160ms ease;
     }
 
     .footer-action a:hover,
     .footer-action a:focus-visible {
-        color: rgba(216, 212, 202, 0.58);
+        color: rgba(216, 212, 202, 0.7);
     }
 
     .footer-signature {
         margin: 1rem 0 0;
-        font-size: 0.6rem;
-        letter-spacing: 0.2em;
+        font-size: 0.62rem;
+        letter-spacing: 0.24em !important;
+        line-height: 1.6;
     }
 
     @media (max-width: 640px) {
@@ -154,7 +156,7 @@ const githubUrl =
 
         .footer-signature {
             font-size: 0.56rem;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.16em !important;
         }
     }
 </style>
