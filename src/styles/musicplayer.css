@@ -3,7 +3,7 @@
     right: 0.9rem;
     bottom: 0.9rem;
     z-index: 9000;
-    color: rgba(216, 212, 202, 0.72);
+    color: rgba(238, 234, 225, 0.84);
     font-family: var(--font-mono);
     user-select: none;
 }
@@ -79,14 +79,14 @@
 }
 
 .deck-title {
-    color: rgba(238, 234, 225, 0.8);
+    color: rgba(244, 241, 234, 0.96);
     font-size: 0.64rem;
     font-weight: 600;
     letter-spacing: 0;
 }
 
 .deck-artist {
-    color: rgba(216, 212, 202, 0.38);
+    color: rgba(216, 212, 202, 0.58);
     font-size: 0.55rem;
     letter-spacing: 0;
 }
@@ -151,14 +151,14 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: rgba(216, 212, 202, 0.42);
+    color: rgba(238, 234, 225, 0.64);
     cursor: pointer;
     transition: color 150ms ease, transform 150ms ease;
 }
 
 .deck-controls button:hover,
 .deck-controls button:focus-visible {
-    color: rgba(238, 234, 225, 0.86);
+    color: #fffdf8;
 }
 
 .deck-controls button:active {
@@ -176,7 +176,7 @@
 }
 
 .deck-controls .deck-play {
-    color: rgba(238, 234, 225, 0.9);
+    color: #fffdf8;
 }
 
 .deck-controls .deck-play svg {

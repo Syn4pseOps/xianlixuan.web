@@ -27,7 +27,7 @@
 
 .archive-filter-label {
     margin: 0 0 0.8rem;
-    color: rgba(216, 212, 202, 0.38);
+    color: rgba(216, 212, 202, 0.58);
     font-size: 0.62rem;
 }
 
@@ -42,7 +42,7 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: rgba(216, 212, 202, 0.54);
+    color: rgba(238, 234, 225, 0.7);
     font-family: var(--font-sans);
     font-size: 0.88rem;
     line-height: 1.45;
@@ -53,7 +53,7 @@
 .archive-tag:hover,
 .archive-tag:focus-visible,
 .archive-tag.is-active {
-    color: #eeeae1;
+    color: #fffdf8;
 }
 
 .archive-tag.is-active {
@@ -76,14 +76,14 @@
 
 .archive-ledger-header h1 {
     margin: 0;
-    color: rgba(238, 234, 225, 0.92);
+    color: #fffdf8;
     font-size: 0.84rem;
     font-weight: 600;
 }
 
 .archive-ledger-header p {
     margin: 0.65rem 0 0;
-    color: rgba(216, 212, 202, 0.38);
+    color: rgba(216, 212, 202, 0.58);
     font-size: 0.61rem;
 }
 
@@ -93,7 +93,7 @@
 
 .archive-year {
     margin: 0 0 1.45rem;
-    color: rgba(216, 212, 202, 0.52);
+    color: rgba(238, 234, 225, 0.68);
     font-size: 0.72rem;
     font-weight: 500;
     text-align: center;
@@ -120,7 +120,7 @@
 }
 
 .archive-post-date {
-    color: rgba(216, 212, 202, 0.46);
+    color: rgba(216, 212, 202, 0.58);
     font-size: 0.65rem;
     font-variant-numeric: tabular-nums;
 }
@@ -128,7 +128,7 @@
 .archive-post-title {
     min-width: 0;
     overflow: hidden;
-    color: rgba(238, 234, 225, 0.84);
+    color: rgba(244, 241, 234, 0.94);
     font-family: var(--font-sans);
     font-size: 1.08rem;
     font-weight: 500;
@@ -141,7 +141,7 @@
 .archive-post-tags {
     min-width: 0;
     overflow: hidden;
-    color: rgba(216, 212, 202, 0.36);
+    color: rgba(216, 212, 202, 0.58);
     font-family: var(--font-sans);
     font-size: 0.72rem;
     text-align: right;
@@ -152,13 +152,13 @@
 
 .archive-post-link:hover .archive-post-title,
 .archive-post-link:focus-visible .archive-post-title {
-    color: #eeeae1;
+    color: #fffdf8;
     transform: translateX(0.18rem);
 }
 
 .archive-post-link:hover .archive-post-tags,
 .archive-post-link:focus-visible .archive-post-tags {
-    color: rgba(216, 212, 202, 0.58);
+    color: rgba(238, 234, 225, 0.68);
 }
 
 .archive-post-link:focus-visible {
@@ -168,7 +168,7 @@
 
 .archive-empty {
     margin: 0;
-    color: rgba(216, 212, 202, 0.44);
+    color: rgba(216, 212, 202, 0.58);
     font-size: 0.68rem;
     text-align: center;
 }

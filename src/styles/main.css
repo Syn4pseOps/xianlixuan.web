@@ -590,23 +590,23 @@ code, pre, kbd, samp, .font-mono {
 }
 
 @utility text-90 {
-    @apply text-black/90 dark:text-white/90;
+    @apply text-black/95 dark:text-white/95;
 }
 
 @utility text-75 {
-    @apply text-black/75 dark:text-white/75;
+    @apply text-black/82 dark:text-white/82;
 }
 
 @utility text-50 {
-    @apply text-black/50 dark:text-white/50;
+    @apply text-black/65 dark:text-white/65;
 }
 
 @utility text-30 {
-    @apply text-black/30 dark:text-white/30;
+    @apply text-black/48 dark:text-white/48;
 }
 
 @utility text-25 {
-    @apply text-black/25 dark:text-white/25;
+    @apply text-black/42 dark:text-white/42;
 }
 
 @utility dropdown-container {
@@ -828,7 +828,7 @@ code, pre, kbd, samp, .font-mono {
 html,
 body {
     background: #030303;
-    color: rgba(216, 212, 202, 0.88);
+    color: rgba(238, 234, 225, 0.95);
     scrollbar-width: thin;
     scrollbar-color: rgba(216, 212, 202, 0.24) #030303;
 }
@@ -878,14 +878,14 @@ a {
 }
 
 .custom-md {
-    color: rgba(216, 212, 202, 0.82);
+    color: rgba(238, 234, 225, 0.92);
     font-size: 1.08rem;
     line-height: 1.72;
 }
 
 .custom-md h1 {
     margin-bottom: 2.8rem;
-    color: #d8d4ca;
+    color: #f4f1ea;
     font-family: var(--font-mono);
     font-size: 0.82rem;
     font-weight: 500;
@@ -897,24 +897,24 @@ a {
     margin-top: 2.65rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(216, 212, 202, 0.1);
-    color: #d8d4ca;
+    color: #f4f1ea;
     font-size: 1.55rem;
     font-weight: 500;
 }
 
 .custom-md h3 {
     margin-top: 2rem;
-    color: rgba(216, 212, 202, 0.94);
+    color: #f4f1ea;
     font-size: 1.18rem;
 }
 
 .custom-md p,
 .custom-md li {
-    color: rgba(216, 212, 202, 0.78);
+    color: rgba(238, 234, 225, 0.9);
 }
 
 .custom-md strong {
-    color: #e7e3da;
+    color: #fffdf8;
     font-weight: 600;
 }
 
@@ -927,7 +927,7 @@ a {
 .custom-md blockquote {
     border-left-color: var(--accent-strong, #702131);
     background: transparent;
-    color: rgba(216, 212, 202, 0.65);
+    color: rgba(238, 234, 225, 0.76);
 }
 
 .page-index-header {
@@ -937,7 +937,7 @@ a {
 
 .page-index-header h1 {
     margin: 0;
-    color: #d8d4ca;
+    color: #f4f1ea;
     font-family: var(--font-mono);
     font-size: 0.82rem;
     font-weight: 500;
@@ -946,7 +946,7 @@ a {
 
 .page-index-header p {
     margin-top: 0.65rem;
-    color: rgba(216, 212, 202, 0.58);
+    color: rgba(216, 212, 202, 0.7);
     font-family: var(--font-mono);
     font-size: 0.8rem;
     text-transform: uppercase;
