@@ -45,6 +45,10 @@
     height: 1.75rem;
     flex: 0 0 auto;
     object-fit: contain;
+    filter:
+        brightness(1.08)
+        contrast(1.04)
+        drop-shadow(0 0 5px rgba(238, 234, 225, 0.14));
 }
 
 .navbar-link {
