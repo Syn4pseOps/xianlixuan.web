@@ -117,7 +117,7 @@ draft: false
   <h2 id="the-investigators">THE INVESTIGATORS</h2>
   <h3 id="team-i-dont-know-en">Team I DON'T KNOW</h3>
   <ul>
-    <li>Phichit Sapnunt</li>
+    <li>Phichit Sapnan</li>
     <li>Kanyanat Soiwo</li>
     <li>Jeerapat Wattana</li>
   </ul>

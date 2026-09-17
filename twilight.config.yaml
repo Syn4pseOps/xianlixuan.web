@@ -42,6 +42,12 @@ site:
             - "copy-btn"
             - "toc"
             - "announcement"
+            - "record-card"
+            - "hof-card"
+            - "case-row"
+            - "project-row"
+            - "archive-post-link"
+            - "case-license"
         # ็ฟป่ฏ‘ๆ—ถๅฟฝ็•ฅ็ HTML ๆ ็ญพ
         ignoreTags:
             - "script"

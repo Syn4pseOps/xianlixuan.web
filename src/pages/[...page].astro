@@ -8,6 +8,7 @@ import { PAGE_SIZE } from "@constants/constants";
 import { getSortedPosts } from "@utils/post";
 import { formatDateToYYYYMMDD } from "@utils/date";
 import { getPostUrl } from "@utils/url";
+import { achievements } from "@/data/hallOfFame";
 import Pagination from "@components/pagination.astro";
 import GridLayout from "@layouts/grid.astro";
 
@@ -115,7 +116,7 @@ const selectedProjects = [
                 </div>
                 <div>
                     <dt>Credentials</dt>
-                    <dd>7</dd>
+                    <dd>{achievements.length}</dd>
                 </div>
                 <div>
                     <dt>Base</dt>

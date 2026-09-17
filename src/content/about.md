@@ -21,7 +21,7 @@ And **Ops** represents action. I believe true understanding does not come from r
 
 ## The Wanderer
 
-Hello, I'm **Phichit Sapnunt**, though most people know me as **Wang**.
+Hello, I'm **Phichit Sapnan**, though most people know me as **Wang**.
 
 I'm a Computer Science student from Thailand who enjoys understanding systems through hands-on exploration. My main interests lie in **Offensive Security, Pwn / Binary Exploitation, and Agentic AI Systems**.
 

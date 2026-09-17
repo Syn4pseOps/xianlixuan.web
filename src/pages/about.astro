@@ -85,6 +85,14 @@ const { Content: ThaiContent } = await render(aboutPostThai);
         box-shadow: 0 0 10px rgba(112, 33, 49, 0.2);
     }
 
+    /* EB Garamond's Latin glyphs render visibly smaller than Noto Serif Thai's
+       at the same rem value, so the English copy needs a size bump to read as
+       the same size as the Thai copy when switching languages. */
+    .about-copy-block:not(.about-copy-th) :global(.custom-md) {
+        font-size: 1.24rem;
+        line-height: 1.7;
+    }
+
     .about-copy-th :global(.custom-md) {
         font-family: var(--font-thai);
         font-size: 1.04rem;
@@ -127,6 +135,11 @@ const { Content: ThaiContent } = await render(aboutPostThai);
         .page-index-header h1::before,
         .page-index-header h1::after {
             width: 1rem;
+        }
+
+        .about-copy-block:not(.about-copy-th) :global(.custom-md) {
+            font-size: 1.18rem;
+            line-height: 1.64;
         }
 
         .about-copy-th :global(.custom-md) {
