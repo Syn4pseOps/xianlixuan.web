@@ -16,7 +16,6 @@ type Achievement = {
     issued: string;
     year: string;
     category: string;
-    tier: "gold" | "silver" | "bronze";
     proof: string[];
     preview: string;
     credential: string;
@@ -32,7 +31,6 @@ const achievements: Achievement[] = [
         issued: "Jul 5, 2026",
         year: "2026",
         category: "Hands-on workshop",
-        tier: "silver",
         proof: ["2-day practical workshop", "CTF & vulnerability analysis", "NCSA-issued"],
         preview: "/assets/hall-of-fame/ncsa-ctf-boot-camp-4.jpg",
         credential: "/assets/hall-of-fame/ncsa-ctf-boot-camp-4.jpg",
@@ -45,7 +43,6 @@ const achievements: Achievement[] = [
         issued: "Jun 16, 2026",
         year: "2026",
         category: "Role-aligned course",
-        tier: "gold",
         proof: ["Cisco Networking Academy", "Verified certificate", "Professional-aligned track"],
         preview: "/assets/hall-of-fame/cisco-ethical-hacker.png",
         credential: "/assets/hall-of-fame/cisco-ethical-hacker.pdf",
@@ -58,7 +55,6 @@ const achievements: Achievement[] = [
         issued: "Apr 25, 2026",
         year: "2026",
         category: "Foundation course",
-        tier: "silver",
         proof: ["21 hours", "Verification code shown", "NCSA-issued"],
         preview: "/assets/hall-of-fame/ncsa-foundation-course.png",
         credential: "/assets/hall-of-fame/ncsa-foundation-course.png",
@@ -71,7 +67,6 @@ const achievements: Achievement[] = [
         issued: "May 5, 2026",
         year: "2026",
         category: "Foundation course",
-        tier: "silver",
         proof: ["Student level credential", "Verified badge", "Cisco Networking Academy"],
         preview: "/assets/hall-of-fame/cisco-introduction-to-cybersecurity.png",
         credential: "/assets/hall-of-fame/cisco-introduction-to-cybersecurity.png",
@@ -84,7 +79,6 @@ const achievements: Achievement[] = [
         issued: "Apr 26, 2026",
         year: "2026",
         category: "Hands-on training",
-        tier: "bronze",
         proof: ["Boot camp format", "Completion certificate", "NCSA training"],
         preview: "/assets/hall-of-fame/ncsa-ctf-bootcamp.jpg",
         credential: "/assets/hall-of-fame/ncsa-ctf-bootcamp.jpg",
@@ -97,7 +91,6 @@ const achievements: Achievement[] = [
         issued: "May 6, 2026",
         year: "2026",
         category: "Course completion",
-        tier: "bronze",
         proof: ["Completion certificate", "Certificate ID shown", "NCSA Thailand ecosystem"],
         preview: "/assets/hall-of-fame/mooc-basic-cybersecurity.jpg",
         credential: "/assets/hall-of-fame/mooc-basic-cybersecurity.jpg",
@@ -110,7 +103,6 @@ const achievements: Achievement[] = [
         issued: "Dec 20, 2025",
         year: "2025",
         category: "Competition participation",
-        tier: "bronze",
         proof: ["Competition participation", "Online event", "No ranking stated"],
         preview: "/assets/hall-of-fame/hack-the-scammer-ctf-2025.png",
         credential: "/assets/hall-of-fame/hack-the-scammer-ctf-2025.pdf",
@@ -145,12 +137,18 @@ const yearGroups = Object.entries(
                             <article class="hof-card">
                                 <a class="hof-preview" href={item.credential} target="_blank" rel="noopener noreferrer">
                                     <img src={item.preview} alt={`${item.title} certificate preview`} loading="lazy" />
+                                    <span class="hof-tag" aria-hidden="true">
+                                        <span class="hof-tag-hole"></span>
+                                        <span class="hof-tag-text">
+                                            <span class="hof-tag-kind">{item.fileKind}</span>
+                                            <span class="hof-tag-label">Exhibit</span>
+                                        </span>
+                                    </span>
                                 </a>
 
                                 <div class="hof-card-body">
                                     <div class="hof-labels">
                                         <span>Exhibit No. {String(exhibitNumber).padStart(2, "0")}</span>
-                                        <span>{item.tier} · {item.fileKind}</span>
                                     </div>
 
                                     <h3>{item.title}</h3>
@@ -213,6 +211,7 @@ const yearGroups = Object.entries(
     }
 
     .hof-preview {
+        position: relative;
         display: block;
         aspect-ratio: 4 / 3;
         overflow: hidden;
@@ -234,6 +233,62 @@ const yearGroups = Object.entries(
         filter: grayscale(0.35) contrast(0.96);
     }
 
+    .hof-tag {
+        position: absolute;
+        top: 0.8rem;
+        right: 1rem;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.6rem 0.3rem 0.5rem;
+        border: 1px solid rgba(112, 33, 49, 0.7);
+        border-left: 1px dashed rgba(216, 212, 202, 0.4);
+        border-radius: 1px;
+        background: rgba(6, 6, 6, 0.78);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+        transform: rotate(-5deg);
+        transform-origin: top right;
+        transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .hof-tag-hole {
+        width: 0.4rem;
+        height: 0.4rem;
+        flex: 0 0 auto;
+        border: 1px solid rgba(216, 212, 202, 0.55);
+        border-radius: 50%;
+        background: #000;
+    }
+
+    .hof-tag-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+    }
+
+    .hof-tag-kind {
+        color: rgba(244, 241, 234, 0.94);
+        font-size: 0.56rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+
+    .hof-tag-label {
+        margin-top: 0.1rem;
+        color: rgba(112, 33, 49, 0.92);
+        font-size: 0.42rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+    }
+
+    .hof-card:hover .hof-tag {
+        border-color: rgba(112, 33, 49, 1);
+        transform: rotate(-5deg) translateY(-2px);
+    }
+
     .hof-card-body {
         padding: 1rem;
     }
@@ -241,17 +296,11 @@ const yearGroups = Object.entries(
     .hof-labels {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 0.5rem;
         color: var(--accent-strong, #702131);
         font-family: var(--font-mono);
         font-size: 0.76rem;
         text-transform: uppercase;
-    }
-
-    .hof-labels span:last-child {
-        color: rgba(216, 212, 202, 0.58);
-        text-align: right;
     }
 
     .hof-card h3 {
