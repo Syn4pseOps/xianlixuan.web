@@ -3,7 +3,6 @@ import Icon from "@components/common/icon.astro";
 import { profileConfig } from "@/config";
 
 const currentYear = new Date().getFullYear();
-const githubUrl = "https://github.com/Syn4pseOps";
 ---
 
 <footer class="site-footer">
@@ -13,11 +12,17 @@ const githubUrl = "https://github.com/Syn4pseOps";
         <span class="view-counter-label">views</span>
     </div>
 
-    <div class="footer-action">
-        <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            Follow the traces
-        </a>
-    </div>
+    {profileConfig.links.length > 0 && (
+        <ul class="footer-links" aria-label="Follow the traces">
+            {profileConfig.links.map((link) => (
+                <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name} title={link.name}>
+                        <Icon icon={link.icon} class="footer-link-icon" />
+                    </a>
+                </li>
+            ))}
+        </ul>
+    )}
 
     <p class="footer-signature">
         Archives • {currentYear} • {profileConfig.name}
@@ -123,22 +128,32 @@ const githubUrl = "https://github.com/Syn4pseOps";
         opacity: 0.7;
     }
 
-    .footer-action {
-        margin-top: 1rem;
-        font-size: 0.64rem;
-        letter-spacing: 0.24em !important;
-        line-height: 1.6;
+    .footer-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.1rem;
+        margin: 1rem 0 0;
+        padding: 0;
+        list-style: none;
     }
 
-    .footer-action a {
+    .footer-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         color: rgba(238, 234, 225, 0.66);
         text-decoration: none;
         transition: color 160ms ease;
     }
 
-    .footer-action a:hover,
-    .footer-action a:focus-visible {
+    .footer-links a:hover,
+    .footer-links a:focus-visible {
         color: #fffdf8;
+    }
+
+    .footer-links :global(.footer-link-icon) {
+        font-size: 1rem;
     }
 
     .footer-signature {

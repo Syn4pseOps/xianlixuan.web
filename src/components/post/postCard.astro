@@ -2,8 +2,10 @@
 import { render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
+import { postConfig } from "@/config";
 import { formatDateToYYYYMMDD } from "@utils/date";
 import { getPostUrl } from "@utils/url";
+import ImageWrapper from "@components/common/imageWrapper.astro";
 
 interface Props {
     class?: string;
@@ -13,27 +15,43 @@ interface Props {
 
 const { entry, style, class: className } = Astro.props;
 const postUrl = getPostUrl(entry);
-const { title, published, description, category, pinned } = entry.data;
+const { title, published, description, category, pinned, cover } = entry.data;
 const { remarkPluginFrontmatter } = await render(entry);
 const categoryLabel = Array.isArray(category) ? category.join(" / ") : category || "Field Note";
 const dateText = formatDateToYYYYMMDD(new Date(published)).replaceAll("-", ".");
+const coverSide = postConfig.card.cover.side === "right" ? "right" : "left";
+const coverWidth = postConfig.card.cover.width || "33%";
 ---
 
-<article class:list={["record-card", className]} style={style}>
+<article
+    class:list={["record-card", { "has-cover": !!cover, [`cover-${coverSide}`]: !!cover }, className]}
+    style={[style, cover ? `--cover-width: ${coverWidth}` : ""].filter(Boolean).join("; ")}
+>
     <a href={postUrl}>
-        <div class="record-meta">
-            <span>{pinned ? "Priority" : "Case file"}</span>
-            <time datetime={formatDateToYYYYMMDD(new Date(published))}>{dateText}</time>
-            <span>{categoryLabel}</span>
-        </div>
+        {cover && (
+            <ImageWrapper
+                class="record-cover"
+                src={cover}
+                alt={`${title} cover`}
+                loading="lazy"
+            />
+        )}
 
-        <h2>{title}</h2>
-        <p>{description || remarkPluginFrontmatter.excerpt}</p>
+        <div class="record-body">
+            <div class="record-meta">
+                <span>{pinned ? "Priority" : "Case file"}</span>
+                <time datetime={formatDateToYYYYMMDD(new Date(published))}>{dateText}</time>
+                <span>{categoryLabel}</span>
+            </div>
 
-        <div class="record-foot">
-            <span>{remarkPluginFrontmatter.words} words</span>
-            <span>{remarkPluginFrontmatter.minutes} min read</span>
-            <span aria-hidden="true">Read record →</span>
+            <h2>{title}</h2>
+            <p>{description || remarkPluginFrontmatter.excerpt}</p>
+
+            <div class="record-foot">
+                <span>{remarkPluginFrontmatter.words} words</span>
+                <span>{remarkPluginFrontmatter.minutes} min read</span>
+                <span aria-hidden="true">Read record →</span>
+            </div>
         </div>
     </a>
 </article>
@@ -56,6 +74,53 @@ const dateText = formatDateToYYYYMMDD(new Date(published)).replaceAll("-", ".");
 
     .record-card a:hover h2 {
         color: #eeeae1;
+    }
+
+    .record-card.has-cover {
+        border-top: none;
+        border: 1px solid rgba(216, 212, 202, 0.12);
+        background: #060606;
+        transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .record-card.has-cover:last-child {
+        border-bottom: 1px solid rgba(216, 212, 202, 0.12);
+    }
+
+    .record-card.has-cover:hover {
+        border-color: rgba(112, 33, 49, 0.82);
+        transform: translateY(-2px);
+    }
+
+    .record-card.has-cover a {
+        display: flex;
+        padding: 0;
+    }
+
+    .record-card.cover-right a {
+        flex-direction: row-reverse;
+    }
+
+    .record-card.has-cover .record-cover {
+        flex: 0 0 var(--cover-width, 33%);
+        aspect-ratio: 4 / 3;
+        align-self: stretch;
+    }
+
+    .record-card.has-cover .record-cover :global(img) {
+        transition: transform 220ms ease, filter 220ms ease;
+        filter: saturate(0.85) contrast(1.02);
+    }
+
+    .record-card.has-cover:hover .record-cover :global(img) {
+        transform: scale(1.03);
+        filter: saturate(1) contrast(1.04);
+    }
+
+    .record-card.has-cover .record-body {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 1.1rem 1.25rem;
     }
 
     .record-meta,
@@ -106,6 +171,21 @@ const dateText = formatDateToYYYYMMDD(new Date(published)).replaceAll("-", ".");
         .record-foot span:last-child {
             width: 100%;
             margin-left: 0;
+        }
+
+        .record-card.has-cover a,
+        .record-card.cover-right a {
+            flex-direction: column;
+        }
+
+        .record-card.has-cover .record-cover {
+            flex-basis: auto;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
+        .record-card.has-cover .record-body {
+            padding: 1rem;
         }
     }
 </style>

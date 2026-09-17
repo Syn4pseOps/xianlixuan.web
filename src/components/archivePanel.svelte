@@ -32,6 +32,18 @@ let tags = $state<string[]>([]);
 let categories = $state<string[]>([]);
 let uncategorized = $state<string | null>(null);
 
+function syncParams() {
+    const params = new URLSearchParams(window.location.search);
+    params.delete("tag");
+    params.delete("category");
+    tags.forEach((tag) => params.append("tag", tag));
+    categories.forEach((category) => params.append("category", category));
+
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
+    window.history.replaceState(null, "", nextUrl);
+}
+
 onMount(() => {
     const params = new URLSearchParams(window.location.search);
     tags = params.has("tag") ? params.getAll("tag") : [];
@@ -46,20 +58,14 @@ function formatDate(date: Date | string) {
     return `${month}.${day}`;
 }
 
-function formatTag(tagList: string[]) {
-    return parseTags(tagList).join(" · ");
-}
-
 function setTag(tag: string | null) {
     tags = tag ? [tag] : [];
+    syncParams();
+}
 
-    const params = new URLSearchParams(window.location.search);
-    params.delete("tag");
-    if (tag) params.set("tag", tag);
-
-    const query = params.toString();
-    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
-    window.history.replaceState(null, "", nextUrl);
+function setCategory(category: string | null) {
+    categories = category ? [category] : [];
+    syncParams();
 }
 
 function isCategoryMatch(category: string | string[] | null | undefined, targets: string[]) {
@@ -138,10 +144,43 @@ let availableTags = $derived.by(() => {
     return Array.from(names).sort((a, b) => a.localeCompare(b));
 });
 
+let availableCategories = $derived.by(() => {
+    const names = new Set<string>();
+    sortedPosts.forEach((post) => {
+        const label = getCategoryPathLabel(post.data.category);
+        if (label) names.add(label);
+    });
+    return Array.from(names).sort((a, b) => a.localeCompare(b));
+});
+
 let filteredCount = $derived(groups.reduce((count, group) => count + group.posts.length, 0));
 </script>
 
 <div class="archive-ledger">
+    {#if availableCategories.length > 0}
+        <section class="archive-filter" aria-labelledby="archive-filter-category-label">
+            <p id="archive-filter-category-label" class="archive-filter-label">Filter by category</p>
+            <div class="archive-tag-list" aria-label="Filter archive by category">
+                <button
+                    type="button"
+                    class="archive-tag"
+                    class:is-active={categories.length === 0}
+                    aria-pressed={categories.length === 0}
+                    onclick={() => setCategory(null)}
+                >All</button>
+                {#each availableCategories as category}
+                    <button
+                        type="button"
+                        class="archive-tag"
+                        class:is-active={categories.includes(category)}
+                        aria-pressed={categories.includes(category)}
+                        onclick={() => setCategory(categories.includes(category) ? null : category)}
+                    >{category}</button>
+                {/each}
+            </div>
+        </section>
+    {/if}
+
     <section class="archive-filter" aria-labelledby="archive-filter-label">
         <p id="archive-filter-label" class="archive-filter-label">Filter by tag</p>
         <div class="archive-tag-list" aria-label="Filter archive by tag">
@@ -166,6 +205,7 @@ let filteredCount = $derived(groups.reduce((count, group) => count + group.posts
 
     <header class="archive-ledger-header">
         <h1>Full Ledger</h1>
+        <div class="synapse-rule" aria-hidden="true"></div>
         <p>{filteredCount} {filteredCount === 1 ? "post" : "posts"}</p>
     </header>
 
@@ -184,7 +224,7 @@ let filteredCount = $derived(groups.reduce((count, group) => count + group.posts
                             {formatDate(post.data.published)}
                         </time>
                         <span class="archive-post-title notranslate" translate="no">{post.data.title}</span>
-                        <span class="archive-post-tags">{formatTag(post.data.tags)}</span>
+                        <span class="archive-post-category">{getCategoryPathLabel(post.data.category) ?? "Field Note"}</span>
                     </a>
                 </li>
             {/each}

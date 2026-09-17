@@ -977,6 +977,58 @@ a {
     }
 }
 
+/* Synapse accent rule — shared brand flourish used on section headers */
+.synapse-rule {
+    position: relative;
+    width: 4.5rem;
+    height: 1px;
+    margin: 1.5rem auto 1.3rem;
+    background: var(--accent-strong, #702131);
+}
+
+.synapse-rule::before,
+.synapse-rule::after {
+    position: absolute;
+    top: 50%;
+    width: 3px;
+    height: 3px;
+    background: rgba(238, 234, 225, 0.5);
+    border-radius: 50%;
+    content: "";
+    transform: translateY(-50%);
+}
+
+.synapse-rule::before {
+    left: -0.4rem;
+}
+
+.synapse-rule::after {
+    right: -0.4rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .synapse-rule::before,
+    .synapse-rule::after {
+        animation: synapse-dot-pulse 3.6s ease-in-out infinite;
+    }
+
+    .synapse-rule::after {
+        animation-delay: 1.8s;
+    }
+}
+
+@keyframes synapse-dot-pulse {
+    0%, 100% {
+        background: rgba(238, 234, 225, 0.4);
+        box-shadow: none;
+    }
+
+    45% {
+        background: rgba(112, 33, 49, 0.95);
+        box-shadow: 0 0 6px rgba(112, 33, 49, 0.55);
+    }
+}
+
 /* 浅色模式：使用更浅的主题色且完全不透明 */
 :root:not(.dark) .custom-md spoiler {
     --_spoiler-mask: color-mix(in oklch, var(--primary) 55%, white 45%);

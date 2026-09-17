@@ -34,7 +34,7 @@ const iconSetCache = new Map();
 /**
  * 递归获取目录下所有文件
  */
-function getAllFiles(dir, extensions = [".svelte", ".astro"]) {
+function getAllFiles(dir, extensions = [".svelte", ".astro", ".ts", ".yaml", ".yml"]) {
     const files = [];
 
     function walk(currentDir) {
@@ -70,6 +70,8 @@ function extractIconNames(content) {
         /icon=["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
         // icon={`xxx:yyy`}
         /icon=\{[`"']([a-z0-9-]+:[a-z0-9-]+)[`"']\}/gi,
+        // icon: "xxx:yyy" (TS object literals / YAML config)
+        /icon:\s*["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
     ];
 
     for (const pattern of patterns) {
@@ -185,6 +187,10 @@ export default iconSvgData;
 async function main() {
     console.log("🚀 开始扫描图标...");
     const files = getAllFiles(SRC_DIR);
+    const configFile = join(ROOT_DIR, "twilight.config.yaml");
+    if (existsSync(configFile)) {
+        files.push(configFile);
+    }
     const allIcons = new Set();
 
     for (const file of files) {
