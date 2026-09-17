@@ -39,6 +39,8 @@ const coverWidth = postConfig.card.cover.width || "33%";
         )}
 
         <div class="record-body">
+            <span class="record-watermark" aria-hidden="true">Classified</span>
+
             <div class="record-id">
                 <span class="record-case-chip">
                     <span class="record-pulse-dot" aria-hidden="true"></span>
@@ -77,6 +79,23 @@ const coverWidth = postConfig.card.cover.width || "33%";
         transform: translateY(-2px);
     }
 
+    .record-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        width: 2px;
+        background: rgba(112, 33, 49, 0.22);
+        transition: background 220ms ease, box-shadow 220ms ease;
+    }
+
+    .record-card:hover::before {
+        background: rgba(112, 33, 49, 0.95);
+        box-shadow: 0 0 8px rgba(112, 33, 49, 0.6), 0 0 20px rgba(112, 33, 49, 0.3);
+    }
+
     .record-card a {
         display: flex;
         color: inherit;
@@ -108,9 +127,28 @@ const coverWidth = postConfig.card.cover.width || "33%";
     }
 
     .record-body {
+        position: relative;
         flex: 1 1 auto;
         min-width: 0;
         padding: 1.1rem 2.75rem 1.25rem 1.25rem;
+        overflow: hidden;
+    }
+
+    .record-watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+        color: rgba(238, 234, 225, 0.035);
+        font-family: var(--font-mono);
+        font-size: 2.6rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        transform: translate(-50%, -50%) rotate(-16deg);
+        pointer-events: none;
+        user-select: none;
     }
 
     .record-id {

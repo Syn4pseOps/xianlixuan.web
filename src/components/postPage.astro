@@ -16,7 +16,7 @@ const interval = 30;
     {page.data.map((entry: CollectionEntry<"posts">, index: number) => (
         <PostCard
             entry={entry}
-            caseNumber={String(startIndex + index + 1).padStart(3, "0")}
+            caseNumber={`0x${(startIndex + index + 1).toString(16).toUpperCase().padStart(2, "0")}`}
             class:list="onload-animation-up"
             style={`animation-delay: ${delay++ * interval}ms;`}
         ></PostCard>

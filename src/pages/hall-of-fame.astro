@@ -8,6 +8,8 @@ import GridLayout from "@layouts/grid.astro";
 const pageTitle = LinkPresets[LinkPreset.HallOfFame].name;
 const pageDescription = LinkPresets[LinkPreset.HallOfFame].description;
 
+type RecordType = "Certificate" | "Activity" | "Honor" | "Research" | "Article";
+
 type Achievement = {
     title: string;
     officialTitle: string;
@@ -16,6 +18,7 @@ type Achievement = {
     issued: string;
     year: string;
     category: string;
+    recordType: RecordType;
     proof: string[];
     preview: string;
     credential: string;
@@ -31,6 +34,7 @@ const achievements: Achievement[] = [
         issued: "Jul 5, 2026",
         year: "2026",
         category: "Hands-on workshop",
+        recordType: "Honor",
         proof: ["2-day practical workshop", "CTF & vulnerability analysis", "NCSA-issued"],
         preview: "/assets/hall-of-fame/ncsa-ctf-boot-camp-4.jpg",
         credential: "/assets/hall-of-fame/ncsa-ctf-boot-camp-4.jpg",
@@ -43,6 +47,7 @@ const achievements: Achievement[] = [
         issued: "Jun 16, 2026",
         year: "2026",
         category: "Role-aligned course",
+        recordType: "Certificate",
         proof: ["Cisco Networking Academy", "Verified certificate", "Professional-aligned track"],
         preview: "/assets/hall-of-fame/cisco-ethical-hacker.png",
         credential: "/assets/hall-of-fame/cisco-ethical-hacker.pdf",
@@ -55,6 +60,7 @@ const achievements: Achievement[] = [
         issued: "Apr 25, 2026",
         year: "2026",
         category: "Foundation course",
+        recordType: "Certificate",
         proof: ["21 hours", "Verification code shown", "NCSA-issued"],
         preview: "/assets/hall-of-fame/ncsa-foundation-course.png",
         credential: "/assets/hall-of-fame/ncsa-foundation-course.png",
@@ -67,6 +73,7 @@ const achievements: Achievement[] = [
         issued: "May 5, 2026",
         year: "2026",
         category: "Foundation course",
+        recordType: "Certificate",
         proof: ["Student level credential", "Verified badge", "Cisco Networking Academy"],
         preview: "/assets/hall-of-fame/cisco-introduction-to-cybersecurity.png",
         credential: "/assets/hall-of-fame/cisco-introduction-to-cybersecurity.png",
@@ -79,6 +86,7 @@ const achievements: Achievement[] = [
         issued: "Apr 26, 2026",
         year: "2026",
         category: "Hands-on training",
+        recordType: "Honor",
         proof: ["Boot camp format", "Completion certificate", "NCSA training"],
         preview: "/assets/hall-of-fame/ncsa-ctf-bootcamp.jpg",
         credential: "/assets/hall-of-fame/ncsa-ctf-bootcamp.jpg",
@@ -91,6 +99,7 @@ const achievements: Achievement[] = [
         issued: "May 6, 2026",
         year: "2026",
         category: "Course completion",
+        recordType: "Certificate",
         proof: ["Completion certificate", "Certificate ID shown", "NCSA Thailand ecosystem"],
         preview: "/assets/hall-of-fame/mooc-basic-cybersecurity.jpg",
         credential: "/assets/hall-of-fame/mooc-basic-cybersecurity.jpg",
@@ -103,6 +112,7 @@ const achievements: Achievement[] = [
         issued: "Dec 20, 2025",
         year: "2025",
         category: "Competition participation",
+        recordType: "Activity",
         proof: ["Competition participation", "Online event", "No ranking stated"],
         preview: "/assets/hall-of-fame/hack-the-scammer-ctf-2025.png",
         credential: "/assets/hall-of-fame/hack-the-scammer-ctf-2025.pdf",
@@ -149,6 +159,7 @@ const yearGroups = Object.entries(
                                 <div class="hof-card-body">
                                     <div class="hof-labels">
                                         <span>Exhibit No. {String(exhibitNumber).padStart(2, "0")}</span>
+                                        <span class="hof-type-badge" data-type={item.recordType.toLowerCase()}>{item.recordType}</span>
                                     </div>
 
                                     <h3>{item.title}</h3>
@@ -295,12 +306,54 @@ const yearGroups = Object.entries(
 
     .hof-labels {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
+        justify-content: space-between;
         gap: 0.5rem;
         color: var(--accent-strong, #702131);
         font-family: var(--font-mono);
         font-size: 0.76rem;
         text-transform: uppercase;
+    }
+
+    .hof-type-badge {
+        border: 1px solid rgba(112, 33, 49, 0.55);
+        padding: 0.16rem 0.55rem;
+        color: rgba(238, 234, 225, 0.82);
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .hof-type-badge[data-type="certificate"] {
+        border-color: rgba(112, 33, 49, 0.75);
+        color: rgba(244, 241, 234, 0.94);
+    }
+
+    .hof-type-badge[data-type="honor"] {
+        border-color: rgba(216, 212, 202, 0.4);
+    }
+
+    .hof-type-badge[data-type="activity"] {
+        border-style: dashed;
+        border-color: rgba(216, 212, 202, 0.32);
+    }
+
+    .hof-type-badge[data-type="research"] {
+        border-color: rgba(112, 33, 49, 0.55);
+        font-style: italic;
+    }
+
+    .hof-type-badge[data-type="article"] {
+        border-color: rgba(216, 212, 202, 0.32);
+        font-style: italic;
+    }
+
+    .hof-card:hover .hof-type-badge {
+        border-color: rgba(112, 33, 49, 0.95);
+        color: #fffdf8;
     }
 
     .hof-card h3 {
