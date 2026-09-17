@@ -28,26 +28,133 @@ const licenseConf = postConfig.license;
 const postUrl = sourceLink || propPostUrl || getPostUrlBySlug(id);
 ---
 
-<div class={`relative transition overflow-hidden bg-(--license-block-bg) py-5 px-6 ${className}`}>
-    <div class="transition font-bold text-black/75 dark:text-white/75">
-        {title}
-    </div>
-    <a href={postUrl} class="link text-(--primary)">
-        {postUrl}
-    </a>
-    <div class="flex gap-6 mt-2">
+<div class:list={["case-license", className]}>
+    <p class="case-license-label">
+        <Icon name="fa6-brands:creative-commons" class="case-license-icon" />
+        Licensed record
+    </p>
+    <p class="case-license-title">{title}</p>
+    <a href={postUrl} class="case-license-url">{postUrl}</a>
+
+    <dl class="case-license-meta">
         <div>
-            <div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.author)}</div>
-            <div class="transition text-black/75 dark:text-white/75 line-clamp-2">{author || profileConf.name}</div>
+            <dt>{i18n(I18nKey.author)}</dt>
+            <dd>{author || profileConf.name}</dd>
         </div>
         <div>
-            <div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.publishedAt)}</div>
-            <div class="transition text-black/75 dark:text-white/75 line-clamp-2">{formatDateToYYYYMMDD(pubDate)}</div>
+            <dt>{i18n(I18nKey.publishedAt)}</dt>
+            <dd>{formatDateToYYYYMMDD(pubDate)}</dd>
         </div>
         <div>
-            <div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.license)}</div>
-            <a href={licenseName ? (licenseUrl || undefined) : licenseConf.url} target="_blank" class="link text-(--primary) line-clamp-2">{licenseName || licenseConf.name}</a>
+            <dt>{i18n(I18nKey.license)}</dt>
+            <dd>
+                <a href={licenseName ? (licenseUrl || undefined) : licenseConf.url} target="_blank" rel="noopener noreferrer">
+                    {licenseName || licenseConf.name}
+                </a>
+            </dd>
         </div>
-    </div>
-    <Icon name="fa6-brands:creative-commons" class="transition text-[15rem] absolute pointer-events-none right-6 top-1/2 -translate-y-1/2 text-black/5 dark:text-white/5"></Icon>
+    </dl>
 </div>
+
+<style>
+    .case-license {
+        border: 1px solid rgba(216, 212, 202, 0.12);
+        background: #060606;
+        padding: 1.35rem 1.5rem;
+    }
+
+    .case-license-label {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin: 0;
+        color: var(--accent-strong, #702131);
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .case-license-icon {
+        font-size: 0.85rem;
+        opacity: 0.85;
+    }
+
+    .case-license-title {
+        margin: 0.7rem 0 0;
+        color: rgba(244, 241, 234, 0.94);
+        font-family: var(--font-display);
+        font-size: 1.06rem;
+        font-weight: 500;
+        line-height: 1.35;
+    }
+
+    .case-license-url {
+        display: inline-block;
+        margin-top: 0.4rem;
+        overflow-wrap: anywhere;
+        color: rgba(216, 212, 202, 0.56);
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        text-decoration: none;
+        transition: color 160ms ease;
+    }
+
+    .case-license-url:hover,
+    .case-license-url:focus-visible {
+        color: rgba(238, 234, 225, 0.85);
+    }
+
+    .case-license-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2.25rem;
+        margin: 1.1rem 0 0;
+        padding-top: 1.1rem;
+        border-top: 1px solid rgba(216, 212, 202, 0.1);
+    }
+
+    .case-license-meta dt {
+        margin: 0;
+        color: rgba(216, 212, 202, 0.5);
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .case-license-meta dd {
+        margin: 0.3rem 0 0;
+        color: rgba(238, 234, 225, 0.86);
+        font-size: 0.86rem;
+        line-height: 1.4;
+    }
+
+    .case-license-meta dd a {
+        color: rgba(238, 234, 225, 0.86);
+        text-decoration: none;
+        transition: color 160ms ease;
+    }
+
+    .case-license-meta dd a:hover,
+    .case-license-meta dd a:focus-visible {
+        color: #fffdf8;
+        text-decoration: underline;
+        text-decoration-color: var(--accent-strong, #702131);
+        text-underline-offset: 0.2rem;
+    }
+
+    @media (max-width: 520px) {
+        .case-license {
+            padding: 1.1rem 1.1rem;
+        }
+
+        .case-license-title {
+            font-size: 0.98rem;
+        }
+
+        .case-license-meta {
+            gap: 0.9rem 1.75rem;
+        }
+    }
+</style>

@@ -1,19 +1,22 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+import { PAGE_SIZE } from "@constants/constants";
 import PostCard from "@components/post/postCard.astro";
 
 
 const { page } = Astro.props;
+const startIndex = (page.currentPage - 1) * PAGE_SIZE;
 
 let delay = 0;
 const interval = 30;
 ---
 
 <div class="transition flex flex-col gap-3 py-1 md:py-0 md:gap-4 mb-4">
-    {page.data.map((entry: CollectionEntry<"posts">) => (
+    {page.data.map((entry: CollectionEntry<"posts">, index: number) => (
         <PostCard
             entry={entry}
+            caseNumber={String(startIndex + index + 1).padStart(3, "0")}
             class:list="onload-animation-up"
             style={`animation-delay: ${delay++ * interval}ms;`}
         ></PostCard>
