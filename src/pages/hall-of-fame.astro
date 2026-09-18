@@ -9,8 +9,20 @@ import { achievements, type Achievement } from "@/data/hallOfFame";
 const pageTitle = LinkPresets[LinkPreset.HallOfFame].name;
 const pageDescription = LinkPresets[LinkPreset.HallOfFame].description;
 
+// "issued" is a display string like "Jul 5, 2026" or a range like "Jul 17–19, 2026";
+// take the first day of a range so every entry parses to a comparable Date.
+const parseIssuedDate = (issued: string) => {
+    const match = issued.match(/^([A-Za-z]+ \d+)(?:[–-]\d+)?,\s*(\d{4})$/);
+    const parsed = new Date(match ? `${match[1]}, ${match[2]}` : issued);
+    return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
+};
+
+const sortedAchievements = [...achievements].sort(
+    (a, b) => parseIssuedDate(b.issued).getTime() - parseIssuedDate(a.issued).getTime(),
+);
+
 const yearGroups = Object.entries(
-    achievements.reduce((groups, item) => {
+    sortedAchievements.reduce((groups, item) => {
         (groups[item.year] ??= []).push(item);
         return groups;
     }, {} as Record<string, Achievement[]>),
@@ -31,7 +43,7 @@ const yearGroups = Object.entries(
 
                 <div class="hof-grid">
                     {items.map((item) => {
-                        const exhibitNumber = achievements.indexOf(item) + 1;
+                        const exhibitNumber = sortedAchievements.indexOf(item) + 1;
                         return (
                             <article class="hof-card">
                                 <a class="hof-preview" href={item.credential} target="_blank" rel="noopener noreferrer">
